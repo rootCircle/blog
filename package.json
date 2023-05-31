@@ -1,31 +1,7 @@
 {
-    "name": "blog",
-    "version": "0.1.0",
-    "description": "This site contain all my funky things, that I regret, but love doing.",
-    "author": "rootCircle",
-    "repository": {
-      "type": "git",
-      "url": "https://github.com/rootCircle/blog.git"
-    },
-    "license": "MIT",
-    "private": false,
-    "devDependencies": {
-      "cheap-watch": "^1.0.4",
-      "feed": "^4.2.2",
-      "gray-matter": "^4.0.3",
-      "sitemap": "^7.1.1",
-      "vitepress": "^1.0.0-alpha.14",
-      "vue": "^3.2.39"
-    },
-    "scripts": {
-      "content:dev": "vitepress dev content",
-      "content:build": "vitepress build content",
-      "content:serve": "vitepress serve content"
-    },
-    "dependencies": {
-      "@fortawesome/fontawesome-svg-core": "^6.2.0",
-      "@fortawesome/free-brands-svg-icons": "^6.4.0",
-      "@fortawesome/free-solid-svg-icons": "^6.2.0",
-      "@fortawesome/vue-fontawesome": "^3.0.1"
-    }
+  "scripts": {
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:preview": "vitepress preview docs"
   }
+}

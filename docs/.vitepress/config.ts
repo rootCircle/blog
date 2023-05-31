@@ -2,8 +2,8 @@ import { defineConfig } from 'vitepress'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  title: "My Blog",
-  description: "This site contain all my funky things, that I regret, but love doing.",
+  title: "Blog of Funky",
+  description: "This site contain all my funky tech things, that I regret, but love doing.",
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [

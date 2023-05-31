@@ -3,8 +3,8 @@
 layout: home
 
 hero:
-  name: "My Blog"
-  text: "This site contain all my funky things, that I regret, but love doing."
+  name: "Blog of Funky"
+  text: "This site contain all my funky tech things, that I regret, but love doing."
   tagline: My great project tagline
   actions:
     - theme: brand

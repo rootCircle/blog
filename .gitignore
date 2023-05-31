@@ -1,6 +1,5 @@
 .vscode/
 .cache/
-yarn.lock
 yarn-error.log
 
 src/theme/cache/

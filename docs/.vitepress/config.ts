@@ -4,6 +4,7 @@ import { defineConfig } from 'vitepress'
 export default defineConfig({
   title: "Blog of Funky",
   description: "This site contain all my funky tech things, that I regret, but love doing.",
+  base: "/blog/",
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [

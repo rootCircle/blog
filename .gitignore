@@ -1,5 +1,7 @@
 .vscode/
 .cache/
+yarn.lock
+yarn-error.log
 
 src/theme/cache/
 node_modules/

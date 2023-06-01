@@ -109,9 +109,6 @@ anaconda: For data scientists<br>
 gcc clang g++ make: For compiling C, C++ code.<br>
 git: VCS tool for those whose who can commit.<br>
 xclip fzf: Extra utility tools, recommended for better integration<br>
-<br>
-<br>
-
 :::
 
 
@@ -139,8 +136,7 @@ gscan2pdf: A versatile tool. I use it to create customizable PDF from Images.<br
 pitivi: Some great video editing tool.<br>
 rnote xournalpp: Excellent note taking apps.<br>
 scrcpy: To share phone's screen on PC and control it.<br>
-Ghi<br>
-
+Gnirehtet: To reverse tether internet from PC to Phone<br>
 :::
 
 

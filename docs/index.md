@@ -5,21 +5,14 @@ layout: home
 hero:
   name: "Blog of Funky"
   text: "This site contain all my funky tech things, that I regret, but love doing."
-  tagline: My great project tagline
+  tagline: All the Blogs😇
   actions:
     - theme: brand
-      text: Markdown Examples
+      text: Topics
       link: /markdown-examples
     - theme: alt
-      text: API Examples
-      link: /api-examples
+      text: Linux Drama
+      link: /linux-blog/
 
-features:
-  - title: Feature A
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature B
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature C
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
 ---
 

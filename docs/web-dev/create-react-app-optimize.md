@@ -32,6 +32,7 @@ Instead of running the above code we will run for each project initialization, w
 
 ``` bash
 mkdir <name-of-project>
+cd <name-of-project>
 yarn init
 yarn add --offline react react-dom react-scripts cra-template
 cp -r ~/react_source_app/public ./

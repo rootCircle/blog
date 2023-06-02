@@ -19,7 +19,8 @@ export default defineConfig({
           { text: 'Markdown Examples', link: '/markdown-examples' },
           { text: 'Runtime API Examples', link: '/api-examples' },
           { text: 'Regex Notes', link: '/regex'},
-          { text: 'Linux Drama', link: '/linux-blog/'}
+          { text: 'Linux Drama', link: '/linux-blog/'},
+          { text: 'React init Optimization', link: '/web-dev/create-react-app-optimize'}
         ]
       }
     ],

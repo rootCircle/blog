@@ -8,7 +8,7 @@ Seems like ***create-react-app*** simply installs react, react-dom, react-script
 Global install also doesn't seem to help either. So, it seems like `create-react-app` tool forces fresh installation ignoring the cache.
 
 ## Tools Required
-1. Package Managers like `yarn`. `npm` doesn't allow using explicit caching.
+1. Package Managers like `yarn` or `pnpm`. `npm` doesn't allow using explicit caching.
 2. Fast and stable Internet Speed.
 3. UNIX based System. [It can easily transported to Windows too.]
 
@@ -52,6 +52,41 @@ yarn install
 ```
 You can even delete ***react_source_app*** directory completely and then re-run step 1.
 
+### Automating Stuffs
+
+Now, you won't want every time, to write all those commands just to initialize your react script. So, I have written a simple bash script to get started without needing to stress about any previous commands.
+
+``` bash
+#! /usr/bin/bash
+SEED_FOLDER_LOC_="/home/$USER/react_source_app"
+
+if [ ! -d "$SEED_FOLDER_LOC_" ];
+then
+	echo "SEED FOLDER isn't initialized yet! Initializing....."
+	cd "/home/$USER" || return 1
+	yarn create react-app react_source_app
+	cd - || return 1
+	echo "SEED Folder initialized" 
+fi
+
+read -r -p "Enter Project Name: " PROJECT_NAME_
+mkdir "$PROJECT_NAME_"
+cd "$PROJECT_NAME_" || return 2
+yarn init
+yarn add --offline react react-dom react-scripts cra-template web-vitals
+cp -r "$SEED_FOLDER_LOC_/public" ./
+cp -r "$SEED_FOLDER_LOC_/src" ./
+cp "$SEED_FOLDER_LOC_/README.md" ./
+cp "$SEED_FOLDER_LOC_/package.json" ./
+```
+Just save the script in ***/home/$USER/.local/bin/*** directory as `react-init` and give executable permission to that script.
+``` bash
+sudo nano "/home/$USER/.local/bin/react-init" # Paste the above script in that file
+sudo chmod +x "/home/$USER/.local/bin/react-init" # Giving Executable permission to the file
+```
+
+Then you can simply use this utility by calling `react-init` in your terminal, no need to initialize the seed folder.
+
 ### Benchmarks
 
 | Process | Time took | Data Utilized |
@@ -65,7 +100,7 @@ You can even delete ***react_source_app*** directory completely and then re-run 
 Data Utilized are tentative and are not actual indication of what `create-react-app` uses in long run. I have used my PC for benchmarking purpose and might not be representative of other systems. Timing are subject to Internet Bandwidth.(I had poor bandwidth)
 
 ## Result
-With this small set of hack, we can not only speed up our development, but also save on some expensive data. Note that, I will recommend going with `yarn create react-app <app-name>` for critical apps and apps of great use. But for learning purpose, these steps can be your go to destination.
+With this small set of hack, we can not only speed up our development, but also save on some expensive data. Note that, I will recommend going with `yarn create react-app <app-name>` for critical apps and apps of great use. But for learning purpose, these steps can be your go to destination. This hack is particularly more helpful in areas with limited bandwidth, or  if you are just frustrated with high loading time.
 
 ### Alternate Title
 Decrease create-react-app running time<br>

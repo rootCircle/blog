@@ -1,17 +1,16 @@
 # Dark Art of decreasing react-app initialization time
-
-With recently jumping to React ecosystem, I was greatly surprised by high loading time on `create-react-app` on subsequent runs, sometime crossing 3 minute mark. 
+With recently jumping to React ecosystem, I was greatly surprised by high loading time on `create-react-app` on subsequent runs, sometime even crossing 3 minute mark. 
 
 From what I expected, it was obvious for package manager to cache the modules on subsequent runs and just verify the integrity of the cache. However, that was not the case with `npm` or `yarn`. I tried `--offline` flag, but all in vain.
 
-Seems like ***create-react-app*** simply installs react, react-dom, react-scripts and cra-template, along with some template React code to start with. 
+Seems like ***create-react-app*** simply installs react, react-dom, react-scripts and cra-template, along with some template react code to start with. 
 
 Global install also doesn't seem to help either. So, it seems like `create-react-app` tool forces fresh installation ignoring the cache.
 
 ## Tools Required
-1. Package Manager like `yarn`. `npm` doesn't support using explicit caching.
+1. Package Managers like `yarn`. `npm` doesn't allow using explicit caching.
 2. Fast and stable Internet Speed.
-3. UNIX based System. (Basically Linux, MacOS etc). It can easily transported to Windows too.
+3. UNIX based System. [It can easily transported to Windows too.]
 
 ## Initial Approach
 
@@ -25,10 +24,11 @@ cd ~
 yarn create react-app react_source_app
 ```
 
+First, we are installing react-app for users who haven't done it yet. Then we are creating a new seed react project in home directory. 
 Don't edit the created app, we will use them as partial buffer for subsequent runs.
 
 ### On Subsequent Runs
-Instead of running the above code we will run these. These are aimed to take less bandwidth as well as time during install.
+Instead of running the above code we will run for each project initialization, we can simply run the commands given below. These are aimed to take less bandwidth as well as time during the install.
 
 ``` bash
 mkdir <name-of-project>
@@ -61,7 +61,11 @@ You can even delete ***react_source_app*** directory completely and then re-run 
 |`yarn init`| 3.53s | NA |
 |`yarn add --offline react react-dom react-scripts cra-template`| 22.21s | NA |
 
-Data Utilized are tentative and are not actual indication of what `create-react-app` uses in long run. I have used my PC for benchmarking purpose and might not be representative of other systems. Timing are subject of Internet Bandwidth.
+Data Utilized are tentative and are not actual indication of what `create-react-app` uses in long run. I have used my PC for benchmarking purpose and might not be representative of other systems. Timing are subject to Internet Bandwidth.(I had poor bandwidth)
 
 ## Result
-With this small set of hack, we can not only speed up our development speed, but also save on the expensive bandwidth. Note that, I will recommend going with `yarn create react-app <app-name>` for critical apps and apps of great use. But for learning purpose, this can be your go to destination.
+With this small set of hack, we can not only speed up our development, but also save on some expensive data. Note that, I will recommend going with `yarn create react-app <app-name>` for critical apps and apps of great use. But for learning purpose, these steps can be your go to destination.
+
+### Alternate Title
+Decrease create-react-app running time
+Initialize react-app without internet

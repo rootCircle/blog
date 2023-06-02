@@ -67,5 +67,5 @@ Data Utilized are tentative and are not actual indication of what `create-react-
 With this small set of hack, we can not only speed up our development, but also save on some expensive data. Note that, I will recommend going with `yarn create react-app <app-name>` for critical apps and apps of great use. But for learning purpose, these steps can be your go to destination.
 
 ### Alternate Title
-Decrease create-react-app running time
+Decrease create-react-app running time<br>
 Initialize react-app without internet

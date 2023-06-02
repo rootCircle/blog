@@ -3,7 +3,7 @@ With recently jumping to React ecosystem, I was greatly surprised by high loadin
 
 From what I expected, it was obvious for package manager to cache the modules on subsequent runs and just verify the integrity of the cache. However, that was not the case with `npm` or `yarn`. I tried `--offline` flag, but all in vain.
 
-Seems like ***create-react-app*** simply installs react, react-dom, react-scripts and cra-template, along with some template react code to start with. 
+Seems like ***create-react-app*** simply installs react, react-dom, react-scripts and cra-template etc, along with some template react code to start with. 
 
 Global install also doesn't seem to help either. So, it seems like `create-react-app` tool forces fresh installation ignoring the cache.
 
@@ -34,7 +34,7 @@ Instead of running the above code we will run for each project initialization, w
 mkdir <name-of-project>
 cd <name-of-project>
 yarn init
-yarn add --offline react react-dom react-scripts cra-template
+yarn add --offline react react-dom react-scripts cra-template web-vitals
 cp -r ~/react_source_app/public ./
 cp -r ~/react_source_app/src ./
 cp ~/react_source_app/README.md ./
@@ -60,7 +60,7 @@ You can even delete ***react_source_app*** directory completely and then re-run 
 |`yarn create react-app react_source_app` (First Run)| 642.82s | ~170MB |
 |`yarn create react-app react_source_app` (Subsequent Run)| 727.67s | ~150MB |
 |`yarn init`| 3.53s | NA |
-|`yarn add --offline react react-dom react-scripts cra-template`| 22.21s | NA |
+|`yarn add --offline react react-dom react-scripts cra-template web-vitals`| 22.21s | NA |
 
 Data Utilized are tentative and are not actual indication of what `create-react-app` uses in long run. I have used my PC for benchmarking purpose and might not be representative of other systems. Timing are subject to Internet Bandwidth.(I had poor bandwidth)
 

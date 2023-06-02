@@ -9,18 +9,16 @@ export default defineConfig({
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: 'Home', link: '/' },
-      { text: 'Threads', link: '/markdown-examples' }
+      { text: 'Threads', link: '/regex' }
     ],
 
     sidebar: [
       {
         text: 'Topics',
         items: [
-          { text: 'Markdown Examples', link: '/markdown-examples' },
-          { text: 'Runtime API Examples', link: '/api-examples' },
           { text: 'Regex Notes', link: '/regex'},
           { text: 'Linux Drama', link: '/linux-blog/'},
-          { text: 'React init Optimization', link: '/web-dev/create-react-app-optimize'}
+          { text: 'React Init Optimization', link: '/web-dev/create-react-app-optimize'}
         ]
       }
     ],

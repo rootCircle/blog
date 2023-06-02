@@ -9,7 +9,7 @@ hero:
   actions:
     - theme: brand
       text: Topics
-      link: /markdown-examples
+      link: /regex
     - theme: alt
       text: Linux Drama
       link: /linux-blog/

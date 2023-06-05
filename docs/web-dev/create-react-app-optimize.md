@@ -102,6 +102,24 @@ Data Utilized are tentative and are not actual indication of what `create-react-
 ## Result
 With this small set of hack, we can not only speed up our development, but also save on some expensive data. Note that, I will recommend going with `yarn create react-app <app-name>` for critical apps and apps of great use. But for learning purpose, these steps can be your go to destination. This hack is particularly more helpful in areas with limited bandwidth, or  if you are just frustrated with high loading time.
 
+## Alternate
+With `create-react-app` being super slow and irritating, developers prefer to use `vite` to initialize react app, which  comes out to much faster (even more than the current workaround). To use `vite` simply use
+::: code-group
+``` bash [yarn]
+yarn create vite
+cd <Project-name>
+yarn
+yarn dev
+```
+``` bash [npm]
+npm create vite
+cd <Project-Name>
+npm install
+npm run dev
+```
+:::
+By design `vite` is more empathic towards storage resource with only requiring ~70MB, while `create-react-app` requiring around ~350MB and current workaround requiring ~250MB.
+
 ### Alternate Title
 Decrease create-react-app running time<br>
 Initialize react-app without internet

@@ -120,6 +120,8 @@ npm run dev
 :::
 By design `vite` is more empathic towards storage resource with only requiring ~70MB, while `create-react-app` requiring around ~350MB and current workaround requiring ~250MB.
 
+Alternatively, you can use React in plain old [html](https://gist.githubusercontent.com/gaearon/0275b1e1518599bbeafcde4722e79ed1/raw/db72dcbf3384ee1708c4a07d3be79860db04bff0/example.html). [Not recommended in production]
+
 ### Alternate Title
 Decrease create-react-app running time<br>
 Initialize react-app without internet

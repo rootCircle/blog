@@ -19,6 +19,16 @@ Apart from being the best gift to the mankind, Linux(sorry GNU/Linux) is highly 
 
 - If you want to tap into performance mode, use `auto-cpufreq --force=performance` and `sudo envycontrol -s hybrid` or `sudo envycontrol -s nvidia`. Switching directly to nvidia mode from integrated mode might result in error. Users are advised to first switch to hybrid and then to nvidia mode.
 
+3. If you have a laptop with higher refresh rate, I would essentially recommend going with lower refresh rate by default for more life. Settings for changing that can be found in the Settings under the heading `Display and Monitor`.
+
+::: warning
+Follow 4th and 5th, only if you need it and you know what you are doing.
+:::
+
+
+4. You can even use `tlp`, if these all three doesn't work out, just make sure you don't use any frequency control in `tlp`, else it might clash with `auto-cpufreq`. Use this option, only if you are in dire need of battery life.
+
+5. The last but not the least you can under-volt your CPU for high end CPU models like i7 etc. Under-volting settings can be accessed from UEFI/BIOS Page, probably under topic `Power Saving` etc. If that setting is not accessible from BIOS/UEFI, you can use tools like `tlp` or `cpupower`. More info about that can be found [here](https://wiki.archlinux.org/title/Undervolting_CPU), [here](https://wiki.archlinux.org/title/CPU_frequency_scaling) and [here](https://wiki.archlinux.org/title/Power_management).
 
 ## Choosing right distro for beginner
 A lone wolf exploring the deep sea in the world of Linux, is generally advised to start with something like Ubuntu, Kali Linux or Manjaro. I am deeply against it for a reason. You must be free to use your own distro of choice, all by yourself for a reason. Choose not what is popular, but what suits you the most.

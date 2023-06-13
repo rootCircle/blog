@@ -43,7 +43,7 @@ I personally prefer Xorg, because of its maturity. Wayland being a relatively ne
 
 At end I would advice going with your distro's default for your display server protocol.
 
-GNOME has full support for Wayland. While KDE recently is joining the same league, it will be good to see both of them join the same league.
+GNOME has full support for Wayland. While KDE recently is joining the same league, it will be good to see both of them in the common ground.
 
 ## GNOME or KDE or Xfce
 Desktop Environment or D.E. defines how good or bad your GUI gonna look. Basically, they help provide the GUI interface over top of Kernel.

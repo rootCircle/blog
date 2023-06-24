@@ -8,9 +8,9 @@ It is important to note that the following writeup has been found to be entirely
 :::
 
 1. Install nemo from your distribution's repositories. On Arch, enter this command on the Terminal application:
-``` bash
-sudo pacman -S nemo
-```
+    ``` bash
+    sudo pacman -S nemo
+    ```
 
 2. Open a text editor and copy the following text into a new empty file:
     ``` ini

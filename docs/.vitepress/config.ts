@@ -9,19 +9,26 @@ export default defineConfig({
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: 'Home', link: '/' },
-      { text: 'Threads', link: '/regex' }
+      { text: 'Threads', link: '/linux-blog/' }
     ],
 
     sidebar: [
       {
         text: 'Topics',
         items: [
-          { text: 'Regex Notes', link: '/regex'},
           { text: 'Linux Drama', link: '/linux-blog/'},
+          { text: 'Some Tweaks', link: '/linux-blog/tweaks'},
           { text: 'React Init Optimization', link: '/web-dev/create-react-app-optimize'}
+        ]
+      },
+      {
+        text: 'Notes',
+        items: [
+          { text: 'Regex Notes', link: '/regex'},
         ]
       }
     ],
+    
 
     socialLinks: [
       { icon: 'github', link: 'https://github.com/rootCircle/blog' }

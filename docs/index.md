@@ -9,10 +9,10 @@ hero:
   actions:
     - theme: brand
       text: Topics
-      link: /regex
-    - theme: alt
-      text: Linux Drama
       link: /linux-blog/
+    - theme: alt
+      text: Notes
+      link: /notes/springboot
 
 ---
 

@@ -24,7 +24,9 @@ export default defineConfig({
       {
         text: 'Notes',
         items: [
-          { text: 'Regex Notes', link: '/regex'},
+          { text: 'Regex Notes', link: '/notes/regex'},
+          { text: 'SpringBoot Notes', link: '/notes/springboot'},
+          { text: 'HTML to React Initiative', link: '/notes/html2react'},
         ]
       }
     ],

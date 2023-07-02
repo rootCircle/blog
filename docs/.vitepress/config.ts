@@ -27,6 +27,7 @@ export default defineConfig({
           { text: 'Regex Notes', link: '/notes/regex'},
           { text: 'SpringBoot Notes', link: '/notes/springboot'},
           { text: 'HTML to React Initiative', link: '/notes/html2react'},
+          { text: 'git', link: '/notes/git'},
         ]
       }
     ],

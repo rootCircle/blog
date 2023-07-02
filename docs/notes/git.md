@@ -56,22 +56,29 @@ git show
 ### Differences between commits/branch
 
 ``` bash
-git diff first-banch second-branch
+git diff first-branch second-branch
+git diff # Show un-staged changes
 ```
 
 ### Getting help
 
 ``` bash
-git commit -help
+git commit --help
 git help --all
 ```
+
+### Removing a git repository
+``` bash
+cd intoTheDirectoryFolder
+rm .git
+```
+
 ## Branch
 
 ### Creating new branch
 
 ``` bash
 git branch new-branch
-git branch
 ```
 
 ### Moving to new branch/commit(time-travelling)
@@ -79,6 +86,7 @@ git branch
 ``` bash
 git checkout new-branch
 git checkout -b new-branch # New branch is created and choosed if -b is used
+git checkout commithash # time travelling
 ```
 
 Changing branches, changes files accordingly. So, `ls` will have different result in different branches.
@@ -87,7 +95,7 @@ Changing branches, changes files accordingly. So, `ls` will have different resul
 
 ``` bash
 git checkout master
-git merge new
+git merge new # merge new into master
 ```
 
 ### Deleting branches
@@ -96,18 +104,19 @@ git merge new
 git branch -d new
 ```
 
-## List all branches
+### List all branches
 
 ``` bash
+git branch # List local branches
 git branch -a # List all branches
-git branch -r : For remote
+git branch -r # For remote branches
 ```
 
-## Switch to other branch
+### Switch to other branch
 
 ``` bash
-git branch new
-git switch new
+git branch new 
+git switch new # Alternative
 ```
 ### Create and switch to other branch
 
@@ -165,7 +174,7 @@ git switch -c branchname origin/branchname
 
 If used once locally, from next time, one can `checkout` or `switch` to that branch only.
 
-## GitHub Flow
+### GitHub Flow
 - Create a new Branch
 - Make changes and add Commits
 - Open a Pull Request
@@ -201,7 +210,7 @@ git config --unset credential.helper
 
 ``` bash
 git clone url.git # use ssh rather than https one, if ssh has been setup
-git clone url.git --depth=1 : Faster , latest commit only
+git clone url.git --depth=1 # Faster , latest commit only
 ```
 
 ::: info
@@ -210,7 +219,7 @@ origin : fork (R/W)
 upstream : original (Read only)
 :::
 
-## Excluding files from tracking (.gitignore)
+### Excluding files from tracking (.gitignore)
 Git will not track files and folders specified in `.gitignore`. However, the `.gitignore` file itself is tracked by Git.
 It is also possible to have additional `.gitignore` files in subdirectories. These only apply to files or folders within that directory.
 
@@ -264,8 +273,8 @@ git commit --amend -m "Added lines to README.md"
 
 ### Moving back n commits
 ``` bash
-git reset --soft HEAD~n # Soft reset
-git reset --hard HEAD~n # Hard reset
+git reset --soft HEAD~n # Soft reset, n is the number of commit you want to reset 
+git reset --hard HEAD~n # Hard reset, n is the number of commit you want to reset 
 git push -f
 ```
 

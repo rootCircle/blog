@@ -38,3 +38,7 @@ Voila!
 And that's it!
 Next time you log in, nemo will automatically display icons over the desktop background.
 If you don't want to log out, you can also manually start it using the Alt+F2 prompt to run nemo-desktop
+
+## Poor VSCode loading time on Windows
+
+Just add VScode executable `code.exe` to your antivirus exception list and see if it works!

@@ -1,4 +1,5 @@
 # SpringNotes
+
 Intended for spring-boot integration with mysql.
 
 ## Initial Steps
@@ -64,7 +65,7 @@ UPDATE, INSERT, and DELETE.
 
 ## Building an executable
 
-- If you use Gradle, you can run the application by using `./gradlew` bootRun.
+- If you use Gradle, you can run the application by using `./gradlew bootRun`.
   Alternatively, you can build the JAR file by using `./gradlew build` and
   then run the JAR file, as follows:
 
@@ -98,6 +99,13 @@ curl -i -H "Content-Type:application/json"\
 - -H "Content-Type:application/json": Sets the content type so the application
                                       knows the payload contains a JSON object.
 
+``` bash
+curl -i -X POST -H "Content-Type: multipart/form-data" 
+-F "data=@test.mp3" http://mysuperserver/media/1234/upload/
+```
+
+- -F/--form <name=content> Specify HTTP multipart POST data (H)
+
 ## Security
 
 While in production, we should give granular API access to the `springuser`.
@@ -123,13 +131,21 @@ public interface UserRepository extends CrudRepository<User, Integer>, PagingAnd
 PagingAndSortingRepository and CrudRepository provides a set of pre-baked tools
 like `findAll`, `deleteById` to name a few.
 
+## File Upload
 
+## File Upload Limits
 
+``` toml
+spring.servlet.multipart.max-file-size=128KB
+spring.servlet.multipart.max-request-size=128KB
+```
 
 ## Reference
+
 - [SpringBoot Docs](https://spring.io/guides#gettingStarted)
 
 ## Useful Links
+
 - [Validating Form Server Side](https://spring.io/guides/gs/validating-form-input/)
 - [Maven](https://spring.io/guides/gs/maven/)
 - [Uploading Files](https://spring.io/guides/gs/uploading-files/)

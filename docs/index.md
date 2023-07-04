@@ -8,11 +8,28 @@ hero:
   tagline: All the Blogs😇
   actions:
     - theme: brand
-      text: Topics
+      text: Threads
       link: /linux-blog/
     - theme: alt
       text: Notes
       link: /notes/springboot
-
 ---
 
+
+
+<script setup>
+import { VPTeamMembers } from 'vitepress/theme'
+
+const members = [
+  {
+    avatar: 'https://www.github.com/rootCircle.png',
+    name: 'Lab Rat',
+    title: 'Creator',
+    links: [
+      { icon: 'github', link: 'https://github.com/rootCircle' }
+    ]
+  },
+]
+</script>
+
+<VPTeamMembers size="small" :members="members" />

@@ -35,6 +35,9 @@ export default defineConfig({
 
     socialLinks: [
       { icon: 'github', link: 'https://github.com/rootCircle/blog' }
-    ]
+    ],
+    search: {
+      provider: 'local'
+    }
   }
 })

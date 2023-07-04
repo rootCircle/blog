@@ -1,5 +1,9 @@
 # Linux Drama
 
+::: info QOTD
+Woolsey-Swanson Rule:
+People would rather live with a problem they cannot solve rather than accept a solution they cannot understand.
+:::
 
 Apart from being the best gift to the mankind, Linux(sorry GNU/Linux) is highly extensible operating system. Compared to its competitors, like Windows and MacOS, Linux is created to sound more sane to the developers.
 

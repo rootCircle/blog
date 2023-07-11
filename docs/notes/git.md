@@ -24,6 +24,12 @@ git add -A # Same as --all
 git add .
 ```
 
+### Restore the changes to status quo
+``` bash
+git restore .
+git restore --staged . # To restore staged changes
+```
+
 ### See current status, staged/unstaged files etc
 
 ``` bash

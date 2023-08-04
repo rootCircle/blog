@@ -25,6 +25,7 @@ export default defineConfig({
         text: 'Notes',
         items: [
           { text: 'Regex Notes', link: '/notes/regex'},
+          { text: 'Nix', link: '/linux-blog/nix'},
           { text: 'SpringBoot Notes', link: '/notes/springboot'},
           { text: 'HTML to React Initiative', link: '/notes/html2react'},
           { text: 'git', link: '/notes/git'},

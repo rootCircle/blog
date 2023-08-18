@@ -22,6 +22,12 @@ export default defineConfig({
         ]
       },
       {
+        text: 'Start Guide',
+        items: [
+          { text: 'Assembly 101', link: '/start-guide/assembly' }
+        ]
+      },
+      {
         text: 'Notes',
         items: [
           { text: 'Regex Notes', link: '/notes/regex'},

@@ -34,7 +34,7 @@ eg - [\s,.]
 ***EVERY METACHARACTERS LOSE THEIR IDENTITY IN CHARACTER CLASSES***
 
 ## Repeating Things
-``` text
+``` txt
 
 * - preceded by a character or a character class, * tries to match maximum( >= 0) possible values of preeding syntax possible. 
     Uses greedy algo i.e. tries to match maximum first then lesser and lesser and so on.
@@ -62,7 +62,7 @@ eg - [\s,.]
 ```
 
 ## [PYTHON SPECIFIC] Compiling Regex
-``` text
+``` txt
 	import re
 
 	p = re.compile('ab*')
@@ -81,7 +81,7 @@ eg - [\s,.]
 ```
 
 ## Backspace Plague
-``` text
+``` txt
    	For \\se to be passed in regex, we need to use \\\\se because of string.
 	Other alternative to overcome this is raw string denoted prefix r before string
 
@@ -90,7 +90,7 @@ eg - [\s,.]
 ```
 
 ## Methods and Flags in Python
-``` text
+``` txt
    match() - Checks at start
    search() - Scan throughout string
    findall() - Scan all substring and return them as list of matching string (nothing else like span)
@@ -136,7 +136,7 @@ eg - [\s,.]
 
 ## More metacharacters
 
-``` text
+``` txt
 
 | -> Alteration or OR operator.
 	eg : 1
@@ -169,7 +169,7 @@ They don’t cause the engine to advance through the string; instead, they consu
 This means that zero-width assertions should never be repeated, because if they match once at a given location, they can obviously be matched an infinite number of times.
 
 ## Grouping
-``` text
+``` txt
 
 () -> To group content, to convey group of characters as a single entity
 	eg : 1
@@ -185,7 +185,7 @@ This means that zero-width assertions should never be repeated, because if they 
 ```
 
 ## Backreferences
-``` text
+``` txt
 	Backreferences in a pattern allow you to specify that the contents of an earlier capturing group must also be found at the current location in the string. 
 	For example, \1 will succeed if the exact contents of group 1 can be found at the current position, and fails otherwise.
 
@@ -199,7 +199,7 @@ This means that zero-width assertions should never be repeated, because if they 
 ```
 
 ## Non-capturing and named groups
-``` text
+``` txt
 
 Helps access groups without using group index or number, just by a name.
 
@@ -230,7 +230,7 @@ There’s no performance difference in searching between capturing and non-captu
 ```
 
 ## Backreferencing in named groups
-``` text
+``` txt
 
 (?P=word) -> Backreferences the namedgroup 'word'.
 	eg : 1
@@ -241,7 +241,7 @@ There’s no performance difference in searching between capturing and non-captu
 ```
 
 ## Lockahead assertions
-``` text
+``` txt
 ZERO-WIDTH ASSERTION : Engine doesn't advance to next characters while searching
 
 (?=...) --> Positive Lookahead assertion. Succeeds if contained regexp successfully matches.
@@ -267,7 +267,7 @@ ZERO-WIDTH ASSERTION : Engine doesn't advance to next characters while searching
 ```
 
 ## Python specific methods
-``` text
+``` txt
 
 .split(string, maxsplit=0) : Split the string into a list, splitting it wherever the RE matches. maxsplit is optional, but tell the count of max split to be performed(for non-zero value)
 
@@ -330,7 +330,7 @@ Use re.search() as it is more optimized than re.match() if first character is no
 ```
 
 ## Non-greedy quantifiers
-``` text
+``` txt
 
 *? --> Replica of *, but tries to match as little text as possible
 +? --> Replica of +, but tries to match as little text as possible

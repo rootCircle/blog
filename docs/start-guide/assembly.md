@@ -1,0 +1,516 @@
+# Getting Started with Assembly
+
+![Meme](data/bannermeme.jpg)
+
+Clickbait! Isn't it? These days when everyone want to indulge into trending tech like Blockchain & Machine Learning, you might question why are you here! Good that you ask, because what you are going to learn with this blog is, if not the most interesting, is the most aggressive performant language. Trust me, it's not C.
+
+
+## Applications of Assembly
+
+Every developer one day or another had at-least once fantasized about learning Assembly. Is it hard? No. Why we don't we learn it? Because we can't find a application in our day to day development. What we as a developer are tinkering, requires a highly abstracted knowledge of things to get started. You need not to understand Gecko or V8 engine to write a simple javascript code. Although concepts like WebAssembly do exists, there usage are still sparingly low.
+
+However, keeping those aside, if we talk about applications of Assembly here's what ChatGPT says
+
+1. Embedded Systems Programming: Assembly is often used in programming embedded systems, such as microcontrollers, where resource constraints and real-time performance are paramount. Writing code directly in assembly allows for precise control over hardware components and efficient memory usage.
+
+2. Device Drivers: Assembly is sometimes used to write low-level device drivers that interface with hardware components like graphics cards, sound cards, and network adapters. These drivers require direct interaction with hardware registers, which assembly excels at.
+
+3. Operating System Kernels: Certain critical parts of operating system kernels may be written in assembly language to ensure optimal performance, especially in areas where hardware control or system-level operations are necessary.
+
+4. Real-Time Systems: Applications that require strict timing constraints and real-time responsiveness, such as robotics and industrial automation, might use assembly to achieve the necessary precision and timing.
+
+5. Reverse Engineering and Security Research: Assembly is often used by security researchers and reverse engineers to analyze and understand software vulnerabilities or to reverse-engineer binary executables.
+
+::: info Fun Fact
+[Ghidra](https://ghidra-sre.org/): Unveil the secrets of binary executables through its open-source power, diving deep into assembly to dissect, analyze, and comprehend software intricacies.
+:::
+
+## Setting Up the environment
+
+There are many ways to run assembly code, using assembly compilers like [yasm](https://yasm.tortall.net/) or [nasm](https://www.nasm.us) or using native C compiler like [gcc](https://gcc.gnu.org/). In this tutorial, I will be exclusively using gcc to run the assembly code.
+
+### Prerequisite
+
+1. Code Editor like vi, nano, vscode, sublime.
+2. C Compilers like gcc, clang
+3. [Optional] Basic understanding of C as a programming language
+4. [Optional] [yasm](https://yasm.tortall.net/) and [nasm](https://nasm.us/)
+
+## Understanding how memory works
+
+When it comes to memory, there is a lot of misconception around how data is stored, retrieved and called. When learning a low level programming language like Assembly, it becomes crucial that you get well versed with the basics first. Feel free to skip the part, if you have general idea of memory, registers and CPU.
+
+### A.L.U.
+
+Every time, you do something on your Mac or PC, a instruction is generated for your A.L.U.(Brain) to execute. Assume, A.L.U. to be the working prototype of real life human brain, dealt with thinking only. Now what you thought need to stored somewhere for future reference, and that's where memory comes in. There are Registers, RAM, ROM and Storage Devices like Hard Disks and Pen drives. Before, it all gets too overwhelming for all, remember them just as names, put a blind eye on their function, unless they seems to become important. This is a classic CS50x approach, practiced by millions students around the globe, when getting started with C for the first time. It's ok, if you aren't able to grasp one or two, what is more important is to understand rather than the jargons.
+
+### Memory & R.A.M.
+So, getting back we were talking about how information are stored in memory. Actually, think of your RAM chip as a huge 2D M x N grids, where each block contains some information. When we deal with those large number of grids, it's more important that you assign some identifying information to each grid, such that we can reference them later easily without any ambiguity. In terms of computer world, we call them memory address. Memory address are nothing special but a numbered address where first box is 0, second is 1 and so on till the capacity of entire grid. In general programming world, memory are represented using [hexadecimal](https://www.google.com/search?q=hexadecimal) notation as a standard notation. However, if you are unfamiliar with it, then can completely skip that part. 
+
+### Tree Design and Registers
+As we now know about these boxes and grid, now comes the interesting part, the problem is, with having so many boxes in a grid, it can be problematic, let me explain why. Assume a situation, you are the captain of a football team, and you need to assist your team in making one goal. So, information need to transmitted only for 10 members only (excluding captain). Now assume, a much bigger team having hundreds if not thousand members in the team. Then how difficult it will be for the captain to guide the team. In terms of computer memory, in empirical terms Space ∝ 1 / Speed. The higher the memory slower the speed of that devices empirically. Now, with that relations comes the real problem, our A.L.U. aka, the brain is really fast, but our memory aren't. So, what we comes up was a Tree like structure where ALU was connected to Registers that was connected to Memory and finally to Storage Devices, just like root to branches. It is important to know that Memory and Registers are volatile memory. Now, if we talk about Registers, they are the fastest but the smallest piece of memory unit, they are present as a part of CPU and help to cache or store information and instructions to run etc. Our lovely A.L.U. although can think, it's not powerful enough to run N tasks at once at-least for simple computers.(Let's not get into details of Process synchronization) So, to perform a task it needs to divided into simple clear instructions that CPU can understand and rest is stored in registers as a reference or as whole.
+
+R.A.M. having the much larger capacity on the other hand, stores the data. The references to those data are stored in registers if required. Storage devices, similarly stores permanent data that needs to be persistent, even after the boot.
+
+### Word Size
+
+Now, I assume you have the basics of Registers and Memory. Let's comeback of our grid & box story. Remember, memory is divided into a large grid with large number of boxes, which stores some information in binary forms. Now, you might be thinking what these each boxes store? A single 0 or 1, a byte of 0s and 1s or something else. Answer is, with advent of newer technologies, the memory size began to increase rapidly, now the numbers of digits required to represent those digits will hence also increase. So, apart of using generic conventions like byte, we started using *words* as a unit. A word is minimal addressable unit stored in a memory. Word can contain any number of bytes, it can one, half, two and so on. Essential to know that, width of the words is dependent of the architecture and memory size and other parameters.
+
+::: info Extra Info
+Memory stores information in hardware made up of flip-flops. Google them to learn more.
+:::
+
+### How a program is run?
+
+So, you are now familiar with basics of Memory Organization. Let's talk about what happens when you click on the tiny icons present on your desktop window in simple steps.
+
+1. Loading : When you execute the program, the program executable (the .exe file on windows) is loaded from your storage device into your memory blocks aka RAM. Your OS reads the binary instructions and other relevant stuffs and pass it onto to memory.
+
+2. Memory Setup : Memory regions are setup for stack, heap etc.
+
+3. Instruction Fetch & Decode : Instruction is fetched from memory one by one and is decoded into registers.
+
+4. Execution : After decoding the instructions, ALU performs the required operations, memory read is performed if required and then the output is written back to memory.
+
+5. Termination: Eventually, the program reaches an exit point, such as the main function's return statement. At this point, the CPU stops executing instructions from the program.
+
+6. Cleanup and Memory Deallocation: The operating system releases the memory and resources allocated to the program. This includes deallocating memory from the heap, closing files, and cleaning up any other resources used by the program.
+
+
+After all these boring theories, I hope you understand the basics of memory organization, there's still a lot to this topics, which isn't is the scope of the discussion.
+
+
+### Understanding Instructions
+An instruction is a fundamental unit of operation that a computer's ALU can execute. It is a command given to the CPU that tells it to perform a specific operation, such as arithmetic computation, data movement, logical comparison, branching, or control flow.
+
+Common instructions include MOV ADD SUB LOAD JUMP CALL etc. LOAD loads value from memory into registers. ADD is to perform addition. JUMP is to control flow statements. MOV is to copy data from one address to another address.
+
+
+## Writing Your first assembly code
+
+![Meme](data/program.jpg)
+
+1. Open your favorite text editor and make a new C file, let's say `asmGuide.c`.
+
+``` c
+#include <stdio.h>
+
+int main(void)
+{
+    int src = 66;
+    int dst;   
+
+    asm ("mov %1, %0\n\t"
+        "add $3, %0"
+        : "=r" (dst) 
+        : "r" (src));
+
+    
+    printf("%d\n", dst);
+    
+}
+```
+
+2. Save the file and then open the terminal in the containing directory and then run the commands
+
+``` bash
+gcc asmGuide.c -o asmGuide
+./asmGuide
+```
+
+If everything works fine, you will see `69` as the output.
+
+## Understanding the code
+
+Before the code gets too overwhelming to you, let's break them into simple units. If you are from C coding background, you might know the include header statement `#include <stdio.h>`, which is used to import a set of helping hands, that can help perform magic things like taking input, printing to console (like in here) etc.
+
+The `int main(void) {}` is the entry gate to your code, it acts as the front door to your program code i.e., from where the CPU should start from when executing statements. `int` in `int main` denotes that this function returns an integer. If you don't know why, then we can leave this information for discussion. `void` under params tells that it doesn't expect any parameters when running from console. And then comes the variable, `int src = 66;` and `int dst;`. In programming language like C, every statement(not expression) ends with a semi-colon `;`. Seeing the variables, it might seems obvious that, you are declaring a variable name `src` to value `66`, we are telling in advance to the compiler that `src` is of type integer. Similarly, in `dst`, we are only concerned with telling that a variable named `dst` exists, but its value is not defined, think of it as more as a labelled but empty box/cartoon. And finally, the `printf` statement is used to print the value stored inside `dst`. Now, it may seem counter-intuitive to you, how may we print or get that value outside of a box, when actually there was nothing inside and that's where that magic `asm` codes comes to play.
+
+Inside the `asm`, you might see some familiar commands like mov and add. %0 and %1 are placeholders denoting the first and second argument i.e., `dst` and `src` respectively, while $3 jump denotes *decimal* number 3. `\n\t` are whitespace characters and are intended for indentation purpose only, thing on which we can turn blind eye at for now. Now, let's understand the code
+
+- asm is compiler specific directive found specially in gcc, to help run assembly codes easily.
+- `mov %1 %0` will copy %1 into %0 i.e., `src` into `dest`. So, now `dest` now also becomes 66.
+- `add $3 %0` will add 3 into %0 i.e., `dest`. So, now `dest` now becomes 69.
+
+Easy right? Yes this is assembly!
+
+## [Optional] Writing pure assembly codes
+
+Now you know a basics about assembly syntax probably, let's delve deeper and start writing pure assembly functions. Before that you must know the basics of assembly syntax.
+
+### Comments
+
+Single-line comments are denoted in assembly by using `;` operator.
+
+### Data Types
+
+There are no data types in assembly, but we need to take care of context. For example, letter 'a' is denoted to your computer's memory using ascii notation as 65. But, computer couldn't differentiate if 65 is an integer, string, character or anything else. So, it becomes important that we as a developer keep track of those things.
+
+### Structure of Assembly code
+
+```x86asm
+section .data
+
+section .bss
+
+section .text
+```
+
+- `section .data` is where constant variables is defined, like strings, magic(constant) numbers, terminating strings etc
+
+- `section .bss` is reserving space in memory for future data, like taking input from user for string
+
+- `section .text` is where actual code will be, and starts with label like `_start:` or `main:`. These labels usage vary from linkers to linker, like ld linker requires `_start` as the start label, while gcc asks for the latter `main` label. 
+
+### Compiling your code
+
+``` bash
+# Returns an .o file
+nasm -f elf64 -g file.asm # elf64/elf32 controls the registers size
+# Linking your .o file
+ld -m elf_x86_64 -o file file.o #elf_x86_64 controls type of architecture 
+```
+
+### Common Registers for 32bit Registers
+
+![Registers](data/th-registers.jpg)
+
+Now, in normal assembly we deal a lot with registers, think of them as normal variables that are designed to store and retrieve some specific values and proposed for some specialized functions. Some of the common registers include
+
+- EAX: Accumulator Registers, results of arithmetic registers are stored here!
+- ECX: Counter Registers
+- ESI: Source Index for copying large piece of data
+- EDI: Destination Index for copying large piece of data
+- ESP: Stack pointer, points at the top of the stack
+- EBP: Base pointer, points at the bottom of the stack
+- RIP: Stores the instruction pointer
+
+:::info Fun fact
+When dealing with 64 bit registers, you might see RAX, instead of EAX, although EAX can still can be used even then too.
+
+EAX there will be lower significant half of the RAX register occupying 32 bits of RAX.
+:::
+
+### Common commands/instructions
+
+Move operator
+``` x86asm
+mov dest, src ;copy data from src to dest
+; mov zero extend
+movzx eax, 3 ;copy number 3 into eax and zero out rest of other bits in eax 
+
+; [] are used for dereferencing(translating) data
+movzx eax, byte ptr [ebx] ;copy one byte from address stored in ebx, and store them into eax
+; mov sign extend
+movsx dest, src ;assume src is negative number, then that will be sign extended for remaining empty boxes
+```
+
+:::info Good to know
+[Most significant bit](https://en.wikipedia.org/wiki/Bit_numbering) of negative number is always 1 in binary, it denotes or signifies that the number is negative.
+Check [this](https://stackoverflow.com/questions/1049722/what-is-twos-complement) out for clean explanation. 
+:::
+
+Bitwise operations
+```x86asm
+and dest, src ;Finding bitwise and of dest and src and store it in and
+or dest, src
+xor dest, src
+test eax, eax ; check whether eax = 0, only updates the flag registers and don't updates the eax
+```
+
+Arithmetic operators
+```x86asm
+add eax, ebx ; eax = eax + ebx
+sub eax, 15 ; eax = eax - 15
+inc eax ; eax += 1
+
+mov ax, 15
+mul bx ; dx:ax = ax * bx (Lower 16 bits in stored in ax, and upper 16 bits are stored in dx)
+div bx ; ax Rdx = dx:ax / bx Remainder is stored in dx and quotient in ax
+```
+
+Flag Register
+- CF: carry flag register (1 yes, 0 no)
+- OF: overflow flag
+- ZF: zero flag (if result of operation is zero)
+- SF: sign flag (negative 1, positive 0)
+- PF: parity flag (even, odd)
+
+Jump operations
+```x86asm
+jmp label1 ; Jump to label1
+je label ; Jump equal, jump iff previous operations, resulted in equality
+jne label; Jump not equal, jump iff previous operations doesn't resulted in equality
+
+; Add n to any of these to get its opposite like jnz-jump if not zero etc
+jz - jump if zero
+jc - jump if carry
+jo - jump if overflow
+jg - jump if greater
+js - jump if sign flag
+jge - jump if greater than or equal to
+jl - jump if less tan
+jle - jump if less than or equal to
+ja - jump above based on flag
+jae - jump above equal based on flag
+jb - jump below based on flag
+jbe - jump below equal based on flag
+```
+
+
+Call operations
+```x86asm
+; Save the current location, so as to return after jump (You are going, but returning back too)
+; Implemented using stack
+call label 
+```
+:::details Working of call
+The working of call can be seen as below : 
+```x86asm
+call label
+    push rip ; rip is the instruction pointer, pushes current loc + 1 to stack
+    jmp label
+
+ret 
+    pop rip ; get back to original instruction location + 1
+```
+:::
+
+Compare operators
+```x86asm
+; Updates the flag register only, not the operands
+cmp eax, abx; eax - ebx > 0 => flag(zero, sign etc) is updated
+cmp eax, 25
+```
+:::details Example
+```x86asm
+cmp eax, 5
+ja label ; jump if eax - 5 > 0
+```
+:::
+
+Shift operators
+```x86asm
+shr eax, 1 ; Shift right by 1 bit (Divide by 2^1)
+shl eax, 1 ; Shift left
+sar eax, 1 ; Shift arithmetic right, retains the most significant digit rest same as shr
+sal eax, 2 ; Similar to shl
+```
+
+Rotate operations
+```x86asm
+; 00001001
+; 10000100 rotate right by 1 bit
+ror eax, 1 ; rotate right
+rol eax, 1 ; rotate left
+```
+
+### Bit masking
+
+Now with all these commands, it becomes crucial for someone to extract out only bits at specific position for use. Think of it as, let's say you are rounding off a number, then for you only the significant digit seems necessary, rest are just useless, same story here. You might sometimes comes in a position where hence you requires a range of bits, in those cases role of bit masking comes to play.
+
+Assume a situation, you want to extract 2 to 16 bit range from a 32 bit register. What you will do is, is to make a AND with 0011111111111111111111111111111100 and then unnecessary bits will be zeroed out, and then perform shift operations to extract the number.
+
+Example :
+let eax = 01010101010010101001010101101010, now to extract most significant 16 bits, we do
+```x86asm
+and eax 0XFFFF0000 ; To extract first 16 bits
+shr eax, 16
+ax ; will store the required data, refer Register Diagram above for info in #Common Registers for 32bit Registers
+```
+
+### System calls
+
+![Common System Calls](data/sys_calls.png)
+
+```x86asm
+mov eax, 1 ; Invoke the kernel to sys_exit
+int 80h ; interrupt is invoked to kernel
+```
+
+:::details To print any string
+print(stdout, hello_world, x)
+```x86asm
+mov edx, len ;.data variable
+mov ecx, msg ;.data variable
+mov ebx, 1 ;stdio
+mov eax, 4 ;sys_write
+int 0x80
+```
+:::
+
+## Hello World Program
+
+Now, with all so many facts and information on the ground, it's the perfect time to write our cool nice old hello world code. Before that, ensure that the environment is setup and you have the `nasm`. Write this code in your favorite code editor and save them as file.asm.
+
+```x86asm
+section .data
+    ; db means declare bytes i.e., every member reserve a byte
+    ; str is variable which stores the pointer
+    ; 0xA is for newline characters
+    hello db "Hello, World!", 0xA
+
+    ; len is variable which equals(equ) end of string + 1($) - start of string(str), giving the length
+    len equ $ - hello
+
+; we don't need section .bss here
+
+; Make _start accessible to external code
+section .text
+    global _start
+
+_start:
+    mov eax, 4 ; sys_write
+    mov ebx, 1 ; file descriptor (stdout)
+    mov ecx, hello ; pointer to message
+    mov edx, len ; message length
+    int 0x80 ; invoke sys_call
+
+    mov eax, 1 ; sys_exit
+    xor ebx, ebx ; exit status
+    int 0x80 ; sys_call for exit
+```
+Then for running follow [Compiling Your code](#compiling-your-code) section for details.
+
+## Some advanced codes
+
+
+### Conditionals
+
+```c
+if (x == a) {
+    c += a;
+}
+else if (x == b) {
+    c = b;
+}
+else {
+    c = 1;
+}
+```
+Let's transpile the above C code into assembly code
+
+```x86asm
+; Here we are going to use some common registers at our premise
+; eax x
+; ebx a
+; ecx b
+; edx c
+
+section .text
+global _start
+
+_start:
+    cmp eax, ebx      ; Compare eax and ebx (x and a)
+    jne elseif_label  ; Jump to elseif_label if not equal
+    add edx, ebx      ; Add ebx (a) to edx (c) if equal
+    jmp done_label    ; Jump to done_label after processing
+
+elseif_label:
+    cmp eax, ecx      ; Compare eax and ecx (x and b)
+    jne else_label    ; Jump to else_label if not equal
+    mov edx, ecx      ; Move ecx (b) to edx (c) if equal
+    jmp done_label    ; Jump to done_label after processing
+
+else_label:
+    mov edx, 1        ; If none of the conditions match, move 1 to edx (c)
+
+done_label:
+    mov eax, 1
+    xor ebx, ebx
+    int 0x80
+```
+
+### Iterating using loops
+
+```c
+for (int x = 0; x < 5; x++) {
+    printf(x);
+}
+```
+
+```x86asm
+; eax, ebx, ecx, edx = sys_write operations
+; edi = x
+
+section .text
+    global _start
+
+_start:
+    xor edi, edi
+
+loop1:
+    add edi, '0' ; To make it ascii representable
+
+    mov eax, 4
+    mov ebx, 1
+    mov ecx, edi
+    mov edx, 1 ; length is only 1 characters
+    int 0x80
+
+    sub edi, '0' ; Return to number version
+
+    ;inc edi
+    add edi, 1
+
+    cmp edi, 5
+    jl loop1
+
+    ; outside of loop
+
+    ; Exit the program
+    mov eax, 1
+    xor ebx, ebx
+    int 0x80
+```
+
+### Calling Standard Functions in C
+```x86asm
+
+extern printf ; printf is defined somewhere else
+
+section .data
+    msg db "This is a test %d % %d"
+    a db 1
+    b db 2
+    c db 3
+
+section .text
+_start:
+    movzx eax, [c]
+    push eax
+    push [b]
+    push [a]
+    push msg
+
+    call printf
+
+    add esp, 16 ; clearing 16 bits from stack
+
+printf:
+    push eax
+    push ebx
+    push ecx
+    push edx
+    push ebp
+    mov ebp, esp
+    pop eax   
+
+    pop edx
+    pop ecx
+    pop ebx
+    pop eax
+```
+
+# Conclusion 
+
+This "Assembly 101" guide introduced us to assembly language programming, showing how it's used in various areas like system programming and code optimization. We covered setting up our environment, understanding memory basics, writing our first assembly code, and grasping its meaning. We even touched on more advanced assembly techniques. By the end, we created a classic "Hello World" program, marking our progress and preparing us to explore assembly language further for efficient software development. Hope you liked the content!
+
+
+
+# References
+
+- [x86 NASM Assembly Crash Course by UMBC IEEE](https://www.youtube.com/watch?v=DNPjBvZxE3E)
+- [Learn NASM Assembly Programming Language](https://www.tutorialspoint.com/assembly_programming/index.htm)
+
+![Meme](data/stop.png)

@@ -30,6 +30,13 @@ git restore .
 git restore --staged . # To restore staged changes
 ```
 
+###  To remove untracked files / directories
+```bash
+git clean -fd
+```
+-f - force
+-d - directories too
+
 ### See current status, staged/unstaged files etc
 
 ``` bash

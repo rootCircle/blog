@@ -122,3 +122,60 @@ To fix that :
     ```
 
     vi) Start mariadb.service.
+
+## Window Subsystem for Linux (WSL) Common Troubleshooting Steps
+
+Fixing common installation issues with WSL for Windows 11 (and also Windows 10) users.
+
+1. **ERROR :** `Failed to attack disk........vhdx'`
+
+    **SOLUTION**
+
+    ``` powershell
+    wsl --unregister ubuntu
+    wsl --install
+    ```
+
+2. **ERROR :** `WslRegistrationDistribution failed  with error...........WSL2 requires an update to its kernel component`
+
+    **SOLUTION**
+
+    Download this and install [WSL Kernel Component](https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi), then restart your PC and then again open Powershell and run WSL, it might work now!
+
+3. **ERROR :** `Failed to fetch distribution list from ......raw.githubusercontent.com.........`
+        
+    *OR*
+
+    `A connection with server failed to established`
+    
+    **SOLUTION** 
+
+    Download and install [Warp](https://cloudflarewarp.com/), alternatively you can set your Preferred DNS Address to 1.1.1.1 in IP settings.
+
+    It might also be related to disabled windows features, so do check that out too.
+
+4. **General Errors :** Disabled Windows Features
+
+    **SOLUTION**
+
+    i)  Open `Turn Windows features on or off` (Use Windows Search for finding it)
+
+    ii) Ensure `Virtual Machine Platform` and `Windows Subsystem for Linux` box is checked
+
+    iii) Restart and again try installing WSL
+
+5. **ERROR :** `Distribution is not installed.......`
+    
+    **SOLUTION**
+    
+    Run `wsl --install --d Ubuntu` in powershell and wait.
+
+6. **ERROR :** Invalid Username on registration
+
+    **SOLUTION**
+
+    Username can't contain spaces or capital letters (alternatively you can use dashes etc).
+
+### Sidenote
+
+Remember the login password

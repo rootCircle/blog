@@ -179,3 +179,19 @@ Fixing common installation issues with WSL for Windows 11 (and also Windows 10) 
 ### Sidenote
 
 Remember the login password
+
+## logseq and git
+
+:::note
+For some reasons, logseq + git doesn't work the same as it should with flatpak
+:::
+For logseq installed using system package, to push a commit using ssh in arch linux
+
+1. Make sure you have the necessary git plugins installed in logseq from plugin marketplace.
+
+2. If you're using ssh for git, you might be getting errors like `ssh_askpass: exec(/usr/bin/ssh-askpass): No such file or directory`. For resolving those, a workaround is to install `ksshaskpass` and symlink `/usr/bin/ssh-askpass` to ksshaskpass.
+
+    ```bash
+    sudo pacman -S ksshaskpass
+    sudo ln -s $(which ksshaskpass) /usr/bin/ssh-askpass
+    ```

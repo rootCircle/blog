@@ -182,9 +182,10 @@ Remember the login password
 
 ## logseq and git
 
-:::note
+::: info
 For some reasons, logseq + git doesn't work the same as it should with flatpak
 :::
+
 For logseq installed using system package, to push a commit using ssh in arch linux
 
 1. Make sure you have the necessary git plugins installed in logseq from plugin marketplace.

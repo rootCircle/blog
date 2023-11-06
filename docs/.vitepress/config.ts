@@ -35,6 +35,7 @@ export default defineConfig({
           { text: 'SpringBoot Notes', link: '/notes/springboot'},
           { text: 'HTML to React Initiative', link: '/notes/html2react'},
           { text: 'git', link: '/notes/git'},
+          { text: 'PDF Cracking', link: '/notes/pdfcrack'}
         ]
       }
     ],

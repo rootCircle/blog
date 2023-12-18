@@ -22,6 +22,12 @@ export default defineConfig({
         ]
       },
       {
+        text: 'Projects',
+        items: [
+          { text: 'cpast', link: '/project/cpast'}
+        ]
+      },
+      {
         text: 'Start Guide',
         items: [
           { text: 'Assembly 101', link: '/start-guide/assembly' }
@@ -37,7 +43,7 @@ export default defineConfig({
           { text: 'git', link: '/notes/git'},
           { text: 'PDF Cracking', link: '/notes/pdfcrack'}
         ]
-      }
+      },
     ],
     
 

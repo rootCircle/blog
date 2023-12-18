@@ -46,6 +46,10 @@ ACTUAL OUTPUT
 Oddd
 ```
 
+## How it can help you?
+
+If you're into solving competitive programming problems or tackling LeetCode questions but struggling to identify that elusive edge case, cpast is your solution! Instead of manually dissecting solution codes from the internet, let cpast do the heavy lifting for you. All you need is to download a solution for the given problem from internet, in any programming language and write a *clex* generator language for it(to define input format), and let cpast do the magic for you. It's designed to uncover those tricky cases that might be tripping up your current code! [Watch video for demonstration]
+
 ## Getting Started with cpast
 
 ### Installation

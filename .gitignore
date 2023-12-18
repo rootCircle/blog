@@ -11,3 +11,7 @@ dist/
 
 docs/.vitepress/dist
 docs/.vitepress/cache
+
+# yarn is the default pm
+package-lock.json
+pnpm-lock.yaml

@@ -24,7 +24,8 @@ export default defineConfig({
       {
         text: 'Projects',
         items: [
-          { text: 'cpast', link: '/project/cpast'}
+          { text: 'cpast', link: '/project/cpast'},
+          { text: 'Ideas that won\'t make you millionaire', link: '/project/ideas-that-wont-make-millionaire'}
         ]
       },
       {

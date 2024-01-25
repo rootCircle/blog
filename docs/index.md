@@ -4,15 +4,14 @@ layout: home
 
 hero:
   name: "Blog of Funky"
-  text: "This site contain all my funky tech things, that I regret, but love doing."
-  tagline: All the Blogs😇
+  tagline: Expect bugs here and there.
   actions:
     - theme: brand
-      text: Threads
-      link: /linux-blog/
+      text: Blogs
+      link: /archives/
     - theme: alt
-      text: Notes
-      link: /notes/springboot
+      text: Projects
+      link: /project/
 ---
 
 

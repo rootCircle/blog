@@ -9,16 +9,20 @@ export default defineConfig({
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: 'Home', link: '/' },
-      { text: 'Threads', link: '/linux-blog/' }
+      { text: 'Blog', link: '/archives/' },
+      { text: 'Projects', link: '/project/' },
+      { text: 'Start Guide', link: '/start-guide/' },
+      { text: 'Notes', link: '/notes/' },
     ],
 
     sidebar: [
       {
-        text: 'Topics',
+        text: 'Blogs',
         items: [
-          { text: 'Linux Drama', link: '/linux-blog/'},
-          { text: 'Some Tweaks', link: '/linux-blog/tweaks'},
-          { text: 'React Init Optimization', link: '/web-dev/create-react-app-optimize'}
+          { text: 'Linux Drama', link: '/archives/linux/linux_drama'},
+          { text: 'Some Tweaks', link: '/archives/linux/tweaks'},
+          { text: 'Nix', link: '/archives/linux/nix'},
+          { text: 'React Init Optimization', link: '/archives/web/create-react-app-optimize'}
         ]
       },
       {
@@ -37,11 +41,10 @@ export default defineConfig({
       {
         text: 'Notes',
         items: [
+          { text: 'git', link: '/notes/git'},
           { text: 'Regex Notes', link: '/notes/regex'},
-          { text: 'Nix', link: '/linux-blog/nix'},
           { text: 'SpringBoot Notes', link: '/notes/springboot'},
           { text: 'HTML to React Initiative', link: '/notes/html2react'},
-          { text: 'git', link: '/notes/git'},
           { text: 'PDF Cracking', link: '/notes/pdfcrack'}
         ]
       },

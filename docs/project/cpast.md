@@ -29,21 +29,51 @@ Are you tired of spending precious time manually debugging your code during comp
 **Sample I/O:**
 
 ```bash
-❯ cpast -s 1.py -t ab.java -g "(N[5,10]) (?: N[-10000,10000]{\1})" -i 10
-Testcase 1 ran successfully!
-Testcase 2 ran successfully!
-Testcase 3 ran successfully!
-Testcase 4 ran successfully!
-Testcase 5 failed!
+❯ cpast test -c 1.py -t ab.java -g "(N[1,5]) (?:(N[1,5]) (?:N[1,100]){\\2}){\\1}" -i 10
+
+[PROGRAM STORE INFO] Compiling program/Generating Intermediates
+[INFO] Using multi-threading to speed up the process, testcase order might vary!
+
+Testcase 73 failed!
 INPUT
-7 -692 -48 -5763 -2193 -8481 43 -4632
+5 3 20 58 98 3 18 10 10 4 86 9 26 27 4 2 8 40 15 5 92 79 80 88 43
 ==============================
 EXPECTED OUTPUT
-Odd
+0
+0
+0
+0
+0
 
 ==============================
 ACTUAL OUTPUT
-Oddd
+0
+0
+0
+0
+1
+
+Testcase 58 failed!
+INPUT
+5 5 65 89 81 96 86 3 87 14 74 2 63 2 1 38 3 52 92 42
+==============================
+EXPECTED OUTPUT
+0
+0
+0
+0
+0
+
+==============================
+ACTUAL OUTPUT
+1
+0
+0
+0
+0
+
+
+Test case generation & matching done!
 ```
 
 ## How it can help you?
@@ -73,7 +103,11 @@ After that, you can just run the above command.
 ### Usage Example
 
 ```bash
-cpast -s solution.py -t test.java -g "(N[1,100]) (?: N[-50,50]{\1})" -i 5
+cpast test -c solution.py -t test.java -g "(N[1,100]) (?: N[-50,50]{\1})" -i 5
+```
+
+```bash
+cpast generate "S[10,'U']"
 ```
 
 This command tests a Python solution (`solution.py`) against a Java test file (`test.java`) with custom input patterns for (`5`) iterations. (Input pattern language is explained later!)

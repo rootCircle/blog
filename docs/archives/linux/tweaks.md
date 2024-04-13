@@ -196,3 +196,9 @@ For logseq installed using system package, to push a commit using ssh in arch li
     sudo pacman -S ksshaskpass
     sudo ln -s $(which ksshaskpass) /usr/bin/ssh-askpass
     ```
+
+## Next.js 13 crashing the entire PC on Linux
+    
+  ```bash
+  systemd-run --scope -p MemoryLimit=1500M npm run dev
+  ```

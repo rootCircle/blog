@@ -1,4 +1,9 @@
-# Dark Art of decreasing react-app initialization time
+---
+title: Dark Art of decreasing create-react-app initialization time
+description: Learn how to I automated cra initialization, after getting fed up by cra init times.
+image: https://media.vlpt.us/images/devmoonsh/post/036d04db-3b13-4f8b-bb68-65c6c7039a19/image.png
+---
+# Dark Art of decreasing create-react-app initialization time
 With recently jumping to React ecosystem, I was greatly surprised by high loading time on `create-react-app` on subsequent runs, sometime even crossing 3 minute mark. 
 
 From what I expected, it was obvious for package manager to cache the modules on subsequent runs and just verify the integrity of the cache. However, that was not the case with `npm` or `yarn`. I tried `--offline` flag, but all in vain.

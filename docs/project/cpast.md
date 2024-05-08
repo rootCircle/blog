@@ -1,3 +1,8 @@
+---
+title: cpast 
+description: cpast is your go-to code testing and analysis tool for competitive programming. It effortlessly compares code outputs, irrespective of the programming language, making it a versatile solution for testing correctness and debugging. With a custom language generator, clex, controlling input patterns visually similar to regex, cpast ensures flexibility in defining test cases. Save time with rapid testing, automate your workflow, and bid farewell to manual debugging.
+image: https://www.myconfinedspace.com/wp-content/uploads/2017/06/Yellow-Crab.jpg
+---
 # Introducing cpast: Finding missing edge cases in C.P. done easy
 
 <div class="youtube-video-container">

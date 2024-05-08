@@ -1,3 +1,8 @@
+---
+title: Ideas that won't make you millionaire
+description: WIP Collection of ideas that I initially thought were really cool, they still are btw :-) 
+image: https://tinkersphere.com/4855/2467.jpg
+---
 # Ideas that won't make you millionaire
 
 You might have been doing something, but still you're here. Maybe some friend referred you down the road or may be it was me. I am not sure if you are coming from *the internet*, but if you do accept my honorable grace here. Down below is absolutely wasteful 69 ideas that I had hallucinated sometimes in past/later, maybe while walking, observing things or even in the bathroom taking shower. Many of these ideas, if not all were conceptualized before pre-GPT hype era, so validity of them is something of your business.

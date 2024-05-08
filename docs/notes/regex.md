@@ -1,3 +1,8 @@
+---
+title: Regex 101
+description: Documented Regex as per Python re implementation
+image: https://d2h1bfu6zrdxog.cloudfront.net/wp-content/uploads/2022/04/coderpad-regex-the-complete-guide.jpg
+---
 # REGEXP 101
 ::: info
 Might fix the formatting later :-)

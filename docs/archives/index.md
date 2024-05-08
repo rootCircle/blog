@@ -1,4 +1,7 @@
 ---
+title: Blog 
+description: All my blogs
+image: https://wallpaperaccess.com/full/2433830.jpg
 sidebar: false
 aside: false
 ---

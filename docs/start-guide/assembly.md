@@ -1,3 +1,8 @@
+---
+title: Getting Started with Assembly
+description: Learn how to your hands dirty with assembly! Trust me it's not going to be easy one :wink
+image: https://beningo-embedded-group.s3.amazonaws.com/2020/06/AdobeStock_135663532-1024x681.jpeg
+---
 # Getting Started with Assembly
 
 ![Meme](data/bannermeme.jpg)

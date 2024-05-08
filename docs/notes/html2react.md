@@ -1,4 +1,9 @@
-# Converting HTML2Regex
+---
+title: Converting HTML2React with Regex
+description: Initiative to convert HTML To React using Regex
+image: https://cdn0.iconfinder.com/data/icons/logos-brands-in-colors/128/react-512.png
+---
+# Converting HTML2React with Regex
 
 ## Context
 I was recently switching my HTML, CSS project to React JS. Down below are the some useful, but not extensible list of Regex I used. If you are considering doing the same, there is a better alternative to use [JSX Converter like these](https://transform.tools/html-to-jsx).

@@ -1,7 +1,9 @@
 ---
 # https://vitepress.dev/reference/default-theme-home-page
 layout: home
-
+title: Blog of Funky
+description: Find about my blogs, start guides, notes and projects in one place!
+image: https://www.github.com/rootCircle.png
 hero:
   name: "Blog of Funky"
   tagline: Expect bugs here and there.

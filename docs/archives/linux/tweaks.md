@@ -1,3 +1,8 @@
+---
+title: Tweaks 
+description: List of common tweaks and error fixes, that should be on internet dot com
+image: https://images.pexels.com/photos/577514/pexels-photo-577514.jpeg?cs=srgb&dl=light-light-bulb-idea-577514.jpg&fm=jpg
+---
 # Tweaks
 
 ## Showing Desktop Icons in GNOME 44

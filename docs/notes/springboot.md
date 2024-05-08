@@ -1,3 +1,8 @@
+---
+title: SpringBoot Notes
+description: Springboot cheatsheet 
+image: https://download.logo.wine/logo/Spring_Framework/Spring_Framework-Logo.wine.png
+---
 # SpringNotes
 
 Intended for spring-boot integration with mysql.

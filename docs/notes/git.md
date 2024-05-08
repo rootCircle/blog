@@ -1,3 +1,8 @@
+---
+title: git not Github
+description: Common git commands cheatsheet
+image: https://miro.medium.com/v2/resize:fit:3840/1*fDwzjCH3qzhosC6DVel4ng.jpeg
+---
 # git not GitHub
 
 ## git 101

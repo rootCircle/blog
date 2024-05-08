@@ -1,3 +1,8 @@
+---
+title: nix package manager 
+description: My initial impressions of using nix as package manager 
+image: https://nixos.org/logo/nixos-logo-only-hires.png
+---
 # nix package manager
 
 ## Why?

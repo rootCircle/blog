@@ -1,4 +1,7 @@
 ---
+title: Projects
+description: List of all my projects/reads. Have a look :->
+image: https://www.pngfind.com/pngs/m/170-1701498_code-png-code-logo-png-transparent-png.png
 sidebar: false
 aside: false
 ---

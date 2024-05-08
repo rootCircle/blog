@@ -10,8 +10,8 @@ hero:
       text: Blogs
       link: /archives/
     - theme: alt
-      text: Projects
-      link: /project/
+      text: Academic Notes
+      link: https://rootcircle.is-a.dev/acads/
 ---
 
 
@@ -22,7 +22,7 @@ import { VPTeamMembers } from 'vitepress/theme'
 const members = [
   {
     avatar: 'https://www.github.com/rootCircle.png',
-    name: 'Lab Rat',
+    name: 'rootCircle',
     title: 'Creator',
     links: [
       { icon: 'github', link: 'https://github.com/rootCircle' }

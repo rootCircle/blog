@@ -207,3 +207,10 @@ For logseq installed using system package, to push a commit using ssh in arch li
   ```bash
   systemd-run --scope -p MemoryLimit=1500M npm run dev
   ```
+
+## DPI issues in PDFs/while taking screenshots when using Firefox RTF (resistfingerprinting)
+
+Text is generally fuzzy on high DPI displays on firefox due to DPI set to 1 due to RTF. This behaviour is also suplemented in firefox screenshot which has been reportedly not working the same as expected(overcropped edges) due to that, requiring you to manually scale the display for complete shoot.
+
+1. Switch from `privacy.resistfingerprinting` to `privacy.fingerprintingProtection`.
+2. Set `privacy.fingerprintingProtection.overrides` to `+AllTargets,-WindowDevicePixelRatio,-CSSPrefersColorScheme`. `CSSPrefersColorScheme` is optional, and you can ignore that by the way.

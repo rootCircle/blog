@@ -67,12 +67,12 @@ eg - [\s,.]
 ```
 
 ## [PYTHON SPECIFIC] Compiling Regex
-``` txt
-	import re
+``` py
+    import re
 
-	p = re.compile('ab*')
+    p = re.compile('ab*')
 	
-	# OR
+    # OR
 
 	p = re.compile('ab*', re.IGNORECASE) # IGNORECASE can be replaced with just re.I
 	# Multiple flags can be specified by bitwise OR-ing them; re.I | re.M sets both the I and M flags
@@ -377,3 +377,4 @@ Use HTML or XML parser module for parsing regex, instead of regex. (Because of e
 ## Reference
 - [Regex Python](https://docs.python.org/3/howto/regex.html#regex-howto)
 - [re docs](https://docs.python.org/3/library/re.html)
+- [Python's inconsistent behavior with empty matches with the Rust's regex crate](https://github.com/rust-lang/regex/discussions/1164)

@@ -15,4 +15,5 @@ You can find all my notes here
 * [Cracking PDFs](</notes/pdfcrack>)
 * [Regex](</notes/regex>)
 * [Spring Boot](</notes/springboot>)
+* [Distributed Systems](</notes/distributed_systems>)
 

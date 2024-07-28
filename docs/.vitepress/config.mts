@@ -19,6 +19,7 @@ export default defineConfig({
       {
         text: 'Blogs',
         items: [
+          { text: 'MySQL Data Purging at Scale', link: '/archives/database/purging_mysql_tables_on_scale' },
           { text: 'Linux Drama', link: '/archives/linux/linux_drama'},
           { text: 'Some Tweaks', link: '/archives/linux/tweaks'},
           { text: 'Nix', link: '/archives/linux/nix'},

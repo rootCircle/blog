@@ -1,7 +1,16 @@
 ---
 title: Getting Started with Assembly
 description: Learn how to your hands dirty with assembly! Trust me it's not going to be easy one :wink
-image: https://beningo-embedded-group.s3.amazonaws.com/2020/06/AdobeStock_135663532-1024x681.jpeg
+head:
+  - - meta
+    - property: og:type
+      content: website
+  - - meta
+    - property: og:image
+      content: https://beningo-embedded-group.s3.amazonaws.com/2020/06/AdobeStock_135663532-1024x681.jpeg
+  - - meta
+    - name: twitter:card
+      content: summary_large_image
 ---
 # Getting Started with Assembly
 

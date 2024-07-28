@@ -1,7 +1,16 @@
 ---
 title: Projects
 description: List of all my projects/reads. Have a look :->
-image: https://www.pngfind.com/pngs/m/170-1701498_code-png-code-logo-png-transparent-png.png
+head:
+  - - meta
+    - property: og:type
+      content: website
+  - - meta
+    - property: og:image
+      content: https://www.pngfind.com/pngs/m/170-1701498_code-png-code-logo-png-transparent-png.png
+  - - meta
+    - name: twitter:card
+      content: summary_large_image
 sidebar: false
 aside: false
 ---

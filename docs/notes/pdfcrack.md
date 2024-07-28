@@ -1,7 +1,16 @@
 ---
 title: Cracking PDFs using hashcat and pdfcrack-ng
 description: My attempt to crack PDF in a CTF contest
-image: https://www.lifewire.com/thmb/sC-xsCCN9WdW9l5h-T6XqpuPGR0=/5697x3446/filters:fill(auto,1)/hacker-with-laptop-922359280-5c32d4a546e0fb00011bb991.jpg
+head:
+  - - meta
+    - property: og:type
+      content: website
+  - - meta
+    - property: og:image
+      content: https://www.lifewire.com/thmb/sC-xsCCN9WdW9l5h-T6XqpuPGR0=/5697x3446/filters:fill(auto,1)/hacker-with-laptop-922359280-5c32d4a546e0fb00011bb991.jpg
+  - - meta
+    - name: twitter:card
+      content: summary_large_image
 ---
 
 # Cracking PDFs using hashcat and pdfcrack-ng

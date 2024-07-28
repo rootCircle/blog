@@ -1,7 +1,16 @@
 ---
 title: Linux drama
 description: Beginner steps guide to Linux 
-image: https://logos-world.net/wp-content/uploads/2020/09/Linux-Logo-1996-present.png
+head:
+  - - meta
+    - property: og:type
+      content: website
+  - - meta
+    - property: og:image
+      content: https://logos-world.net/wp-content/uploads/2020/09/Linux-Logo-1996-present.png
+  - - meta
+    - name: twitter:card
+      content: summary_large_image
 ---
 # Linux Drama
 

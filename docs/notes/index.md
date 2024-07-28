@@ -1,7 +1,16 @@
 ---
 title: notes 
 description: Our notes directory
-image: https://static.vecteezy.com/system/resources/previews/000/503/997/original/vector-notes-icon-design.jpg
+head:
+  - - meta
+    - property: og:type
+      content: website
+  - - meta
+    - property: og:image
+      content: https://static.vecteezy.com/system/resources/previews/000/503/997/original/vector-notes-icon-design.jpg
+  - - meta
+    - name: twitter:card
+      content: summary_large_image
 sidebar: false
 aside: false
 ---

@@ -1,7 +1,16 @@
 ---
 title: nix package manager 
 description: My initial impressions of using nix as package manager 
-image: https://nixos.org/logo/nixos-logo-only-hires.png
+head:
+  - - meta
+    - property: og:type
+      content: website
+  - - meta
+    - property: og:image
+      content: https://nixos.org/logo/nixos-logo-only-hires.png
+  - - meta
+    - name: twitter:card
+      content: summary_large_image
 ---
 # nix package manager
 

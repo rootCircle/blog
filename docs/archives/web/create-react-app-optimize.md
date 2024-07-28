@@ -1,7 +1,16 @@
 ---
 title: Dark Art of decreasing create-react-app initialization time
 description: Learn how to I automated cra initialization, after getting fed up by cra init times.
-image: https://media.vlpt.us/images/devmoonsh/post/036d04db-3b13-4f8b-bb68-65c6c7039a19/image.png
+head:
+  - - meta
+    - property: og:type
+      content: website
+  - - meta
+    - property: og:image
+      content: https://media.vlpt.us/images/devmoonsh/post/036d04db-3b13-4f8b-bb68-65c6c7039a19/image.png
+  - - meta
+    - name: twitter:card
+      content: summary_large_image
 ---
 # Dark Art of decreasing create-react-app initialization time
 With recently jumping to React ecosystem, I was greatly surprised by high loading time on `create-react-app` on subsequent runs, sometime even crossing 3 minute mark. 

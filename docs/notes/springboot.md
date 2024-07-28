@@ -1,7 +1,16 @@
 ---
 title: SpringBoot Notes
 description: Springboot cheatsheet 
-image: https://download.logo.wine/logo/Spring_Framework/Spring_Framework-Logo.wine.png
+head:
+  - - meta
+    - property: og:type
+      content: website
+  - - meta
+    - property: og:image
+      content: https://download.logo.wine/logo/Spring_Framework/Spring_Framework-Logo.wine.png
+  - - meta
+    - name: twitter:card
+      content: summary_large_image
 ---
 # SpringNotes
 

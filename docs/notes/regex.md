@@ -1,7 +1,16 @@
 ---
 title: Regex 101
 description: Documented Regex as per Python re implementation
-image: https://d2h1bfu6zrdxog.cloudfront.net/wp-content/uploads/2022/04/coderpad-regex-the-complete-guide.jpg
+head:
+  - - meta
+    - property: og:type
+      content: website
+  - - meta
+    - property: og:image
+      content: https://d2h1bfu6zrdxog.cloudfront.net/wp-content/uploads/2022/04/coderpad-regex-the-complete-guide.jpg
+  - - meta
+    - name: twitter:card
+      content: summary_large_image
 ---
 # REGEXP 101
 ::: info

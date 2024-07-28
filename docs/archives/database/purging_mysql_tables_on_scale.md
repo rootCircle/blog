@@ -8,7 +8,7 @@ head:
       content: website
   - - meta
     - property: og:image
-      content: ./data/banner.jpg  
+      content: https://raw.githubusercontent.com/rootCircle/blog/main/docs/archives/database/data/banner.jpg 
   - - meta
     - name: twitter:card
       content: summary_large_image
@@ -107,7 +107,8 @@ CREATE TABLE new_table LIKE your_table;
 INSERT INTO new_table SELECT * FROM your_table WHERE <condition>;
 RENAME TABLE your_table TO temp_table, new_table TO your_table;
 INSERT INTO your_table SELECT * FROM temp_table WHERE <newer data post initiation of this process>;
-DROP TABLE temp_table; ```
+DROP TABLE temp_table; 
+```
 This script transfers data, renames the original table, reinserts the new data, and finally drops the old table.
 
 #### 3. Partitioning

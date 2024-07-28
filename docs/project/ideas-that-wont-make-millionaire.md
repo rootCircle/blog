@@ -1,7 +1,16 @@
 ---
 title: Ideas that won't make you millionaire
 description: WIP Collection of ideas that I initially thought were really cool, they still are btw :-) 
-image: https://tinkersphere.com/4855/2467.jpg
+head:
+  - - meta
+    - property: og:type
+      content: website
+  - - meta
+    - property: og:image
+      content: https://tinkersphere.com/4855/2467.jpg
+  - - meta
+    - name: twitter:card
+      content: summary_large_image
 ---
 # Ideas that won't make you millionaire
 

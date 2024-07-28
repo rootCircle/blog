@@ -1,7 +1,16 @@
 ---
 title: Tweaks 
 description: List of common tweaks and error fixes, that should be on internet dot com
-image: https://images.pexels.com/photos/577514/pexels-photo-577514.jpeg?cs=srgb&dl=light-light-bulb-idea-577514.jpg&fm=jpg
+head:
+  - - meta
+    - property: og:type
+      content: website
+  - - meta
+    - property: og:image
+      content: https://images.pexels.com/photos/577514/pexels-photo-577514.jpeg?cs=srgb&dl=light-light-bulb-idea-577514.jpg&fm=jpg
+  - - meta
+    - name: twitter:card
+      content: summary_large_image
 ---
 # Tweaks
 

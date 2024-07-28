@@ -1,7 +1,16 @@
 ---
 title: git not Github
 description: Common git commands cheatsheet
-image: https://miro.medium.com/v2/resize:fit:3840/1*fDwzjCH3qzhosC6DVel4ng.jpeg
+head:
+  - - meta
+    - property: og:type
+      content: website
+  - - meta
+    - property: og:image
+      content: https://miro.medium.com/v2/resize:fit:3840/1*fDwzjCH3qzhosC6DVel4ng.jpeg
+  - - meta
+    - name: twitter:card
+      content: summary_large_image
 ---
 # git not GitHub
 

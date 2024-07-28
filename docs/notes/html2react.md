@@ -1,7 +1,16 @@
 ---
 title: Converting HTML2React with Regex
 description: Initiative to convert HTML To React using Regex
-image: https://cdn0.iconfinder.com/data/icons/logos-brands-in-colors/128/react-512.png
+head:
+  - - meta
+    - property: og:type
+      content: website
+  - - meta
+    - property: og:image
+      content: https://cdn0.iconfinder.com/data/icons/logos-brands-in-colors/128/react-512.png
+  - - meta
+    - name: twitter:card
+      content: summary_large_image
 ---
 # Converting HTML2React with Regex
 

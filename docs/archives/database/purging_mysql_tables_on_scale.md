@@ -2,6 +2,16 @@
 title: Automating MySQL Data Purging Our Journey to Efficient Data Management
 description: Discover the ultimate guide to efficient data purging techniques for large-scale MySQL databases. Learn why we transitioned from manual purging to automated partitioning, compare different methods (Insert & Truncate, Chunk Delete, Partitioning) in detail, and understand the challenges and solutions we implemented. Our detailed analysis includes speed, data consistency, replication lag, scalability, and query performance. Perfect for database administrators and developers looking to optimize their MySQL data management and improve system performance.
 keywords: Data purging, MySQL optimization, database partitioning, Insert & Truncate, Chunk Delete, replication lag reduction, data consistency, database scalability, query performance improvement, automated data management
+head:
+  - - meta
+    - property: og:type
+      content: website
+  - - meta
+    - property: og:image
+      content: ./data/banner.jpg  
+  - - meta
+    - name: twitter:card
+      content: summary_large_image
 ---
 
 # Automating MySQL Data Purging: Our Journey to Efficient Data Management

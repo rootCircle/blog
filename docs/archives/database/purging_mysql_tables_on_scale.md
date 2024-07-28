@@ -25,7 +25,7 @@ Data purging became essential for us for several reasons:
 - **Increasing Scale and Data Throughput:** As our operations scaled, the volume of data increased exponentially, necessitating more frequent and efficient data purging strategies. We were having a monthly data throughput of 6+ TBs of data and it was growing at uncontrollable pace.
 - **Performance Costs:** Large volumes of unused data can degrade database performance, affecting query response times and overall system efficiency.
 
-At end, we don't need to store data indefinitely subject to regulatory reasons, as those data were essentially logs and metadata, so purging is viable approach in our case.
+In our case, there's no need to retain data indefinitely due to regulatory reasons, as the data primarily consists of logs and metadata. Therefore, purging the data is a viable approach.
 
 ## Approaches to Data Purging
 We explored three primary approaches to automate data purging in our MySQL clusters:
@@ -69,13 +69,13 @@ This script repeats the delete operation in chunks of 1000 rows until no more ro
 
 ![Insert & Truncate](./data/InsertTruncate.png)
 
-This approach involves copying the required data to a new table and then truncating the original table to remove unwanted data. This method is useful for scenarios where a significant portion of the table needs to be purged.
+This approach involves copying the required data to a new table in batches and then truncating the original table to remove unwanted data. This method is useful for scenarios where a significant portion of the table needs to be purged.
 
 ##### **Workflow:**
 1. Create a new table with the same schema as the original table.
-2. Insert the data to be retained into the new table in small chunks.
-3. Truncate the original table to delete all rows.
-4. Re-insert the retained data back into the original table from the new table.
+2. Insert the data to be retained into the new table in sizeable batches.
+3. Rename current table to a temporary table, and make new table as current table. 
+4. Re-insert the remaining data(that might have been written during batch insert) back into the current table from the temporary table.
 5. Drop the temporary table used for the operation.
 
 ##### **Advantages:**
@@ -85,25 +85,20 @@ This approach involves copying the required data to a new table and then truncat
 ##### **Disadvantages:**
 - **Non-Atomic Operation:** The process involves multiple steps, which are not atomic, leading to potential data inconsistency if interrupted.
 - **Temporary Disk Usage:** Requires additional disk space for the temporary table holding the retained data.
-- **Lossy:** This approach in non-locked situation will inherently ignore any UPDATE/DELETE done in between copy op, losing on data integrity.
-- **Replication Lag:** During manual purges we observed replication lag of more than 20~30 minutes between master and slave nodes, during purge, significantly affecting data consistency.
+- **Lossy:** In a non-locked situation, this approach will inherently ignore any updates or deletions made during the process, which may compromise data integrity.
+- **Replication Lag:** During manual purges, we observed replication lag of more than 20 minutes between master and slave nodes, significantly affecting data consistency.
 
 ##### **Implementation(Pseudocode):**
-
-:::warning INFO
-Ignoring the edge cases when data was inserted between copy for brevity!
-:::
 
 ```sql
 CREATE TABLE new_table LIKE your_table;
 
 --- Copy in small chunks if data volume is high
 INSERT INTO new_table SELECT * FROM your_table WHERE <condition>;
-TRUNCATE TABLE your_table;
-INSERT INTO your_table SELECT * FROM new_table;
-DROP TABLE new_table;
-```
-This script transfers data, truncates the original table, and then reinserts the retained data.
+RENAME TABLE your_table TO temp_table, new_table TO your_table;
+INSERT INTO your_table SELECT * FROM temp_table WHERE <newer data post initiation of this process>;
+DROP TABLE temp_table; ```
+This script transfers data, renames the original table, reinserts the new data, and finally drops the old table.
 
 #### 3. Partitioning
 
@@ -112,20 +107,20 @@ This script transfers data, truncates the original table, and then reinserts the
 Partitioning involves dividing a table into smaller, more manageable partitions based on a specified column, such as an ID or a DateTime column. This allows for efficient purging by dropping entire partitions instead of deleting individual rows.
 
 ##### **Workflow:**
-1. Modify the table schema to include partitioning based on a chosen column. (Not required, if partitioning based on PRIMARY KEY)
-2. Create partitions to divide the table data according to the partition key.
-3. For purging, drop partitions that contain no new data far from the retention period.
+1. Modify the table schema to include partitioning based on a chosen column.
+2. Create partitions to divide the table data according to the partition key and add `future` partition to account for future data writes.
+3. For purging, drop partitions that are well past the retention period and contain no new data.
 4. Create additional empty partitions to accommodate future data.
 
 ##### **Advantages:**
 - **Efficiency:** Dropping partitions is faster and more efficient than row-by-row deletion.
 - **Atomic Operation:** Partition operations are atomic, ensuring data consistency & integrity.
-- **Minimal Replication Lag:** Significantly reduces replication lag during purging. (in order of ms)
+- **Minimal Replication Lag:** Significantly reduces replication lag during purging. (to order of ms)
 
 ##### **Disadvantages:**
-- **Schema Changes:** Requires altering the table schema to introduce partitioning if using datetime column, as  
+- **Schema Changes:** Requires altering the table schema to introduce partitioning if using datetime column, as every unique key on the table must use every column in the table's partitioning expression. [1](https://dev.mysql.com/doc/refman/8.4/en/partitioning-limitations-partitioning-keys-unique-keys.html) 
 - **Complexity in Management:** Needs careful management of partition keys and partition lifecycle.
-- **Potential issues with JOIN queries:** While benchmarking we saw 60x slower queries performance on selected queries having JOINs, while it resolved with a simple `ANALYZE TABLE` on the partitioned table, but this needed more diagnosis.
+- **Potential issues with JOIN queries:** While benchmarking we saw 60x slower queries performance on selected queries having JOINs, while it resolved with a simple `ANALYZE TABLE` on the partitioned table, but this needed more thorough diagnosis.
 
 ##### **Implementation:**
 ```sql
@@ -138,6 +133,13 @@ PARTITION BY RANGE (PRIMARY KEY) (
 
 -- For purging (if p0 is expired)
 ALTER TABLE your_table DROP PARTITION p0;
+
+-- Adding more partitions
+ALTER TABLE tbl
+    REORGANIZE PARTITION future INTO (
+        p4 VALUES LESS THAN (5000000),
+        future    VALUES LESS THAN MAXVALUE
+    );
 ```
 This script sets up partitioning based on a primary key column and drops partitions as needed.
 
@@ -148,29 +150,23 @@ This script sets up partitioning based on a primary key column and drops partiti
 | **Speed**           | Moderate to Slow (2-3 hrs on 1 TB table)                                       | Slow                                                     | Blazingly Fast                                                     |
 |                     | Requires copying and renaming tables, which can be time-consuming for large datasets. | Deletes data in chunks, leading to slower overall process. | Drops entire partitions quickly, minimizing time required. |
 | **Data Consistency**| Can cause issues if data is updated during the process | Ensures data consistency, but the process is slower       | Ensures high consistency by dropping entire partitions atomically |
-| **Replication Lag** | High replication lag                                   | Moderate replication lag                                  | Minimal replication lag                                  |
-|                     | Significant lag due to large-scale data copying.       | Moderate lag as it deletes data in smaller chunks.        | Minimal lag since partitions are dropped swiftly.        |
+| **Replication Lag** | High replication lag                                   | High replication lag                                  | Minimal replication lag                                  |
 | **Implementation Complexity**| Moderate to High                                | Moderate                                                 | High                                                     |
 |                     | Needs handling of table renames and potential downtime | Requires careful management of chunk sizes and deletion intervals. | Requires schema changes, partition management, and complex setup. |
-| **Scalability**     | Limited                                                | Limited to Moderate                                       | High                                                     |
-|                     | Not suitable for very large datasets due to performance issues. | Can become inefficient with very large datasets.          | Scales well with very large datasets.                    |
+| **Scalability**     | Moderate                                                | Limited to Moderate                                       | High                                                     |
 | **Flexibility**     | High                                                   | High                                                     | Low to Moderate                                          |
 |                     | Flexible deletion criteria based on TTL and other factors. | Flexible with fine-grained control over deletion.        | Less flexible due to partition constraints and requirements. |
-| **Downtime Requirement**| Potential for significant downtime                 | Minimal downtime, but longer overall process              | Minimal to no downtime                                   |
-|                     | Requires downtime for large-scale data copying.        | Deletes data live on the table, requiring minimal downtime. | Partitions can be managed with minimal impact on live operations. |
-| **Table Lock Requirement**| May require lock, depending on implementation    | No table lock required                                    | No table lock required                                   |
-|                     | Lock may be required during the renaming process.      | Deletes data in chunks without locking the entire table.  | Drops partitions without locking the entire table.       |
+| **Downtime Requirement**| Potential for some downtime                 | Minimal downtime(live), but longer overall process              | Minimal to no downtime(live)                                   |
+| **Table Lock Requirement**| May require lock, depending on implementation (eg: during table rename)    | No table lock required                                    | No table lock required                                   |
 | **Query Performance**| No significant impact                                 | No significant impact                                     | Potential adverse impact, especially with joins          |
 | **Ease of Monitoring & Debugging**| Moderate                                   | Moderate to High                                          | Moderate to High                                         |
-|                     | Needs careful monitoring during copying and renaming.  | Requires detailed monitoring to ensure chunk deletions are processed correctly. | Requires monitoring of partition states and potential performance impacts. |
 | **Suitability for Large Data Sets**| Limited                                   | Limited                                                  | High                                                     |
-|                     | Performance issues with very large tables.             | Can be inefficient with high volumes of data.            | Designed to handle large volumes of data efficiently.    |
 
 ### Why we preffered Partitioning?
 
-We prefer partitioning due to its efficiency and reliability in handling large datasets. Here’s why I believe it’s the best approach:
+We prefer partitioning due to its efficiency and reliability in handling large datasets. Here’s why we believe it’s the best approach:
 
-- **Fast and Atomic:** Dropping partitions is significantly faster and ensures atomic operations, maintaining data consistency.
+- **Fast and Atomic:** Dropping partitions is significantly faster and ensures atomic operations, maintaining data integrity & consistency.
 - **Minimal Impact on Live Systems:** It reduces replication lag and avoids locking the entire table, ensuring smooth database operations.
 - **Scalability:** Partitioning efficiently manages large datasets, making it suitable for our scale of operations.
 
@@ -186,14 +182,14 @@ To implement partitioning, we needed to migrate our existing non-partitioned tab
 - **Scale:** Migrating large tables to a partitioned schema presented significant challenges.
 - **Live Data:** Ensuring minimal or no downtime during migration was critical to avoid impacting live operations.
 - **Schema Changes:** Implementing partitioning required schema modifications, which needed to be handled carefully to avoid disruptions.
-- **Lengthy process:** To account for replication lag, we intentionally have to keep this process slow for a reason, which can be a pain!
+- **Lengthy process:** To account for replication lag, we intentionally have to keep this process slow, which can be a pain to monitor!
 
 #### How We Migrated
 To overcome these challenges, we adopted the following strategies:
 
 - **Using ID as Partition Column:** Instead of using a DateTime column, we used the ID column as the partition key. This avoided the need for extensive schema changes and leveraged the primary key for efficient partitioning.
 - **Minimal Downtime:** We developed a automated pipeline to handle the migration process in stages, ensuring minimal impact on live systems.
-- **Minimal Labor:** The amount of Labor with Migration was paramount, so we developed a automated pipeline to automated migration! One only need to put the config in YAML and pipeline will automatically pick it up and migrate it using "INSERT & TRUNCATE" approach, accounting for edge cases as well. We ensured that read miss of hot data is minimal to extent that it can be safely ignored!  
+- **Minimal Labor:** The labor required for migration was significant, so we developed an automated pipeline to streamline the process. Users simply need to provide a YAML configuration, and the pipeline will automatically handle migration using an "INSERT & TRUNCATE" approach, accounting for edge cases as well. We ensured that read misses of hot data are minimized to the point where they can be safely ignored.
 
 ### How We Migrated
 Migrating our non-partitioned tables to partitioned tables required a carefully planned approach to minimize downtime and ensure data consistency. Here is a detailed breakdown of the process:
@@ -220,13 +216,14 @@ Migrating our non-partitioned tables to partitioned tables required a carefully 
 6. **Post-Migration Steps:**
    - After the switchover, we monitored the performance and behavior of the new partitioned tables to ensure everything was functioning as expected.
    - We also set up appropriate monitoring and alerting for the new partitioned tables.
+   We also added additional empty partitions for lookups to handle newer writes, in addition to the default future partition we already had.
 
 ### The Nitpicks
-Despite partitioning being our primary approach, we also needed an archival purge method for edge cases. This involved using insert & truncate or chunk delete depending on the volume of data to be purged. We preffered archival purge when we couldn't predict query performance on partitioned table or we couldn't bear the schemas changes on the table.
+Despite partitioning being our primary approach, we also needed an archival purge method for edge cases. This involved using insert & truncate or chunk delete depending on the volume of data to be purged. We preffered archival purge when we couldn't predict query performance on partitioned table or we couldn't bear the cost of schemas changes on the table.
 
 1. **Archival Purge:**
    - For smaller deletions, chunk delete was more efficient. We deleted data in small chunks iteratively to avoid locking the entire table.
-   - For larger deletions, insert & truncate was more appropriate. We copied the required data to a new table and truncated the old table. This method, while requiring significant downtime, was effective for handling large deletions.
+   - For larger deletions, insert & truncate was more appropriate. We copied the required data to a new table and dropped the old table.
 
 2. **Choosing the Right Approach:**
    - The decision between chunk delete and insert & truncate was based on the percentage of data to be deleted. If the data to be deleted was less than 20% of the total rows, chunk delete was used. For larger deletions, insert & truncate was the chosen method.
@@ -242,20 +239,17 @@ While considering different approaches to automate data purging, we evaluated ex
 1. **Scalability:**  
 Our database handles millions of rows daily and terabytes of data. Pt-archiver and Maatkit, while effective for smaller datasets, may not scale efficiently to our needs.
 
-2. **Complexity:**  
-Configuring these tools to meet our requirements involves complex setups, increasing the risk of misconfigurations and debugging challenges.
-
-3. **Monitoring and Debugging:**  
+2. **Monitoring and Debugging:**  
 We needed more granular monitoring and easier debugging than pt-archiver and Maatkit offer. Our custom solution provides detailed logging, alerting, and metrics specific to our needs.
 
-4. **Custom Requirements:**  
-Our custom solution allows flexible deletion strategies and incorporates specific business logic, which would be complex and inefficient to implement with third-party tools.
+3. **Complexity:**  
+Configuring these tools to meet our requirements involves complex setups, increasing the risk of misconfigurations and debugging challenges.
 
 ## Results
 The implementation of automated data purging yielded significant improvements:
 - **60x Decrease in Replication Lag:** The replication lag during purging operations was drastically reduced, ensuring smoother database operations.
 - **Terabytes of Disk Freed:** Efficient purging freed up substantial disk space, optimizing storage utilization and reducing costs.
-- **Time Saved:** Automated purging saves approximately 90+ hours annualy, previously spent on manual processes.
+- **Time Saved:** Automated purging saves approximately 90+ hours annually that were previously spent on manual processes.
 
 ## Conclusion
 Automating MySQL data purging transformed our data management practices, enhancing efficiency, reliability, and scalability. By adopting partitioning and addressing edge cases with hybrid approaches, we achieved significant operational improvements. This journey underscores the importance of continuously evolving data management strategies to keep pace with growing data volumes and operational demands.

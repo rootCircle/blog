@@ -42,6 +42,7 @@ git add .
 ``` bash
 git restore .
 git restore --staged . # To restore staged changes
+git rm --cached filename # To remove from staging area altogether
 ```
 
 ###  To remove untracked files / directories
@@ -106,6 +107,12 @@ rm .git
 
 ``` bash
 git branch new-branch
+```
+
+### Creating a orphan(empty) branch
+
+```bash
+git checkout --orphan new-branch
 ```
 
 ### Moving to new branch/commit(time-travelling)

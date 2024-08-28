@@ -14,9 +14,12 @@ head:
 ---
 # Introducing cpast: Finding missing edge cases in C.P. done easy
 
-<div class="youtube-video-container">
-<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/GnplmUQlzBo?si=MRV2m7cJGfQwgOnr" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-</div>
+<!-- <div class="youtube-video-container"> -->
+<!-- <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/GnplmUQlzBo?si=MRV2m7cJGfQwgOnr" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe> -->
+<!-- </div> -->
+<!---->
+
+<video controls="controls" src="./res/cpast_walkthrough.mp4" />
 
 [![Crates.io](https://img.shields.io/crates/d/cpast)](https://crates.io/crates/cpast)
 

@@ -19,13 +19,13 @@ aside: false
 
 Here are all the blogs I've written:
 
+* [Automating MySQL Data Purging at Scale](</archives/database/purging_mysql_tables_on_scale>)
 * [It was not /dev/null](</archives/misc/cost_of_not_initializing_variables>)
 * [Embracing Bugs: How Writing Imperfect Code Helps You Grow](</archives/misc/buggy_code>)
 * [Linux Drama](</archives/linux/linux_drama>)
 * [Nix](</archives/linux/nix>)
 * [Common Linux Tweaks](</archives/linux/tweaks>)
 * [React Optimizations](</archives/web/create-react-app-optimize>)
-* [Automating MySQL Data Purging at Scale](</archives/database/purging_mysql_tables_on_scale>)
 * [Writing better Systems: Lessons I learnt](</archives/misc/notes_to_self>)
 
 # Recommended Reads

@@ -136,16 +136,6 @@ Vertical scaling: Change capacity of existing instances.
 1. Hadoop distributed file system (HDFS): Distributed file system, where each Hadoop nodes operate on data that resides in their local storage.
 2. Yet Another Resource Negotiator (YARN):
 
-## Apache Hive
-
-## YARN
-
-## Apache Spark
-
-## SQL Basics using MySQL/mariadb
-
-## Java 8
-
 <hr>
 
 ## Some Questions

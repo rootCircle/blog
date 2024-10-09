@@ -12,378 +12,430 @@ head:
     - name: twitter:card
       content: summary_large_image
 ---
-# REGEXP 101
-::: info
-Might fix the formatting later :-)
-:::
+# Regex: Complete Guide
+
 ## Introduction
-This is short compiled notes on regexp, based completely on Python Docs for the same topic. For more detailed explaination, visit [here](https://docs.python.org/3/howto/regex.html#regex-howto).
 
-## Metacharcters
-They convey special meaning to the regular expression.
+These are compiled notes on regular expressions (regex), based on the official Python documentation. For a more detailed explanation, visit [Python Regex How-To](https://docs.python.org/3/howto/regex.html#regex-howto).
 
-These are the list of metacharacters used in Python and in general.
-```
+## Metacharacters
+
+Metacharacters convey special meanings in regular expressions. Below is a list of metacharacters used in Python:
+
+```txt
 . ^ $ * + ? { } [ ] \ | ( )
 ```
 
+| Symbol | Description |
+| :----: | ----------- |
+| `[ABC]`   | Matches either A, B, or C |
+| `[A-Z]`   | Matches any uppercase letter from A to Z |
+| `[^5]`    | Matches any character except 5 (caret must be at the start) |
+| `[5^]`    | Matches 5 or ^ (metacharacter inside a class has no special meaning) |
+| `\`       | Escapes any metacharacter or conveys special meaning (e.g., `\w`) |
+| `\w`      | Matches any alphanumeric character, equivalent to `[a-zA-Z0-9_]` |
+| `\d`      | Matches any digit, equivalent to `[0-9]` |
+| `\D`      | Matches any non-digit character, equivalent to `[^0-9]` |
+| `\s`      | Matches any whitespace character; equivalent to `[ \t\n\r\f\v]` |
+| `\S`      | Matches any non-whitespace character; equivalent to `[^ \t\n\r\f\v]` |
+| `\W`      | Matches any non-alphanumeric character; equivalent to `[^a-zA-Z0-9_]` |
 
-| Symbols | Description |
-| :---: | ----------------------------- |
-| [ABC]   | Matches either of A or B or C |
-| [A-Z]   | Matches either of A to Z | 
-| [^5]    | Match all except 5 (Caret must be at start) |
-| [5^]    | Match 5 or ^ (Metacharcter inside class has no special meaning) |
-| \       | To espace any metacharacter or to convey special meaning like \w |
-| \w 	  | Matches any alphanumeric character, equivalent to [a-zA-Z0-9_] |
-| \d      | Matches any digit, equivalent to [0-9] | 
-| \D 	  | Matches any non-digit character, equivalent to [^0-9] |
-| \s 	  | Matches any whitespace character; this is equivalent to the class [ \t\n\r\f\v] (including spaces) |
-| \S 	  | Matches any non-whitespace character; this is equivalent to the class [^ \t\n\r\f\v] |
-| \W      | Matches any non-alphanumeric character; this is equivalent to the class [^a-zA-Z0-9_] |
+These sequences can be used inside character classes, e.g., `[\s,.]`.
 
-These sequences can be used inside character class i.e., []
-eg - [\s,.]
+> [!NOTE]
+> Every metacharacter loses its identity in character classes.
 
-***EVERY METACHARACTERS LOSE THEIR IDENTITY IN CHARACTER CLASSES***
+## Repeating Elements
 
-## Repeating Things
-``` txt
+- `*` - Matches 0 or more occurrences of the preceding character or character class (**greedy**).
+  - Example:
+    - `ca*t` matches `ct`, `cat`, `caat`, `caaaaat`, etc.
+    - `a[bcd]*b` applied to the string 'abcbd':
+      - It first tries to match 'bcbd' with [bcd]*b.
+      - Then it checks abcb. This works, so it returns the output.
 
-* - preceded by a character or a character class, * tries to match maximum( >= 0) possible values of preeding syntax possible. 
-    Uses greedy algo i.e. tries to match maximum first then lesser and lesser and so on.
-	eg : 1
-	     ca*t will match ct, cat, caat, caaaa....aat etc
+- `+` - Matches 1 or more occurrences of the preceding character or character class.
+  - Example: `ca+t` matches `cat`, `caaaat`, but not `ct`.
 
-	2 : a[bcd]*b in 'abcbd'
-	    Will try to match bcbd with [bcd]*b :-|
-	    Then with 'abcb' :-). This works so return the output.
-	
-+ - same as *, but it matches 1 or more times, rather than 0 or more
-	eg : 1
-	     ca*t will match cat, caaa.........aaaat but not ct
+- `?` - Matches 0 or 1 occurrence of the preceding character or character class. (Making preceding element optional semantically).
+  - Example: `ca?t` only matches `ct` and `cat`.
 
-? - same as *, but it matches only 0 or 1 time. [Marking a character optional etc]
-	eg : 1
-	     ca?t will only match ct and cat
+- `{m,n}` - Matches at least `m` times and at most `n` times. Omitting `m` or `n` assumes `0` and `INFINITY`, respectively.
+  - Example: `ca{1,3}t` matches `cat`, `caat`, and `caaat`.
 
-{m,n} - same as *, but it will match atleast m times and atmost n times
-	 We can omit m or n, which will be presumed to be 0 and INFINITY respectively
-	 	
-		eg : 1
-		     ca{1:3}t will match only cat, caat, caaat
-{m} : specifies no of exact copies of previous RE
-```
+## More Metacharacters
 
-## [PYTHON SPECIFIC] Compiling Regex
-``` py
-    import re
+- `|` - Acts as the OR operator.
+  - Example: `Crow|Servo` matches either 'Crow' or 'Servo'.
 
-    p = re.compile('ab*')
-	
-    # OR
+- `^` - Matches the start of a string (or beginning of line if MULTILINE is set).
+  - Example: `^From` matches 'From Hi' but not 'A From Hi'.
 
-	p = re.compile('ab*', re.IGNORECASE) # IGNORECASE can be replaced with just re.I
-	# Multiple flags can be specified by bitwise OR-ing them; re.I | re.M sets both the I and M flags
+- `$` - Matches the end of a string or before a newline (with MULTILINE).
+  - Example: `}$` matches 'block}' but not 'block}  '.
 
-   	p.match("Hello, world")
+- `\A` - Matches the start of the string not lines, ignoring MULTILINE.
 
-	
-	# OR
-	re.match('ab*', "Hello, world") # Module level call
-	# Module level call caches the compiled regex, such that it isn't compiled between each call
-```
+- `\Z` - Matches the end of the string not lines, ignoring MULTILINE.
 
-## Backspace Plague
-``` txt
-   	For \\se to be passed in regex, we need to use \\\\se because of string.
-	Other alternative to overcome this is raw string denoted prefix r before string
+- `\b`: This is a zero-width assertion that matches at the beginning or end of a word. A word boundary is defined as a position where a word character (alphanumeric or underscore) is adjacent to a non-word character (like whitespace or punctuation).
 
-	eg : 1
-	     re.compile(r"\\se")
-```
+  **Example:**
 
-## Methods and Flags in Python
-``` txt
-   match() - Checks at start
-   search() - Scan throughout string
-   findall() - Scan all substring and return them as list of matching string (nothing else like span)
-   finditer() - Scan all substring and return them as iterator (methods can be called on this like group(), start(), end() etc)
+  ```python
+  p = re.compile(r"\bclass\b")
+  ```
 
-   match(), search() and finditer() functions returns a data defining range and other important infos and that can be accessed using following members
+  - This pattern will match the word "class" only when it appears as a standalone word.
+  - **Search in string:**
 
-	     Method/Attribute                                         Purpose
-   		group()					Return the string matched by the RE. Takes an optional attribute as string (for named group) or index(0 is the entire string).
-		start()					Return the starting position of the match
-		end()					Return the ending position of the match
-		span()					Return a tuple containing the (start, end) positions of the match
-		groupdict()				Return the named group in key : value in form of dictionary. [Only for Named Groups]
+    ```python
+    p.search('no class at all')  # Matches: <re.Match object; span=(3, 8), match='class'>
+    p.search('one subclass is')   # No match: None
+    ```
 
-	
+- `\B`: This zero-width assertion matches only when the current position is not at a word boundary. It is used to find positions that are inside words.
 
-  Flag
-	
-	Attribute in re classes(Flag)	                    Meaning
-	ASCII, A			Makes several escapes like \w, \b, \s and \d match only on ASCII characters with the respective property.
-	DOTALL, S			Make . match any character, including newlines.
-	IGNORECASE, I			Do case-insensitive matches.  Spam will match 'Spam', 'spam', 'spAM', or 'ſpam' (the latter is matched only in Unicode mode)
-	LOCALE, L			Do a locale-aware match. Depending on the language in which query is typed. Discouraged to use as slower.
-	MULTILINE, M			Multi-line matching, affecting ^ and $. ^ will check at start of each line and $ at end of each line rather than entire string.
-	VERBOSE, X (for ‘extended’)	Enable verbose REs, which can be organized more cleanly and understandably. 
-					Whitespaces are ignored expect when in character class or if using unscaped \.
+    **Example:**  
+    The pattern `r'\Bclass'` would look for "class" when it appears as part of a larger word, like "subclass", but not as a standalone word.
 
-	To insert flag without using re.compile use (?aiLmsux), but must be at start of string in Python  (>=v3.11)
-	
-	(?aiLmsux-imsx:...) : Will remove part of aiLmsux overlapping with imsx where aiLmsuxi is the corresponding flags
-
-	charref = re.compile(r"""
- 	&[#]                # Start of a numeric entity reference
- 	(
-	     0[0-7]+         # Octal form
-	   | [0-9]+          # Decimal form
-	   | x[0-9a-fA-F]+   # Hexadecimal form
-	 )
-	 ;                   # Trailing semicolon
-	""", re.VERBOSE)
-
-```
-
-## More metacharacters
-
-``` txt
-
-| -> Alteration or OR operator.
-	eg : 1
-		Crow|Servo will match either 'Crow' or 'Servo'
-
-^ -> Matches at beginning of string (at beginning of lines, if MULTILINE flag is set)
-	eg : 1
-		"^From" will match only in 'From Hi' but not in 'A From Hi'
-
-$ -> match at the end of string / line (re.MULTILINE) or location before \n.
-	eg : 1
-		"}$" will match 'block}' and 'block}\n' but not 'block}  ' 
-
-\A -> Matches at beginning of string not lines, ignoring re.MULTILINE flag
-
-\Z -> Similar to \A, \Z matches only at end of string
-
-\b -> This is a zero-width assertion that matches only at the beginning or end of a word. The end of a word is indicated by whitespace or a non-alphanumeric character.
-	eg : 1
-		p = re.compile(r"\bclass\b") # \b means backspace character with ascii 8, if string is not used as raw then unexpected issues may occur
-		p.search('no class at all') # <re.Match object; span=(3, 8), match='class'>
-		p.search('one subclass is') # None
-
-\B -> Another zero-width assertion, this is the opposite of \b, only matching when the current position is not at a word boundary.
-```
-## Side Note
-
-**Zero width assertion** : 
-They don’t cause the engine to advance through the string; instead, they consume no characters at all, and simply succeed or fail.
-This means that zero-width assertions should never be repeated, because if they match once at a given location, they can obviously be matched an infinite number of times.
+> [!NOTE] Zero-Width Assertions
+> Zero-width assertions do not advance the engine through the string. They consume no characters and simply succeed or fail.
+> This means that zero-width assertions should never be repeated, because if they match once at a given location, they can obviously be matched an infinite number of times.
 
 ## Grouping
-``` txt
 
-() -> To group content, to convey group of characters as a single entity
-	eg : 1
-		'(ab)*' will match 'ababababababab'
-	     2
-	      In Python, grouping is done starting with index value 0 which is entire regexp, 1 is the outermost group and so on goes on in nested structure. In simple words, group index is the count of bracket to that group from left.
+- `()` - Groups contents(characters) as a single entity.
+  - Example: `(ab)*` matches 'ababababababab'.
+  
+In Python, grouping starts with index value 0 (entire regex) and increments for nested groups. Index 1 is the outermost group and so on goes on in nested structure. In simple words, group index is the count of bracket to that group from left.
 
-	     	p = re.match(r'(ab(c))d', 'abcd')
-		p.groups() # ('abcd', 'abc', 'c')
-		p.group(1) # 'abc'
-		p.group(1, 0) # ('abc', 'abcd') i.e., gives corresponding value of regex group
+Example:
 
+```python
+p = re.match(r'(ab(c))d', 'abcd')
+p.groups()  # ('abcd', 'abc', 'c')
+p.group(1)  # 'abc'
+p.group(1, 0) # ('abc', 'abcd') i.e., gives corresponding value of regex group index 1 and 0 respectively
 ```
 
 ## Backreferences
-``` txt
-	Backreferences in a pattern allow you to specify that the contents of an earlier capturing group must also be found at the current location in the string. 
-	For example, \1 will succeed if the exact contents of group 1 can be found at the current position, and fails otherwise.
 
-	Not much useful while searching, but with string substitutions
+Backreferences allow specifying that the contents of an earlier _capturing group_ must match again.
 
-	eg : 1 : Detecting doubled word in string
+In simple words, `\1` will succeed if the exact contents of group 1 can be found at the current position, and fails otherwise.
 
-		p = re.compile(r'\b(\w+)\s+\1\b')
-		p.search('Paris in the the spring').group()
+Generally, not much useful while searching, but with string substitutions.
 
+- Example: Detecting doubled words:
+
+```python
+p = re.compile(r'\b(\w+)\s+\1\b')
+p.search('Paris in the the spring').group()
 ```
 
-## Non-capturing and named groups
-``` txt
+## Non-Capturing and Named Groups
 
-Helps access groups without using group index or number, just by a name.
+Non-capturing and named groups allow you to access groups without using group indices or numbers, just by name.
 
-(?:...) -> [... is nothing but the content of that group] Non capturing group i.e., groups are not added by index 
-	eg : 1
-		m = re.match("([abc])+", "abc")
-		m.groups() # ('c',)
+### Non-Capturing Groups
 
-		m = re.match("(?:[abc])+", "abc")
-		m.groups() # ()
+- **Syntax**: `(?:...)`
+- **Description**: This creates a non-capturing group, meaning the group is not assigned an index.
+  
+**Example**:
 
-There’s no performance difference in searching between capturing and non-capturing groups; neither form is any faster than the other.
+```python
+m = re.match("([abc])+", "abc")
+m.groups()  # Output: ('c',)
 
-(?P<name>...) -> [.. is just content to be grouped] [PYTHON SPECIFIC] Behave exactly like capturing group, but additionally associate a name with a group along with index.
-
-	eg : 1
-		p = re.compile(r'(?P<word>\b\w+\b)')
-		m = p.search( '(((( Lots of punctuation )))' )
-
-		m.group('word') # 'Lots'
-		m.group(1) # 'Lots'
-
-	   : 2
-
-		m = re.match(r'(?P<first>\w+) (?P<last>\w+)', 'Jane Doe')
-		m.groupdict() # {'first': 'Jane', 'last': 'Doe'}
-
+m = re.match("(?:[abc])+", "abc")
+m.groups()  # Output: ()
 ```
 
-## Backreferencing in named groups
-``` txt
+> [!NOTE]
+> There’s no performance difference between capturing and non-capturing groups; neither form is faster than the other.
 
-(?P=word) -> Backreferences the namedgroup 'word'.
-	eg : 1
-		p = re.compile(r'\b(?P<word>\w+)\s+(?P=word)\b')
+### [Python Specific] Named Groups
 
-		p.search('Paris in the the spring').group() # 'the the'
+- **Syntax**: `(?P<name>...)`
+- **Description**: This behaves like a capturing group but additionally associates a name(here `name`) with the group along with its index.
 
+**Example**:
+
+```python
+p = re.compile(r'(?P<word>\b\w+\b)')
+m = p.search('(((( Lots of punctuation )))')
+
+m.group('word')  # Output: 'Lots'
+m.group(1)       # Output: 'Lots'
+
+m = re.match(r'(?P<first>\w+) (?P<last>\w+)', 'Jane Doe')
+m.groupdict()    # Output: {'first': 'Jane', 'last': 'Doe'}
 ```
 
-## Lockahead assertions
-``` txt
-ZERO-WIDTH ASSERTION : Engine doesn't advance to next characters while searching
+### [Python Specific] Backreferencing in Named Groups
 
-(?=...) --> Positive Lookahead assertion. Succeeds if contained regexp successfully matches.
-(?!...) --> Negative Lookahead assertion. Succeeds if contained regexp doesn't match at current position in string.
-(?<=...) --> Lookbehind assertion. Succeeds if contained RE successfully matches for string behind current position. It will only check for fixed size, so a* or a+ etc are not allowed as Valid RE in this.
-(?<!...) --> Negative lookbehind assertion. Succeeds if current position is not preceded by a match for ...
-(?(id/name)yes-pattern|no-pattern) : Will try to match with yes-pattern if the group with given id or name exists, and with no-pattern if it doesn’t. no-pattern is optional and can be omitted.
+- **Syntax**: `(?P=name)`
+- **Description**: Backreferences the named group specified by name(here `name`).
 
-	eg  : 1
-		.*[.](?!bat$)[^.]*$  for checking filename.extension excluding bat extension
-		  The negative lookahead means: if the expression bat doesn’t match at this point, try the rest of the pattern; 
-		  if bat$ does match, the whole pattern will fail. 
-		  The trailing $ is required to ensure that something like sample.batch, where the extension only starts with bat, will be allowed. 
-		  The [^.]* makes sure that the pattern works when there are multiple dots in the filename.
-		  
-		  A similar solution without using lockhead would indeed look like this .*[.]([^b].?.?|.[^a]?.?|..?[^t]?|.{4,})$
+**Example**:
 
-	    : 2
-	    	.*[.](?!bat$|exe$)[^.]*$
-		Exclude both exe and bat extension
-
-
+```python
+p = re.compile(r'\b(?P<word>\w+)\s+(?P=word)\b')
+p.search('Paris in the the spring').group()  # Output: 'the the'
 ```
 
-## Python specific methods
-``` txt
+## Lookahead Assertions
 
-.split(string, maxsplit=0) : Split the string into a list, splitting it wherever the RE matches. maxsplit is optional, but tell the count of max split to be performed(for non-zero value)
+Zero-width assertions that allow you to assert whether a pattern can be matched without consuming characters.
 
-	eg : 1
-		p = re.compile(r'\W+')
-		p.split('This is a test, short and sweet, of split().') # ['This', 'is', 'a', 'test', 'short', 'and', 'sweet', 'of', 'split', '']
-	 If capturing parentheses'( )' are used in the RE, then delimiter value(here ' ' space is also returned in list) are also returned as part of the list. 
+- **Positive Lookahead**: `(?=...)` - Succeeds if the contained regex successfully matches.
+- **Negative Lookahead**: `(?!...)` - Succeeds if the contained regex does not match at the current position.
+- **Lookbehind**: `(?<=...)` - Succeeds if the contained regex matches behind the current position (fixed size only).
+- **Negative Lookbehind**: `(?<!...)` - Succeeds if the current position is not preceded by a match for the contained regex.
+- **Conditional Matching**: `(?(id/name)yes-pattern|no-pattern)` - Matches with `yes-pattern` if the group with given `id` or `name` exists, otherwise matches with `no-pattern`.
 
-.sub(replacement, string, count = 0) : Find all substrings where the RE matches, and replace them with a different string and returns it. count is an optional argument specifying maximum allowed substitutions
+### Example
 
-.subn() : Does the same thing as sub(), but returns the new string and the number of replacements
+1. Checking filename.extension excluding the `.bat` Extension
 
-Empty matches are replaced only when they’re not adjacent to a previous empty match.
+  - Pattern: `.*[.](?!bat$)[^.]*$`
 
-	p = re.compile('x*')
+  - **Explanation**:
+    - If the expression "bat" doesn’t match at this point, the pattern will continue to evaluate the rest.
+    - If `bat$` does match, the entire pattern will fail.
+    - The trailing `$` is necessary to allow filenames like `sample.batch`, where the extension starts with "bat" but isn’t exactly "bat".
+    - The `[.]*` portion ensures that the pattern functions correctly for filenames with multiple dots.
 
-	p.sub('-', 'abxd') # '-a-b--d-'
+  - **Alternative Without Lookahead**:
+    `.*[.]([^b].?.?|.[^a]?.?|..?[^t]?|.{4,})$`
 
-NOTE : IN RUST the similar command will output, -a-b-d- rather than -a-b--d-
+2. Excluding Both `.bat` and `.exe` Extensions
 
-Backreferences while substitution are replaced with corresponding group in RE. 
+  - Pattern: `.*[.](?!bat$|exe$)[^.]*$`
 
-\g<name> : use the substring matched by group named name
-	eg : 1
-		p = re.compile('section{ (?P<name> [^}]* ) }', re.VERBOSE)
+  - **Explanation**:
+    - This pattern works similarly to the first example but excludes both `.bat` and `.exe` extensions.
 
-		p.sub(r'subsection{\1}','section{First}') # 'subsection{First}'
-		p.sub(r'subsection{\g<1>}','section{First}') # 'subsection{First}'
-		p.sub(r'subsection{\g<name>}','section{First}')# 'subsection{First}'
+## Non-Greedy Quantifiers
 
-Function too can be passed to sub function for replacement argument.
+Non-greedy quantifiers match as little text as possible, denoted by `?` postfix. They are represented as follows:
 
-	eg : 1
-		def hexrepl(match):
+- `*?`  → Matches zero or more occurrences, trying to match as little text as possible.
+- `+?`  → Matches one or more occurrences, trying to match as little text as possible.
+- `??`  → Matches zero or one occurrence, trying to match as little text as possible.
+- `{m,n}?` → Matches between `m` and `n` occurrences, trying to match as little text as possible.
 
-		    "Return the hex string for a decimal number"
+## Possessive Quantifiers
 
-		    value = int(match.group())
+Possessive quantifiers, denoted with a `+` postfix, which unlike the true greedy quantifiers _do not allow backtracking_ when the expression following it fails to match. They attempt to match the maximum possible text without revisiting previous matches:
 
-		    return hex(value)
+- `*+`  → Equivalent to `*`, but does not allow backtracking.
+- `++`   → Equivalent to `+`, but does not allow backtracking.
+- `?+`   → Equivalent to `?`, but does not allow backtracking.
 
+### Example
 
-		p = re.compile(r'\d+')
+For the regex pattern `aa*+a`, it will not match `aaaa` because `a*` consumes all remaining `a`s (the last three).
 
-		p.sub(hexrepl, 'Call 65490 for printing, 49152 for user code.')
-		'Call 0xffd2 for printing, 0xc000 for user code.'
+## Additional Regular Expression Features
 
+- **Atomic Grouping**: `(?>...)`:  Matches the maximum possible pattern without allowing backtracking. This means that if the pattern inside the atomic group matches but the overall pattern fails later, the regex engine will not reconsider the match in the atomic group.
+- **Comments**: `(?#...)`: Allows you to add comments within the regex for clarity.
 
+## Python-Specific
 
-(?i)... --> Case insensitive search
-	eg : 1
-		(?i)b+ matches bbbb, BBbB, B etc
+### Compiling Regex
 
+```python
+import re
 
-PROBLEMS WITH re module :
-Can be slower with fixed string matching / substitution
+p = re.compile('ab*')
+# OR
+p = re.compile('ab*', re.IGNORECASE)  # IGNORECASE can be replaced with re.I
+# Multiple flags can be specified with bitwise OR (e.g., re.I | re.M sets both flags)
 
-Use re.search() as it is more optimized than re.match() if first character is not to be searched
+p.match("Hello, world")
 
+# OR
+re.match('ab*', "Hello, world")  # Module-level call
+# Module-level call caches the compiled regex, such that it isn't compiled between each call
 ```
 
-## Non-greedy quantifiers
-``` txt
+### Backslash Plague
 
-*? --> Replica of *, but tries to match as little text as possible
-+? --> Replica of +, but tries to match as little text as possible
-?? --> Replica of ?, but tries to match as little text as possible
-{m,n}? --> Replica of {m,n} ,but tries to match as little text as possible
+To include a backslash (\\) in a regex, use double backslashes (\\\\) because of string handling. Alternatively, use a raw string by prefixing with `r`.
 
-POSSESSIVE QUANTIFIERS '+ POSTFIX'
-*+, ++, ?+ --> For *, +, ? . Unlike the true greedy quantifiers, these do not allow back-tracking when the expression following it fails to match. It will match maximum possible RE without backtracking.
-	eg : 1
-		"aa*+a" will not match aaaa, because a* will take all remaining 3 a.
+Example:
 
-DON'T USE WHITESPACES FOR STYLING UNLESS WITH re.VERBOSE
-pat = re.compile(r"""
- \s*                 # Skip leading whitespace
- (?P<header>[^:]+)   # Header name
- \s* :               # Whitespace, and a colon
- (?P<value>.*?)      # The header's value -- *? used to
-                     # lose the following trailing whitespace
- \s*$                # Trailing whitespace to end-of-line
+```python
+re.compile(r"\\se")
+```
+
+### Methods and Flags
+
+#### **Methods**
+
+- `match()` - Checks for a match at the start of the string.
+- `search()` - Scans throughout the string for a match.
+- `findall()` - Scan all substring and returns a list of all matching substrings. (nothing else like span)
+- `finditer()` - Scan all substring and returns an iterator of matching substrings. (methods like group(), start(), end() etc can be called on this)
+
+#### **Attributes for Match Objects**
+
+| Method/Attribute | Purpose |
+| ---------------- | ------- |
+| `group()`        | Returns the matched string. Takes an optional attribute as string (for named group) or index(0 is the entire string). |
+| `start()`        | Returns the starting position of the match. |
+| `end()`          | Returns the ending position of the match. |
+| `span()`         | Returns a tuple containing the (start, end) positions of the match. |
+| `groupdict()`    | Returns named groups in key-value form (only for named groups). |
+
+#### **Flags**
+
+| Flag            | Meaning |
+| --------------- | ------- |
+| `ASCII, A`      | Makes several escapes like `\w`, `\b`, `\s` and `\d` match only on ASCII characters with the respective property. |
+| `DOTALL, S`     | Makes `.` match any character, including newlines. |
+| `IGNORECASE, I` | Performs case-insensitive matches. (eg: Spam will match 'Spam', 'spam', 'spAM', or 'ſpam'. The latter is matched only in Unicode mode) |
+| `LOCALE, L`     | Locale-aware matches depending on the language in which query is typed (slower). |
+| `MULTILINE, M`  | Multi-line matching, affects `^` and `$`, matching start/end of each line rather than entire string. |
+| `VERBOSE, X`    | Enables verbose REs; ignores whitespace except in character classes. |
+
+When using whitespace for styling in regular expressions, it is advisable to utilize the `re.VERBOSE` flag to enhance readability. Here’s an example:
+
+```python
+charref = re.compile(r"""
+    &[#]                # Start of a numeric entity reference
+    (
+        0[0-7]+         # Octal form
+      | [0-9]+          # Decimal form
+      | x[0-9a-fA-F]+   # Hexadecimal form
+    )
+    ;                   # Trailing semicolon
 """, re.VERBOSE)
-
-
-SOME MORE RE
-
-(?>...) --> Gulps maximum possible matching pattern
-
-(?#...) --> Comments in RE
-
-()
-
 ```
+
+- To insert flags without using `re.compile`, use `(?aiLmsux)` at the start of the regex string in Python(>=3.11).
+- `(?aiLmsux-imsx:...)` will remove part of `aiLmsux` overlapping with `imsx` where `aiLmsuxi` is the corresponding flags.
+
+### Split Method
+
+- **Syntax**: `.split(string, maxsplit=0)`
+- **Description**: Splits the string into a list wherever the regex matches. `maxsplit` controls the maximum number of splits.
+
+**Example**:
+
+```python
+p = re.compile(r'\W+')
+p.split('This is a test, short and sweet, of split().')  # Output: ['This', 'is', 'a', 'test', 'short', 'and', 'sweet', 'of', 'split', '']
+```
+
+If capturing parentheses `( )` are used in the RE, then delimiter value (here ' ' \<space\> is also returned in list) are also returned as part of the list.
+
+### Substitution Methods
+
+#### sub
+
+- **Syntax**: `.sub(replacement, string, count=0)`
+- **Description**: Replaces all substrings where the regex matches with a different string.
+
+- **Example**:
+
+```python
+p = re.compile('x*')
+p.sub('-', 'abxd')  # Output: '-a-b--d-'
+```
+
+#### subn
+
+- **Syntax**: `.subn(replacement, string, count=0)`
+- **Description**: Replaces all substrings where the regex matches with a different string and returns the new string and the number of replacements in a tuple.
+
+- **Example**:
+
+```python
+p = re.compile('x*')
+p.subn('-', 'abxd') # Outputs: ('-a-b--d-', 5)
+('-a-b--d-', 5)
+```
+
+> [!NOTE] IMPORTANT
+> Empty matches are replaced only when they’re not adjacent to a previous empty match.
+
+> [!NOTE] Anomaly with other languages/standards
+> In other programming language like Rust, the similar command will output `-a-b-d-` rather than `-a-b--d-`. See [#Reference](#reference) for more info.
+
+#### Backreferences in Substitution
+
+Backreferences allow you to use substrings matched by groups in a regex pattern during substitution.
+
+##### Using Named Groups
+
+- **Syntax**: `\g<name>` refers to the substring matched by the group named `name`(or any other name you want).
+
+**Example**:
+
+```python
+import re
+
+p = re.compile(r'section{ (?P<name> [^}]* ) }', re.VERBOSE)
+
+# Substituting using group 1
+result1 = p.sub(r'subsection{\1}', 'section{First}')  # 'subsection{First}'
+
+# Substituting using backreference with group number
+result2 = p.sub(r'subsection{\g<1>}', 'section{First}')  # 'subsection{First}'
+
+# Substituting using named group
+result3 = p.sub(r'subsection{\g<name>}', 'section{First}')  # 'subsection{First}'
+```
+
+#### Using Functions for Replacement
+
+You can also pass a function to the `sub()` method for more complex substitutions.
+
+**Example**:
+
+```python
+def hexrepl(match):
+    """Return the hex string for a decimal number."""
+    value = int(match.group())
+    return hex(value)
+
+p = re.compile(r'\d+')
+
+# Substituting using the hexrepl function
+result4 = p.sub(hexrepl, 'Call 65490 for printing, 49152 for user code.')
+# Output: 'Call 0xffd2 for printing, 0xc000 for user code.'
+```
+
+### Case Insensitive Search
+
+- **Syntax**: `(?i)...`
+  
+**Example**:
+
+```python
+(?i)b+  # Matches bbbb, BBbB, B, etc.
+```
+
+> [!TIP] Performance Note
+> The `re` module can be slower for fixed string matching/substitution. Use `re.search()` as it is optimized compared to `re.match()` when the first character is not required to be searched.
 
 ## Notes to self
-Use HTML or XML parser module for parsing regex, instead of regex. (Because of edge-cases)
+
+- Use HTML or XML parser module for parsing regex, instead of regex. (Because of edge-cases)
+- Use `re.VERBOSE` for clearer and readable regex patterns.
+- Be cautious with performance when using the `re` module for fixed string matching or substitution.
 
 ## Practice
+
 - [Regex101](https://regex101.com/)
 
 ## Reference
+
 - [Regex Python](https://docs.python.org/3/howto/regex.html#regex-howto)
 - [re docs](https://docs.python.org/3/library/re.html)
 - [Python's inconsistent behavior with empty matches with the Rust's regex crate](https://github.com/rust-lang/regex/discussions/1164)

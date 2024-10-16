@@ -23,6 +23,9 @@ hero:
     - theme: alt
       text: Academic Notes
       link: https://rootcircle.is-a.dev/acads/
+    - theme: alt
+      text:  🔗View my resume
+      link: https://resumerootcircle.vercel.app/
 ---
 
 

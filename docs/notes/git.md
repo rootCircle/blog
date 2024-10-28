@@ -288,6 +288,7 @@ git revert HEAD~x # where x is x+1th commit one wanna rollback to
 git rebase --interactive HEAD~n # n is the number of commit you want to squash
 # calling above command will open a terminal
 # replace `pick` with `s` to squash a commit i.e., to remove.
+git rebase -i --root main # alternative if rebase from start
 git push --force
 ```
 
@@ -324,6 +325,18 @@ git reset commithash
 - commithash being the first 7 characters of the commit hash we found in the log
 - one can rollback the reset, if he/she knows the final hash
 
+### Merging commits of unrelated repo
+
+To avoid merge conflicts, move the contents of one repo to separate folder before merging
+
+``` bash
+git config --local rerere.enabled 1
+git config --local rerere.autoupdate true
+git remote add temp <path/to/repo>
+git fetch --all --tags
+git merge temp/main --allow-unrelated-histories
+git remote remove temp
+```
 ## See also
 - [Learn Git - The easy way](https://animeshz.github.io/site/blogs/git.html#other-useful-stuffs)
 - [Using git for effective collaboration ](https://animeshz.github.io/site/blogs/using-git-for-effective-collaboration.html)

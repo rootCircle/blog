@@ -24,7 +24,7 @@ head:
 
 ## Introduction
 
-Last week, I was benchmarking one of my tools named [cpast](https://github.com/rootCircle/cpast) with [hyperfine](https://github.com/sharkdp/hyperfine), and I observed something strange! With the completion of every other odd benchmark, my PC started to hang after a few seconds! The memory usage was spiking a lot ***after*** the benchmark was complete. I was pretty sure, it was not a memory leak, as I was not [leaking any memory intentionally](https://stackoverflow.com/questions/55553048/is-it-possible-to-cause-a-memory-leak-in-rust) and cpast was written in Rust as well, with all memory safety features built-in!
+Last week, I was benchmarking one of my tools named [cpast](https://github.com/rootCircle/cpast_mono) with [hyperfine](https://github.com/sharkdp/hyperfine), and I observed something strange! With the completion of every other odd benchmark, my PC started to hang after a few seconds! The memory usage was spiking a lot ***after*** the benchmark was complete. I was pretty sure, it was not a memory leak, as I was not [leaking any memory intentionally](https://stackoverflow.com/questions/55553048/is-it-possible-to-cause-a-memory-leak-in-rust) and cpast was written in Rust as well, with all memory safety features built-in!
 
 ![Memory usage of orphan process after few seconds](./data/orphan_memusage.png)
 

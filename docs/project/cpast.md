@@ -179,7 +179,7 @@ As **cpast** stands as a valuable tool for code testing and analysis, the journe
 
 Ready to elevate your CP experience? Dive into the world of cpast and let it handle the heavy lifting while you focus on crafting winning code!
 
-[Check out cpast on GitHub](https://github.com/rootCircle/cpast)
+[Check out cpast on GitHub](https://github.com/rootCircle/cpast_mono)
 
 [cpast on crates.io](https://crates.io/crates/cpast)
 

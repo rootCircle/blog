@@ -81,7 +81,7 @@ Presto also applies dynamic filtering that can significantly improve the perform
 
 ## MapReduce
 
-![MapReduce example](./assets/distributed_systems/mapreduce_cc_bytemonk.png)
+![MapReduce example](/notes/mapreduce_cc_bytemonk.png)
 source: [Video](https://www.youtube.com/watch?v=cHGaQz0E7AU)
 
 

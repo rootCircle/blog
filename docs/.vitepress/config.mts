@@ -14,7 +14,7 @@ export default defineConfig({
       { text: 'Home', link: '/' },
       { text: 'Blog', link: '/archives/' },
       { text: 'Projects', link: '/project/' },
-      { text: 'Start Guide', link: '/start-guide/' },
+      { text: 'Start Guide', link: '/start_guide/' },
       { text: 'Notes', link: '/notes/' },
     ],
 
@@ -23,41 +23,42 @@ export default defineConfig({
         text: 'Blogs',
         items: [
           { text: 'MySQL Data Purging at Scale', link: '/archives/database/purging_mysql_tables_on_scale' },
-          { text: 'It was not /dev/null', link: '/archives/misc/cost_of_not_initializing_variables'},
-          { text: 'Linux Drama', link: '/archives/linux/linux_drama'},
-          { text: 'React Init Optimization', link: '/archives/web/create-react-app-optimize'},
-          { text: 'Embracing Bugs', link: '/archives/misc/buggy_code'},
-          { text: 'Some Tweaks', link: '/archives/linux/tweaks'},
-          { text: 'Nix', link: '/archives/linux/nix'},
+          { text: 'It was not /dev/null', link: '/archives/misc/cost_of_not_initializing_variables' },
+          { text: 'Linux Drama', link: '/archives/linux/linux_drama' },
+          { text: 'React Init Optimization', link: '/archives/web/create-react-app-optimize' },
+          { text: 'Embracing Bugs', link: '/archives/misc/buggy_code' },
+          { text: 'Some Tweaks', link: '/archives/linux/tweaks' },
         ]
       },
       {
         text: 'Projects',
         items: [
-          { text: 'cpast', link: '/project/cpast'},
-          { text: 'Ideas that won\'t make you millionaire', link: '/project/ideas-that-wont-make-millionaire'}
+          { text: 'cpast', link: '/project/cpast' },
+          { text: 'cpast 10k special', link: '/project/cpast_10k' },
+          { text: 'Ideas that won\'t make you millionaire', link: '/project/ideas_that_wont_make_millionaire' },
+          { text: 'Summer Projects to pick', link: '/project/summer_projects' },
         ]
       },
       {
         text: 'Start Guide',
         items: [
-          { text: 'Assembly 101', link: '/start-guide/assembly' }
+          { text: 'Assembly 101', link: '/start_guide/assembly' }
         ]
       },
       {
         text: 'Notes',
         items: [
-          { text: 'Distributed Systems', link: '/notes/distributed_systems'},
-          { text: 'git', link: '/notes/git'},
-          { text: 'Regex Notes', link: '/notes/regex'},
-          { text: 'PDF Cracking', link: '/notes/pdfcrack'},
-          { text: 'SpringBoot Notes', link: '/notes/springboot'},
-          { text: 'HTML to React Initiative', link: '/notes/html2react'},
+          { text: 'Distributed Systems', link: '/notes/distributed_systems' },
+          { text: 'git', link: '/notes/git' },
+          { text: 'Regex Notes', link: '/notes/regex' },
+          { text: 'PDF Cracking', link: '/notes/pdfcrack' },
+          { text: 'SpringBoot Notes', link: '/notes/springboot' },
+          { text: 'Notes to self', link: '/archives/misc/notes_to_self' },
+          { text: 'HTML to React Initiative', link: '/notes/html2react' },
+          { text: 'Nix', link: '/archives/linux/nix' },
         ]
       },
     ],
-    
-
     socialLinks: [
       { icon: 'github', link: 'https://github.com/rootCircle/blog' }
     ],

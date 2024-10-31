@@ -19,7 +19,5 @@ aside: false
 
 I have written some awesome guides on these topics
 
-* [Introduction to assembly](</start-guide/assembly>)
-
-
+* [Introduction to assembly](</start_guide/assembly>)
 

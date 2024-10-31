@@ -7,7 +7,7 @@ head:
       content: website
   - - meta
     - property: og:image
-      content: https://raw.githubusercontent.com/rootcircle/blog/main/docs/archives/database/data/banner.jpg
+      content: https://raw.githubusercontent.com/rootcircle/blog/main/docs/public/archives/database/banner.jpg
   - - meta
     - name: twitter:card
       content: summary_large_image
@@ -28,7 +28,7 @@ Simple-sounding problems can become a real pain when scaled; what works for ten 
 
 ## Introduction
 
-![Banner Image Placeholder](./data/banner.jpg)
+![Banner Image Placeholder](/archives/database/banner.jpg)
 
 In the fast-moving world of data management, managing large amounts of data effectively is key to keeping databases running smoothly. When data volumes grow, manual data cleaning can become difficult and prone to mistakes. To tackle this problem, many people turn to automating cleaning data in MySQL. This blog explains how to set up automated data cleaning, covers common challenges, and offers solutions for better data management.
 
@@ -48,7 +48,7 @@ There are three primary approaches to purge tables in MySQL clusters:
 
 ### 1. Chunk Delete
 
-![Chunk Delete](./data/ChunkDelete.png)
+![Chunk Delete](/archives/database/ChunkDelete.png)
 
 Chunk deletion involves breaking down the delete operation into smaller, manageable chunks instead of attempting to delete large volumes of data in a single transaction. This minimizes locking and reduces the risk of replication lag.
 
@@ -92,7 +92,7 @@ This script repeats the delete operation in chunks of 1000 rows until no more ro
 
 ### 2. INSERT & TRUNCATE
 
-![Insert & Truncate](./data/InsertTruncate.png)
+![Insert & Truncate](/archives/database/InsertTruncate.png)
 
 This approach involves copying the required data to a new table in batches and then truncating the original table to remove unwanted data. This method is useful for scenarios where a significant portion of the table needs to be purged.
 
@@ -168,7 +168,7 @@ This script transfers data, renames the original table, reinserts the new data, 
 
 ### 3. Partitioning
 
-![Partitioning Approach](./data/PartitionPurge.png)
+![Partitioning Approach](/archives/database/PartitionPurge.png)
 
 > [!NOTE] Partition & Performance
 > It is so tempting to believe that partitioning will solve performance problems. But it is so often wrong.

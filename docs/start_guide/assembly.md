@@ -14,7 +14,7 @@ head:
 ---
 # Getting Started with Assembly
 
-![Meme](data/bannermeme.jpg)
+![Meme](/start_guide/bannermeme.jpg)
 
 Clickbait! Isn't it? These days when everyone want to indulge into trending tech like Blockchain & Machine Learning, you might question, why are you here? Good that you ask, because what you are going to learn with this blog is, if not the most interesting, is the most aggressive & performant language. Trust me, it's not C.
 
@@ -61,13 +61,13 @@ Every time, you do something on your Mac or PC, a instruction is generated for y
 Before, it all gets too overwhelming for you all, remember them just as names, put a blind eye on their function, unless they seems to become important. This is a classic CS50x approach, practiced by millions students around the globe, when getting started with C for the first time. It's ok, if you aren't able to grasp one or two things, what is more important is to understand rather than memorize the jargons.
 
 ### Memory & R.A.M.
-![Memory Grid](data/memory.png)
+![Memory Grid](/start_guide/memory.png)
 
 So, getting back, we were talking about how information are stored in memory. Actually, think of your RAM chip as a huge 2D M x N grids, where each block contains some information. When we deal with those large number of grids, it's more important that you assign some identifying information to each grid, such that we can reference them later easily, without any ambiguity. In terms of computer world, we call such references, memory address. Memory address are nothing special but a numbered address, where first box is 0, second is 1 and so on till the capacity of entire grid. In general programming world, memory are represented using [hexadecimal](https://www.google.com/search?q=hexadecimal) number instead of [decimals](https://en.wikipedia.org/wiki/Decimal) as a standard notation. However, if you are unfamiliar with it, then can completely skip that part. 
 
 ### Memory Hierarchy and Registers
 
-![Memory Hierarchy](data/memory-heirarchy.png)
+![Memory Hierarchy](/start_guide/memory-heirarchy.png)
 
 As we now know about those boxes and grid, now comes the interesting part, the rise of a new problem. The problem is, with having so many boxes in a grid, it can soon become pretty problematic. Let me explain, why. Assume a situation, you are the captain of a football team, and you need to assist your team in making one goal. So, information need to transmitted only between 10 members only (excluding captain). Now assume, a much bigger team having hundreds if not thousand members in the team. Then how difficult it will be for the captain to guide the team. 
 
@@ -122,7 +122,7 @@ Frequently used instructions include MOV, ADD, SUB, LOAD, JUMP, CALL, etc. Expla
 
 ## Writing Your first assembly code
 
-![Meme](data/program.jpg)
+![Meme](/start_guide/program.jpg)
 
 1. Open your favorite text editor and make a new C file, let's say `asmGuide.c`.
 
@@ -214,7 +214,7 @@ Now, to run your code, simply type `./file` or `.\file.exe` in terminal, dependi
 
 ### Common Registers for 32bit Systems
 
-![Registers](data/th-registers.jpg)
+![Registers](/start_guide/th-registers.jpg)
 
 Now, in normal assembly code, we deal a lot with registers, think of them as normal variables that are designed to store and retrieve some specific values and are generally proposed for some specialized functions. Some of the common registers include
 
@@ -382,7 +382,7 @@ ax ; will hence store the required data, refer Register Diagram above for info i
 
 ### System calls
 
-![Common System Calls](data/sys_calls.png)
+![Common System Calls](/start_guide/sys_calls.png)
 
 ```x86asm
 mov eax, 1 ; Invoke the kernel to sys_exit
@@ -630,4 +630,4 @@ I hope, this "Assembly 101" guide introduced you to assembly language programmin
 - [Learn NASM Assembly Programming Language](https://www.tutorialspoint.com/assembly_programming/index.htm)
 - [CS50x View on Memory](https://cs50.harvard.edu/x/2023/notes/2/#arrays)
 
-![Meme](data/stop.png)
+![Meme](/start_guide/stop.png)

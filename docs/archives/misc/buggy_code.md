@@ -7,7 +7,7 @@ head:
       content: website
   - - meta
     - property: og:image
-      content: https://raw.githubusercontent.com/rootCircle/blog/e90c4f0823b8dfd3ddfd245dd633345b6fd39b04/docs/archives/misc/data/bug_and_the_developer.png
+      content: https://raw.githubusercontent.com/rootCircle/blog/main/docs/public/archives/misc/bug_and_the_developer.png
   - - meta
     - name: twitter:card
       content: summary_large_image
@@ -22,7 +22,7 @@ head:
 
 ## Introduction
 
-![Developer sitting around staring at screen with bugs lying around](./data/bug_and_the_developer.png)
+![Developer sitting around staring at screen with bugs lying around](/archives/misc/bug_and_the_developer.png)
 
 ::: info _Have no fear of perfection—you’ll never reach it._
 
@@ -41,7 +41,7 @@ I started my programming journey in the early 2010s. My first encounter was with
 
 As time passed, I dabbled with HTML, QBASIC, and other languages. However, coding still didn’t feel all that exciting to me. I appreciated the idea of coding, but I couldn’t truly enjoy it.
 
-![My life before git](./data/life_before_git.png)
+![My life before git](/archives/misc/life_before_git.png)
 
 Then came the moment when I was introduced to Python. I was in my +2 grade, and we had to create a small project for our finals. Even though it was a group project, I ended up doing most of the work! At that time, I thought GitHub was just like Google Drive for code. I had no idea what version control systems were or what "clean code" meant. And I didn't care to know. My primary goal was to make it work! I straight-up ignored things like security (SQL injections, anyone?), modularity (my project had over 6000 lines of code in a single file), and memory management issues (as long as the memory errors didn’t crash my program immediately, they weren’t a problem). And that was completely fine! This was the beginning of my journey. The project wasn’t intended to be a professional masterpiece; it was just a school assignment.
 

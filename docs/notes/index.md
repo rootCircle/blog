@@ -25,4 +25,7 @@ You can find all my notes here
 * [Regex](</notes/regex>)
 * [Spring Boot](</notes/springboot>)
 * [Distributed Systems](</notes/distributed_systems>)
+* [Writing better Systems: Lessons I learnt](</notes/notes_to_self>)
+* [Nix](</notes/nix>)
+
 

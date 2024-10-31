@@ -22,7 +22,9 @@ People would rather live with a problem they cannot solve rather than accept a s
 Apart from being the best gift to the mankind, Linux(sorry GNU/Linux) is highly extensible operating system. Compared to its competitors, like Windows and MacOS, Linux is created to sound more sane to the developers.
 
 ## Myths
-![Bloated Window](data/bloated-os.jpg)
+
+![Bloated Window](/archives/linux/bloated-os.jpg)
+
 1. Linux is faster. (Truth is Windows is bloated)
 2. Linux breaks things. (Kinda!)
 3. Linux is secure. (You can't take everything for granted)
@@ -168,7 +170,7 @@ Gnirehtet: To reverse tether internet from PC to Phone<br>
 :::
 
 
-![Fandom Linux](data/reference-meme.jpg)
+![Fandom Linux](/archives/linux/reference-meme.jpg)
 
 ## TBC
 

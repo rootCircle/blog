@@ -22,7 +22,9 @@ Here are all the projects I have made/worked upon:
 ## Reads
 
 * [cpast](</project/cpast>)
-* [Ideas that won't make you millionaire](</project/ideas-that-wont-make-millionaire>)
+* [Celebrating 10k downloads of cpast & what's next](</project/cpast_10k>)
+* [Ideas that won't make you millionaire](</project/ideas_that_wont_make_millionaire>)
+* [Summer Project Ideas](</project/summer_projects>)
 
 ## See more on GitHub
 

@@ -19,7 +19,7 @@ head:
 <!-- </div> -->
 <!---->
 
-<video controls="controls" src="./res/cpast_walkthrough.mp4" />
+<video controls="controls" src="/project/cpast_walkthrough.mp4" />
 
 [![Crates.io](https://img.shields.io/crates/d/cpast)](https://crates.io/crates/cpast)
 
@@ -32,7 +32,7 @@ Are you tired of spending precious time manually debugging your code during comp
 
 ## What is cpast?
 
-![cpast help page](./res/help_page.png)
+![cpast help page](/project/help_page.png)
 
 **cpast** is my brainchild, a tool crafted to compare outputs of two code files, regardless of the programming language used. It's the secret sauce that makes CP coding a breeze, allowing you to test solutions against random inputs. What sets cpast apart is its strong custom language, visually resembling regex, which controls input generation for testing.
 

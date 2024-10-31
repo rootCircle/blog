@@ -23,10 +23,8 @@ Here are all the blogs I've written:
 * [It was not /dev/null](</archives/misc/cost_of_not_initializing_variables>)
 * [Embracing Bugs: How Writing Imperfect Code Helps You Grow](</archives/misc/buggy_code>)
 * [Linux Drama](</archives/linux/linux_drama>)
-* [Nix](</archives/linux/nix>)
 * [Common Linux Tweaks](</archives/linux/tweaks>)
 * [React Optimizations](</archives/web/create-react-app-optimize>)
-* [Writing better Systems: Lessons I learnt](</archives/misc/notes_to_self>)
 
 # Recommended Reads
 

@@ -78,12 +78,13 @@ After we have a stable working backend, I will work possibly on
 1. cpast_web: A frontend for cpast, which will allow users to interact with the backend.
 2. Add support for more platforms in [cscrapper](https://github.com/rootCircle/cpast_mono/blob/main/cscrapper/README.md).
 3. Look for ways we can scrap *solutions* from platforms like Codeforces, Leetcode, etc and maintain them in database, using a cron job. Currently, solutions are manually collected from various sources and are added to the database.
-4. Making [clex_llm](https://github.com/rootCircle/cpast_mono/blob/main/clex_llm/README.md) more robust, so that it can generate `clex` from human text more accurately. (Currently, it’s a hit or miss). There are some works in open source community that can be used for this purpose, for example [rellm](https://github.com/r2d4/rellm).
+4. Making [clex_llm](https://github.com/rootCircle/cpast_mono/blob/main/clex_llm/README.md) more robust, so that it can generate `clex` from human text more accurately. (Currently, it’s a hit or miss). There are some works in open source community that can be used for this purpose, for example [rellm](https://github.com/r2d4/rellm). (alt here [kalosm](https://floneum.com/kalosm/))
 5. Integrating cpast_api with [cpastord](https://github.com/rootCircle/cpast_mono/blob/main/cpastord/README.md), a Discord bot that can interact with cpast. Probably deploy it on [Axios](https://in.linkedin.com/company/axios-iiit-lucknow) Discord Server as well.
 6. Making `ccode_runner` more flexible and safer, with control on **resources** and **time limits** as well control on *artifact location* i.e. where files are compiled.
 7. Put a caching layer between clex_llm as well cscrapper, so that we can save on repeated requests.
 8. Securing the backend from remote code execution vunerabilities, using tools like [firejail](https://github.com/netblue30/firejail) etc.
-9. And many more!
+9. Support for simple mathematical expressions in [clex](https://github.com/rootCircle/cpast_mono/blob/main/clex/README.md).
+10. And many more!
 
 ## Help Wanted
 

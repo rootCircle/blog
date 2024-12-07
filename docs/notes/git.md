@@ -206,6 +206,13 @@ To use a different remote branch, rather than the default one.
 git switch -c branchname origin/branchname
 ```
 
+To change tracking upstream for branch, use
+
+``` bash
+# Checkout to required branch
+git branch --set-upstream-to=origin/branchname
+```
+
 If used once locally, from next time, one can `checkout` or `switch` to that branch only.
 
 ### GitHub Flow

@@ -193,6 +193,12 @@ Use pull instead of fetch and merge together
 git pull origin
 ```
 
+### Update local database of remote branches
+
+``` bash
+git fetch --prune
+```
+
 ### See remote log
 
 ``` bash

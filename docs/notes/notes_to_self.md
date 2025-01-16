@@ -17,7 +17,7 @@ Here is basic sets of general knowledge I acquired in field of computer science!
 13. Good code structure doesn't mean good code!
 14. Write semantic code so comments required is near none!
 15. Use modularity if code maintainability will be a factor! (tl;dr don't write your entire stack in just one file!)
-16. Just because a language claims to be class platform, doesn't mean your code will be as well! Think about the local fonts, any OS calls etc etc! There is no such thing called 100% parity!
+16. Just because a language claims to be cross platform, doesn't mean your code will be as well! Think about the local fonts, any OS calls etc etc! There is no such thing called 100% parity!
 17. Never be too modular, that adding an extra Class becomes a pain for you, hence pushing you back to the whiteboard!
 18. DESIGN before you CODE!
 19. Lock resources before someone else break your code in between!

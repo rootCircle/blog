@@ -53,9 +53,9 @@ export default defineConfig({
           { text: 'Regex Notes', link: '/notes/regex' },
           { text: 'PDF Cracking', link: '/notes/pdfcrack' },
           { text: 'SpringBoot Notes', link: '/notes/springboot' },
-          { text: 'Notes to self', link: '/archives/misc/notes_to_self' },
+          { text: 'Notes to self', link: '/notes/notes_to_self' },
           { text: 'HTML to React Initiative', link: '/notes/html2react' },
-          { text: 'Nix', link: '/archives/linux/nix' },
+          { text: 'Nix', link: '/notes/nix' },
         ]
       },
     ],

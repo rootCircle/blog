@@ -64,6 +64,7 @@ I've recently explored the world of Capture The Flag competitions, where crackin
 
     ```bash
     cut -d ':' -f2 file.hash
+    pdf2john filename.pdf | cut -d ':' -f2 | wl-copy
     ```
     Copy the file hash.
 
@@ -135,3 +136,4 @@ I've recently explored the world of Capture The Flag competitions, where crackin
 
 - [Crunch Guide](https://www.geeksforgeeks.org/kali-linux-crunch-utility/)
 - [Mask Attack](https://hashcat.net/wiki/doku.php?id=mask_attack)
+- [Using hashcat and John the Ripper](https://blog.pentesteracademy.com/cracking-password-of-a-protected-pdf-file-using-hashcat-and-john-the-ripper-1b50074eeabd?gi=49f9f633b82c)

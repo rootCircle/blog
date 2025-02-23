@@ -83,7 +83,7 @@ After we have a stable working backend, I will work possibly on
 6. Making `ccode_runner` more flexible and safer, with control on **resources** and **time limits** as well control on *artifact location* i.e. where files are compiled.
 7. Put a caching layer between clex_llm as well cscrapper, so that we can save on repeated requests.
 8. Securing the backend from remote code execution vunerabilities, using tools like [firejail](https://github.com/netblue30/firejail) etc.
-9. Support for simple mathematical expressions in [clex](https://github.com/rootCircle/cpast_mono/blob/main/clex/README.md).
+9. Support for simple mathematical expressions in [clex](https://github.com/rootCircle/cpast_mono/blob/main/clex_gen/README.md).
 10. And many more!
 
 ## Help Wanted
@@ -101,5 +101,5 @@ Thank you for your support, and I’m excited to see where we can take cpast tog
 - [cpast_llm repository](https://github.com/rootCircle/cpast_llm)
 - [What is cpast?](https://rootcircle.github.io/blog/project/cpast.html)
 - [cpast docs](https://docs.rs/cpast/latest/cpast)
-- [clex specifications](https://github.com/rootCircle/cpast_mono/blob/main/clex/README.md)
+- [clex specifications](https://github.com/rootCircle/cpast_mono/blob/main/clex_gen/README.md)
 

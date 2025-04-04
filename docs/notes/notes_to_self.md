@@ -26,3 +26,8 @@ Here is basic sets of general knowledge I acquired in field of computer science!
 22. Deploy at least once in your lifetime on Friday! Will be a fun!
 23. Try maintaining your one old project, instead of creating a new one. You will get better feedback of your code quality!
 24. Sometimes things are not as intuitive as one might think!
+
+### Recommended
+
+1. [how to never write bug by Fireship](https://www.youtube.com/watch?v=X3jw1JVNdPE)
+

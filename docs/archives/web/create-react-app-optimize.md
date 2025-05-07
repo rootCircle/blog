@@ -13,6 +13,10 @@ head:
       content: summary_large_image
 ---
 # Dark Art of decreasing create-react-app initialization time
+
+> [!NOTE] create-react-app is deprecated
+> The article was written a long while ago, since then [create-react-app](https://github.com/facebook/create-react-app) has evolved to a point that it has been deprecated in favor of more modern and streamlined alternatives. Take everything here, with a bit of salt and pepper.
+
 With recently jumping to React ecosystem, I was greatly surprised by high loading time on `create-react-app` on subsequent runs, sometime even crossing 3 minute mark. 
 
 From what I expected, it was obvious for package manager to cache the modules on subsequent runs and just verify the integrity of the cache. However, that was not the case with `npm` or `yarn`. I tried `--offline` flag, but all in vain.

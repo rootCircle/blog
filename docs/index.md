@@ -25,7 +25,7 @@ hero:
       link: https://rootcircle.github.io/acads/
     - theme: alt
       text:  🔗View my resume
-      link: https://resumerootcircle.vercel.app/
+      link: https://resumerootcircle.vercel.app/resume/latest_resume.pdf
 ---
 
 

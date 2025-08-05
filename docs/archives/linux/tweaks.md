@@ -14,6 +14,13 @@ head:
 ---
 # Tweaks
 
+## Multiple audio outputs in linux
+
+- Install `paprefs` and open it. In the `Simultaneous Output` tab, check the `Add virtual output device for simultaneous output on all local sound cards` option.
+- Run `pactl load-module module-combine-sink` in the terminal.
+- Open `pavucontrol` and go to the `Output Devices` tab. You should see a new output device called `combined`.
+- In the `Playback` tab, you can now select the `combined` output device to play audio on all outputs simultaneously.
+
 ## Showing Desktop Icons in GNOME 44
 
 [Source](https://gitlab.gnome.org/GNOME/nautilus/-/issues/158#alternative-solution)

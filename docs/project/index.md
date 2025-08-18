@@ -21,6 +21,8 @@ Here are all the projects I have made/worked upon:
 
 ## Reads
 
+* [Let's talk bgit](</project/bgit>)
+* [How bgit works](</project/bgit_internals>)``
 * [cpast](</project/cpast>)
 * [Celebrating 10k downloads of cpast & what's next](</project/cpast_10k>)
 * [Ideas that won't make you millionaire](</project/ideas_that_wont_make_millionaire>)

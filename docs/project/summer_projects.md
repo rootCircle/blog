@@ -13,7 +13,9 @@ head:
         content: summary_large_image
 ---
 
-## List of summer projects challenges you can take upon
+# List of summer projects challenges you can take upon
+
+## Projects
 
 Here’s your list of summer projects organized numerically, with topics, descriptions, and implementation guidance:
 

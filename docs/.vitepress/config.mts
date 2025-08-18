@@ -33,6 +33,8 @@ export default defineConfig({
       {
         text: 'Projects',
         items: [
+          { text: 'bgit', link: '/project/bgit' },
+          { text: 'bgit internals', link: '/project/bgit_internals' },
           { text: 'cpast', link: '/project/cpast' },
           { text: 'cpast 10k special', link: '/project/cpast_10k' },
           { text: 'Ideas that won\'t make you millionaire', link: '/project/ideas_that_wont_make_millionaire' },

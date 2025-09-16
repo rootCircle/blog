@@ -1,6 +1,6 @@
 ---
 title: bgit 
-description: Struggling with Git? bgit is a new, FLOSS command-line tool for beginners that simplifies the Git workflow aimed for beginners. Learn how to add, commit, and push with one easy command and avoid common mistakes with "smart rules".
+description: Struggling with Git? bgit is a new, FLOSS command-line tool that simplifies the Git workflow for beginners. Learn how to add, commit, and push with one easy command—and avoid common mistakes with "smart rules".
 head:
   - - meta
     - property: og:type
@@ -13,17 +13,17 @@ head:
       content: summary_large_image
 ---
 
-# Introducing bgit: One Command for Most of git
+# Introducing bgit: One Command for Most of Git
 
 Let's be honest: we've all felt that flash of panic before hitting enter on a Git command. Is this going to work, or am I about to break everything? Git is essential, but it shouldn't be terrifying. I built a tool to act as a friendly guide, inspired by the exact moments of confusion I saw while mentoring at a college hackathon.
 
 ## Let's Talk About Git Fumbles
 
-Last year, I was an unofficial mentor at HackOFiesta, our college's annual hackathon. My main job was helping folks with git. I saw it all: from `git push` with no internet connection to the classic "I pushed the entire node_modules directory to GitHub."
+Last year, I was an unofficial mentor at HackOFiesta, our college's annual hackathon. My main job was helping folks with Git. I saw it all: from `git push` with no internet connection to the classic "I pushed the entire node_modules directory to GitHub."
 
 Many of these problems were simple mistakes, but they all pointed to a common theme: a fragile workflow. Most participants were new to version control. For them, the Git universe was a three-command loop: `git add`, `git commit`, `git push`. Anything beyond that, and they'd often turn to a UI, missing out on the power of the command line.
 
-This experience sparked the idea for bgit. I wanted to build a tool that was simple, intuitive, and smart, yet configurable enough to grow with the user. I didn't want to create just _yet another shell script wrapper_, those are hard to test and maintain.
+This experience sparked the idea for bgit. I wanted to build a tool that was simple, intuitive, and smart, yet configurable enough to grow with the user. I didn't want to create just _yet another shell script wrapper_—those are hard to test and maintain.
 
 Instead, bgit became a framework built around rules, events, and workflows. The goal? A tool with almost no learning curve. A tool that's easy, and dare I say, fun to use.
 
@@ -41,9 +41,9 @@ It also makes it possible for many people to work on the same project without ov
 
 `bgit` is a command-line tool, written in Rust, that simplifies the Git workflow for beginners.
 
-_If you're already a Git power user, this tool might not be for you_, and that's okay\! `bgit` is designed for the student, the new developer, or anyone who just wants to get their "hello world" website on GitHub without falling down the rabbit hole of advanced version control concepts. It aims to be a better first step than the "Add files to upload" button on the GitHub website.
+_If you're already a Git power user, this tool might not be for you_, and that's okay! `bgit` is designed for the student, the new developer, or anyone who just wants to get their "hello world" website on GitHub without falling down the rabbit hole of advanced version control concepts. It aims to be a better first step than the "Add files to upload" button on the GitHub website.
 
-Instead of requiring you to memorize subcommands, you just run `bgit`. It intelligently detects the state of your repository's staged files, uncommitted changes, stashes, and guides you with simple prompts.
+Instead of requiring you to memorize subcommands, you just run `bgit`. It intelligently detects the state of your repository—staged files, uncommitted changes, and stashes—and guides you with simple prompts.
 
 ## Getting Started: Installation
 
@@ -71,13 +71,13 @@ Using `bgit` is as simple as typing the command in your terminal:
 bgit
 ```
 
-That's it, no complex subcommands or weird flags. From there, `bgit` works by asking you simple questions. It uses "yes/no" prompts, multiple-choice questions, and occasional text inputs to guide your workflow. Want to commit, but have unstaged files? `bgit` will ask you what to do with them. Accidentally staging a secret `.env` file? `bgit` will catch it.
+That's it—no complex subcommands or weird flags. From there, `bgit` works by asking you simple questions. It uses yes/no prompts, multiple-choice questions, and occasional text inputs to guide your workflow. Want to commit but have unstaged files? `bgit` will ask you what to do with them. Accidentally staging a secret `.env` file? `bgit` will catch it.
 
 The power remains with you, but the process is safer and heavily focused on best practices.
 
 ## The `bgit` Philosophy: Simplicity over Configurability
 
-Git is incredibly powerful, but its endless flexibility can be a curse for beginners. The fear of running the wrong command can be paralyzing. While this configurability is a blessing for power users, it also opens extra leg room for stupidity for those less experienced, including me. On the other hand, too little configurability can make the tool rigid and unsuitable for diverse needs.
+Git is incredibly powerful, but its endless flexibility can be a curse for beginners. The fear of running the wrong command can be paralyzing. While this configurability is a blessing for power users, it also opens extra room for stupidity for those less experienced (including me). On the other hand, too little configurability can make the tool rigid and unsuitable for diverse needs.
 
 `bgit` takes a strong stance here: it intentionally limits configuration to create a straightforward, safe path. We handle the "great responsibility" so you can focus on your code.
 
@@ -127,17 +127,17 @@ The most important rule is that global and local settings are completely separat
 
 A setting designed for the global file will not work in the local file, and vice versa. Because of this strict separation, one file cannot override the other; they simply manage completely different sets of options. This design prevents confusion and makes a project's behavior explicit and predictable.
 
-This two-level system gives you the best of both worlds: a zero-config experience by default, with the option to set powerful rules for yourself for your team.
+This two-level system gives you the best of both worlds: a zero-config experience by default, with the option to set powerful rules for yourself or your team.
 
 ## The `bgit` Hook System
 
 If you've used Git for a while, you might know about its hook system, scripts that run at certain points in the workflow. It's a great idea, but with a major flaw: the hooks live in your local `.git/hooks` directory. They aren't version controlled, so you can't share them with your team, making consistent automation a challenge.
 
-With bgit, hooks are verion controlled. While `bgit` doesn't support standard Git hooks completely yet, it has its own powerful event-driven system called `hook_executor`.
+With `bgit`, hooks are version controlled. While `bgit` doesn't yet fully support standard Git hooks, it has its own powerful event-driven system called `hook_executor`.
 
 The `bgit` hook system is much more versatile than standard Git's, covering events across the entire development lifecycle. You can automate tasks for almost any action, from the moment you clone a repository to when you pop a stash, and everything in between.
 
-The system is also far more versatile than Git's, letting you automate everything from cloning a repo to popping a stash. Just add an executable script—be it shell, PowerShell, or a `.exe`—to the `.bgit/hooks/` directory, following a simple `[pre|post]_[event_name]` pattern.
+Just add an executable script—be it shell, PowerShell, or a `.exe`—to the `.bgit/hooks/` directory, following a simple `[pre|post]_[event_name]` pattern.
 
 This is powerful, but one hook, in particular, changes the game: `post_git_clone`.
 
@@ -151,11 +151,12 @@ We successfully demonstrated this concept in our [rootCircle/bgit\_clone\_sample
 > Stupidity can be broadly categorized into:
 >
 > 1. Accidental Stupidity
-> 2. Stupidity out of covenience
+> 2. Stupidity out of convenience
 > 3. Complete Stupidity
+>
 > ~ Walter Wallis (Programmers are also human)
 
-While no tool can prevent every mistake, bgit certainly aims to reduce the risk associated with the first two
+While no tool can prevent every mistake, `bgit` certainly aims to reduce the risk associated with the first two.
 
 Remember the hackathon story about developers pushing `node_modules` or secret keys to GitHub? These common mistakes are exactly what the `bgit` rule system is designed to prevent.
 
@@ -167,7 +168,7 @@ Here are a few of the built-in rules that protect you:
 - **`NoLargeFile`:** Warns you if you try to commit a very large file that probably belongs in your `.gitignore`.
 - **`GitNameEmailSetup`:** Checks that your Git username and email are configured correctly before you even make your first commit.
 
-and many more...
+and many more.
 
 What makes `bgit`'s rules truly special is that they don't just tell you something is wrong—**they can often fix the problem for you automatically**. If a rule is broken, `bgit` might offer to unstage the problematic file or help you configure your settings, turning a potential mistake into a learning moment.
 
@@ -181,7 +182,7 @@ The project is fully open-source, distributed under the **MIT license**, and is 
 
 So, give it a try on your next project. Star the repository on GitHub if you find it interesting, and don't hesitate to open an issue with feedback or suggestions.
 
-Happy coding, and may you never push `node_modules` again\!
+Happy coding, and may you never push `node_modules` again!
 
 ## Acknowledgments
 

@@ -19,7 +19,7 @@ In the first part of this series, we explored what `bgit` is and how its user-fr
 
 If you're new to the project and want to understand its user-facing features and philosophy first, we highly recommend reading Part 1: **[bgit: One Command for Most of git](./bgit)**.
 
-This post is for the curious developer, the aspiring contributor, or the Rust enthusiast who wants to understand how `bgit` works internally. We won't be covering user features here; instead, we'll dissect the engine that powers them. At its core, `bgit` is a powerful state machine written in Rust, built on top of the `git2-rs` library. Let's dive in.
+This post is for the curious developer, the aspiring contributor, or the Rust enthusiast who wants to understand how `bgit` works internally. We won't be covering user features here; instead, we'll dissect the engine that powers them. At its core, `bgit` is a workflow engine with a pipeline architecture that orchestrates tasks via a chain-of-responsibility pattern, wrapped in an FSM-inspired API for clean, explicit state transitions—built in Rust on top of the `git2-rs` library. Let's dive in.
 
 ## The Foundation: `git2-rs`
 
@@ -40,9 +40,9 @@ repo.commit(
 
 While this level of control is essential, it also exposes the raw complexity of Git. A core goal of `bgit` is to wrap this power in a safe, user-friendly architecture. Maintained by the Rust project itself, `git2-rs` is the solid foundation that makes this possible.
 
-## The Core Architecture: A Guided State Machine
+## The Core Architecture: Workflow Engine
 
-At its heart, `bgit` is a state machine. When you run the `bgit` command, you aren't just running a script; you are entering the start of a `WorkflowQueue`. This queue is essentially a tree of possible steps, and `bgit`'s job is to navigate this tree based on the state of your repository and your input.
+At its heart, `bgit` is a workflow engine that drives a pipeline of steps. When you run the `bgit` command, you aren't just running a script; you enter the start of a `WorkflowQueue`. This queue represents an ordered pipeline (that can branch) of possible steps, and `bgit` orchestrates progression using a chain-of-responsibility pattern based on the state of your repository and your input. The public API is FSM-inspired to keep transitions explicit and predictable—but the execution model is pipeline-first, not a classic state machine.
 
 A typical step in the workflow is defined by this enum:
 
@@ -74,9 +74,9 @@ Together, these components create a guided workflow that can branch into multipl
 
 ### The Building Blocks: From Command to Action
 
-Now that we understand the state machine concept, let's look at the individual components that bring it to life. `bgit`'s architecture is a clear chain of responsibility, where each component has a single, well-defined job.
+Now that we understand the workflow engine and pipeline concept, let's look at the individual components that bring it to life. `bgit`'s architecture is a clear chain of responsibility, where each component has a single, well-defined job.
 
-![bgit deafult workflow](/project/bgit/bgit_default_complete_workflow.png)
+![bgit default workflow](/project/bgit/bgit_default_complete_workflow.png)
 
 Here’s the corrected flow of how the pieces fit together:
 
@@ -195,7 +195,7 @@ NoSecretsStaged = "Error"
 
 ## Conclusion: How to Contribute
 
-To recap, `bgit` is more than just a simple script. It's a robust state machine built in Rust that uses `git2-rs` for programmatic Git access. Its architecture is a clear chain of command, flowing from tasks to rules, then wrapping core events with a cross-platform hook executor. All of this complexity is designed for a single purpose: to create a safe, predictable, and helpful experience for the end-user.
+To recap, `bgit` is more than just a simple script. It's a workflow engine with a pipeline architecture and chain-of-responsibility task orchestration, wrapped in an FSM-inspired API—built in Rust on top of `git2-rs` for programmatic Git access. Its architecture flows from tasks to rules, then wraps core events with a cross-platform hook executor. All of this is designed for a single purpose: to create a safe, predictable, and helpful experience for the end-user.
 
 Now that you understand the core concepts of workflows, tasks, events, and rules, you're well-equipped to dive into the codebase. We welcome contributions of all kinds and believe that the best tools are built by the community. Whether it's by tackling an existing issue, proposing a new rule, or improving the documentation, we'd love your help.
 

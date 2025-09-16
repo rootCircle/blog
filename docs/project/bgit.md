@@ -15,6 +15,8 @@ head:
 
 # Introducing bgit: One Command for Most of Git
 
+![bgit logo](/project/bgit/bgit_logo.png)
+
 Let's be honest: we've all felt that flash of panic before hitting enter on a Git command. Is this going to work, or am I about to break everything? Git is essential, but it shouldn't be terrifying. I built a tool to act as a friendly guide, inspired by the exact moments of confusion I saw while mentoring at a college hackathon.
 
 ## Let's Talk About Git Fumbles

@@ -15,6 +15,8 @@ head:
 
 # How bgit works
 
+![bgit logo](/project/bgit/bgit_logo.png)
+
 In the first part of this series, we explored what `bgit` is and how its user-friendly, interactive approach helps simplify Git for beginners. Now, it's time to pop the hood.
 
 If you're new to the project and want to understand its user-facing features and philosophy first, we highly recommend reading Part 1: **[bgit: One Command for Most of git](./bgit)**.
@@ -42,7 +44,7 @@ While this level of control is essential, it also exposes the raw complexity of 
 
 ## The Core Architecture: Workflow Engine
 
-At its heart, `bgit` is a workflow engine that drives a pipeline of steps. When you run the `bgit` command, you aren't just running a script; you enter the start of a `WorkflowQueue`. This queue represents an ordered pipeline (that can branch) of possible steps, and `bgit` orchestrates progression using a chain-of-responsibility pattern based on the state of your repository and your input. The public API is FSM-inspired to keep transitions explicit and predictable—but the execution model is pipeline-first, not a classic state machine.
+At its heart, `bgit` is a workflow engine that drives a pipeline of steps. When you run the `bgit` command, you enter the start of a `WorkflowQueue`. This queue represents an ordered pipeline of possible steps(that can branch), and `bgit` orchestrates progression based on the state of your repository and your input.
 
 A typical step in the workflow is defined by this enum:
 
@@ -86,7 +88,7 @@ Here’s the corrected flow of how the pieces fit together:
 4. The `task` then dispatches the **`event`**, which is the small, atomic unit of work responsible for making the call to `git2-rs`.
 5. After the `event` successfully completes its `git2-rs` operation, the corresponding **`post-hook` script** is executed.
 
-This creates a robust, predictable, and extensible data flow:
+In short, the entire data-flow looks like:
 `task` → `rule` check → `pre-hook` → `event` (calls `git2-rs`) → `post-hook`
 
 ## A Closer Look: Rules, Events, and Hooks
@@ -110,6 +112,8 @@ pub(crate) struct NoLargeFile {
 fn try_fix(&self) -> Result<bool, Box<BGitError>> 
 ```
 
+The complete list of approved rules is available in the [docs](https://github.com/rootCircle/bgit/tree/main/docs/rules).
+
 ### Events and Hooks: The Action Core
 
 Once the rules are satisfied, the action begins. The **`event`** is the final, smallest unit of work that makes the direct call to the `git2-rs` library.
@@ -125,7 +129,7 @@ This powerful combination means that the core, compiled `bgit` logic is brackete
 
 One of `bgit`'s core architectural challenges was handling Git hooks. The underlying `libgit2` library, for performance and safety reasons, does not natively invoke the standard Git hooks found in `.git/hooks/`. However, many developers rely on these hooks for their workflows. `bgit` bridges this gap with a sophisticated, hybrid approach managed by its `hook_executor`.
 
-### The Solution: A Hybrid Hook System
+### hook_executor
 
 The `hook_executor` is designed to provide the best of both worlds: the portability of version-controlled hooks and compatibility with the most common native hooks.
 
@@ -195,7 +199,7 @@ NoSecretsStaged = "Error"
 
 ## Conclusion: How to Contribute
 
-To recap, `bgit` is more than just a simple script. It's a workflow engine with a pipeline architecture and chain-of-responsibility task orchestration, wrapped in an FSM-inspired API—built in Rust on top of `git2-rs` for programmatic Git access. Its architecture flows from tasks to rules, then wraps core events with a cross-platform hook executor. All of this is designed for a single purpose: to create a safe, predictable, and helpful experience for the end-user.
+To recap, `bgit` is much more than just a simple script. It's a workflow engine with a pipeline architecture and chain-of-responsibility task orchestration, wrapped in an FSM-inspired API—built in Rust on top of `git2-rs` for programmatic Git access. Its architecture flows from tasks to rules, then wraps core events with a cross-platform hook executor. All of this is designed for a single purpose: to create a safe, predictable, and helpful experience for the end-user.
 
 Now that you understand the core concepts of workflows, tasks, events, and rules, you're well-equipped to dive into the codebase. We welcome contributions of all kinds and believe that the best tools are built by the community. Whether it's by tackling an existing issue, proposing a new rule, or improving the documentation, we'd love your help.
 

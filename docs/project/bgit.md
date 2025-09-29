@@ -21,7 +21,7 @@ Let's be honest: we've all felt that flash of panic before hitting enter on a Gi
 
 ## Let's Talk About Git Fumbles
 
-Last year, I was an unofficial mentor at HackOFiesta, our college's annual hackathon. My main job was helping folks with Git. I saw it all: from `git push` with no internet connection to the classic "I pushed the entire node_modules directory to GitHub."
+Last year, I was a mentor at HackOFiesta, our college's annual hackathon. My main job was helping folks with Git. I saw it all: from `git push` with no internet connection to the classic "I pushed the entire node_modules directory to GitHub."
 
 Many of these problems were simple mistakes, but they all pointed to a common theme: a fragile workflow. Most participants were new to version control. For them, the Git universe was a three-command loop: `git add`, `git commit`, `git push`. Anything beyond that, and they'd often turn to a UI, missing out on the power of the command line.
 
@@ -33,11 +33,11 @@ Instead, bgit became a framework built around rules, events, and workflows. The 
 
 ![Git logo](/project/bgit/git_logo.png)
 
-Before we dive into `bgit`, let's quickly cover what Git is. In short, Git is a **Version Control System (VCS)**.
+Before we dive into `bgit`, let's quickly cover what Git is. In short, Git is a **Distributed Version Control System (DVCS)**.
 
-Think of it like a super-powered time machine for your code. It takes "snapshots" (called commits) of your entire project at different points in time. If you make a mistake, you can easily rewind to a previous version.
+Think of it like save points for your code. You create "commits"-checkpoints you can jump back to when an experiment goes sideways.
 
-It also makes it possible for many people to work on the same project without overwriting each other's changes. It’s the standard tool used by developers worldwide, but its power comes with a steep learning curve. This is the exact problem `bgit` is designed to solve.
+Git also lets teams work in parallel without stepping on each other's toes. It's insanely useful, but the interface can feel like a boss fight when you're just starting out. That's the first mile `bgit` aims to smooth over.
 
 ## What is `bgit`?
 
@@ -141,11 +141,7 @@ The `bgit` hook system is much more versatile than standard Git's, covering even
 
 Just add an executable script—be it shell, PowerShell, or a `.exe`—to the `.bgit/hooks/` directory, following a simple `[pre|post]_[event_name]` pattern.
 
-This is powerful, but one hook, in particular, changes the game: `post_git_clone`.
-
-Imagine cloning a complex project. Instead of a long list of setup instructions in the README, the maintainer can place a setup script at `.bgit/hooks/post_git_clone`. When you clone the repo using `bgit`, it automatically runs the setup script for you. One command to clone and set up an entire development environment.
-
-We successfully demonstrated this concept in our [rootCircle/bgit\_clone\_sample](https://github.com/rootCircle/bgit_clone_sample) repository.
+One hook I've found especially handy is `post_git_clone`. Put a setup script at `.bgit/hooks/post_git_clone` and, right after you clone with `bgit`, it automatically runs the script—no copy-pasting from the README—so you go from clone to dev-ready in one step. See it in action: [rootCircle/bgit_clone_sample](https://github.com/rootCircle/bgit_clone_sample).
 
 ## Smart Guardrails: The `bgit` Rule System
 
@@ -182,7 +178,9 @@ Git is the industry standard for version control, and learning it is a journey e
 
 The project is fully open-source, distributed under the **MIT license**, and is currently in a **pre-alpha stage**. This is the perfect time to get involved, provide feedback, and help shape its future. `bgit` is built with Rust and supported on **Windows, macOS, and Linux**.
 
-So, give it a try on your next project. Star the repository on GitHub if you find it interesting, and don't hesitate to open an issue with feedback or suggestions.
+So, give it a try on your next project. Star the repository on [GitHub](https://github.com/rootCircle/bgit) if you find it interesting, and don't hesitate to open an issue with feedback or suggestions.
+
+Curious how `bgit` works under the hood? Check out the internals deep dive: [How bgit works](./bgit_internals).
 
 Happy coding, and may you never push `node_modules` again!
 

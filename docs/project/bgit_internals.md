@@ -19,9 +19,9 @@ head:
 
 In the first part of this series, we explored what `bgit` is and how its user-friendly, interactive approach helps simplify Git for beginners. Now, it's time to pop the hood.
 
-If you're new to the project and want to understand its user-facing features and philosophy first, we highly recommend reading Part 1: **[bgit: One Command for Most of git](./bgit)**.
+If you're new to the project and want to understand its user-facing features and philosophy first, I highly recommend reading Part 1: **[bgit: One Command for Most of git](./bgit)**.
 
-This post is for the curious developer, the aspiring contributor, or the Rust enthusiast who wants to understand how `bgit` works internally. We won't be covering user features here; instead, we'll dissect the engine that powers them. At its core, `bgit` is a workflow engine with a pipeline architecture that orchestrates tasks via a chain-of-responsibility pattern, wrapped in an FSM-inspired API for clean, explicit state transitions—built in Rust on top of the `git2-rs` library. Let's dive in.
+This post is for the curious developer, the aspiring contributor, the Rust enthusiast or anyone who wants to understand how `bgit` works internally. We won't be covering user features here; instead, we'll dissect the engine that powers them. At its core, `bgit` is a workflow engine with a pipeline architecture that orchestrates tasks via a chain-of-responsibility pattern, wrapped in an FSM-inspired API for clean, explicit state transitions—built in Rust on top of the `git2-rs` library. Let's dive in.
 
 ## The Foundation: `git2-rs`
 
@@ -80,7 +80,7 @@ Now that we understand the workflow engine and pipeline concept, let's look at t
 
 ![bgit default workflow](/project/bgit/bgit_default_complete_workflow.png)
 
-Here’s the corrected flow of how the pieces fit together:
+Here’s the flow of how the pieces fit together:
 
 1. A **`task`** (from a `step` in the workflow) determines what needs to happen next.
 2. Before doing anything, the `task` validates the action by checking the necessary **`rules`**.
@@ -88,8 +88,20 @@ Here’s the corrected flow of how the pieces fit together:
 4. The `task` then dispatches the **`event`**, which is the small, atomic unit of work responsible for making the call to `git2-rs`.
 5. After the `event` successfully completes its `git2-rs` operation, the corresponding **`post-hook` script** is executed.
 
+Each `task` implements the `ActionStep` or `PromptStep` trait, which defines the `execute()` method. This method encapsulates the entire logic of that step, including rule checks, hook executions, and event dispatching. Each task returns the next `Step` in the workflow, allowing for dynamic progression based on the current state.
+
+```rust
+pub(crate) trait ActionStep { // or PromptStep
+    ...
+    fn execute(
+        &self,
+        ... // args
+    ) -> Result<Step, Box<BGitError>>;
+}
+```
+
 In short, the entire data-flow looks like:
-`task` → `rule` check → `pre-hook` → `event` (calls `git2-rs`) → `post-hook`
+`task` → `rule` check → `pre-hook` → `event` (calls `git2-rs`) → `post-hook` → next `step`. 
 
 ## A Closer Look: Rules, Events, and Hooks
 
@@ -125,7 +137,7 @@ This is also where the user-configurable hooks we discussed in our first blog po
 
 This powerful combination means that the core, compiled `bgit` logic is bracketed by flexible, user-defined scripts, allowing for incredible customization while maintaining a safe and validated core.
 
-## A Deep Dive: The `hook_executor` and Cross-Platform Hooks
+## The `hook_executor` and Cross-Platform Hooks
 
 One of `bgit`'s core architectural challenges was handling Git hooks. The underlying `libgit2` library, for performance and safety reasons, does not natively invoke the standard Git hooks found in `.git/hooks/`. However, many developers rely on these hooks for their workflows. `bgit` bridges this gap with a sophisticated, hybrid approach managed by its `hook_executor`.
 
@@ -144,7 +156,10 @@ The `hook_executor` is designed to provide the best of both worlds: the portabil
       * **Supported:** `bgit` explicitly looks for and executes **`pre-commit`** and **`post-commit`**.
       * **Unsupported:** It detects other native hooks (like `pre-push` or `commit-msg`) and logs a warning, encouraging users to migrate their logic to the more robust `.bgit/hooks` system.
 
-For the critical commit event, `bgit` orchestrates a clear and predictable sequence:
+> [!NOTE]
+> Projects like [pre-commit](https://github.com/pre-commit/pre-commit) do exists, which help with version controlling hooks, but they are not supported yet on bgit :(
+
+For example for the commit event, `bgit` orchestrates a the given sequence:
 
 1. `.bgit/hooks/pre_git_commit` (Portable `bgit` hook)
 2. Standard Git `pre-commit` (Native hook)

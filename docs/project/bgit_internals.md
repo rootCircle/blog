@@ -17,17 +17,17 @@ head:
 
 ![bgit logo](/project/bgit/bgit_logo.png)
 
-In the first part of this series, we explored what `bgit` is and how its user-friendly, interactive approach helps simplify Git for beginners. Now, it's time to pop the hood.
+In the first part of this series, we explored what bgit is and how its user-friendly, interactive approach helps simplify Git for beginners. Now, it's time to pop the hood.
 
-If you're new to the project and want to understand its user-facing features and philosophy first, I highly recommend reading Part 1: **[bgit: One Command for Most of git](./bgit)**.
+If you're new to the project and want to understand its user-facing features and philosophy first, I highly recommend reading **[Part 1: bgit: One Command for Most of git](./bgit)**.
 
-This post is for the curious developer, the aspiring contributor, the Rust enthusiast or anyone who wants to understand how `bgit` works internally. We won't be covering user features here; instead, we'll dissect the engine that powers them. At its core, `bgit` is a workflow engine with a pipeline architecture that orchestrates tasks via a chain-of-responsibility pattern, wrapped in an FSM-inspired API for clean, explicit state transitions—built in Rust on top of the `git2-rs` library. Let's dive in.
+This post is for the curious developer, the aspiring contributor, the Rust enthusiast or anyone who wants to understand how bgit works internally. We won't be covering user features here; instead, we'll dissect the engine that powers them. At its core, bgit is a workflow engine with a pipeline architecture that orchestrates tasks via a chain-of-responsibility pattern, wrapped in an FSM-inspired API for clean, explicit state transitions—built in Rust on top of the `git2-rs` library.
 
 ## The Foundation: `git2-rs`
 
-A fundamental design decision in `bgit` was to avoid spawning `git` as a separate command-line process. While that approach can work, it comes with the overhead of managing processes, tracking progress, and parsing plain text output, which can be brittle.
+A fundamental design decision in bgit was to avoid spawning `git` as a separate command-line process. While that approach can work, it comes with the overhead of managing processes, tracking progress, and parsing plain text output, which can be brittle.
 
-Instead, `bgit` is built on **`git2-rs`**, a library that provides safe, programmatic Rust bindings for `libgit2`, a powerful C implementation of Git's core functions. This gives us direct, granular control over every Git operation. For example, creating a commit with `git2-rs` looks like this:
+Instead, bgit is built on **`git2-rs`**, a library that provides safe, programmatic Rust bindings for `libgit2`, a powerful C implementation of Git's core functions. This gives us direct, granular control over every Git operation. For example, creating a commit with `git2-rs` looks like this:
 
 ```rust
 repo.commit(
@@ -40,11 +40,11 @@ repo.commit(
 ).unwrap();
 ```
 
-While this level of control is essential, it also exposes the raw complexity of Git. A core goal of `bgit` is to wrap this power in a safe, user-friendly architecture. Maintained by the Rust project itself, `git2-rs` is the solid foundation that makes this possible.
+While this level of control is essential, it also exposes the raw complexity of Git. A core goal of bgit is to wrap this power in a safe, user-friendly architecture. Maintained by the Rust project itself, `git2-rs` is the solid foundation that makes this possible.
 
 ## The Core Architecture: Workflow Engine
 
-At its heart, `bgit` is a workflow engine that drives a pipeline of steps. When you run the `bgit` command, you enter the start of a `WorkflowQueue`. This queue represents an ordered pipeline of possible steps(that can branch), and `bgit` orchestrates progression based on the state of your repository and your input.
+At its heart, bgit is a workflow engine that drives a pipeline of steps. When you run the bgit command, you enter the start of a `WorkflowQueue`. This queue represents an ordered pipeline of possible steps(that can branch), and bgit orchestrates progression based on the state of the repository and the user input.
 
 A typical step in the workflow is defined by this enum:
 
@@ -65,7 +65,7 @@ pub(crate) enum Task {
 }
 ```
 
-This distinction is the key to `bgit`'s interactive nature:
+This distinction is the key to bgit's interactive nature:
 
 * An **`ActionStepTask`** is automated. It makes a decision based only on the environment (e.g., checking if Git is installed).
 * A **`PromptStepTask`** is interactive. It depends on user input to proceed (e.g., asking the user if they want to stage unstaged files).
@@ -76,7 +76,9 @@ Together, these components create a guided workflow that can branch into multipl
 
 ### The Building Blocks: From Command to Action
 
-Now that we understand the workflow engine and pipeline concept, let's look at the individual components that bring it to life. `bgit`'s architecture is a clear chain of responsibility, where each component has a single, well-defined job.
+Now that we understand the workflow engine, let's look at the individual components that bring it to life. bgit's architecture is a clear chain of responsibility, where each component has a single, well-defined job.
+
+A typical workflow looks like this:
 
 ![bgit default workflow](/project/bgit/bgit_default_complete_workflow.png)
 
@@ -105,23 +107,19 @@ In short, the entire data-flow looks like:
 
 ## A Closer Look: Rules, Events, and Hooks
 
-The real "magic" of `bgit` happens at the lowest levels of its abstraction, where rules, events, and hooks interact to create a safe and powerful system.
+The real "magic" of bgit happens at the lowest levels of its abstraction, where rules, events, and hooks interact to create a safe and powerful system.
 
 ### The Power of Rules
 
-In `bgit`, rules are intelligent guardrails checked by a `task` *before* an `event` is ever dispatched. This ensures that no invalid action is even attempted. A rule is a simple struct defining its conditions, but its most powerful feature is the `try_fix()` method. This is where `bgit`'s "helper" personality comes from. A rule doesn't just fail; it can contain logic to **offer a solution**, like automatically unstaging a file that violates a size constraint.
+In bgit, rules are intelligent guardrails checked by a `task` *before* an `event` is ever dispatched. This ensures that no invalid action is even attempted. A rule is a simple struct defining its conditions, but its most powerful feature is the `try_fix()` method. This is where bgit's "helper" personality comes from. A rule doesn't just fail; it can contain logic to **offer a solution**, like automatically unstaging a file that violates a size constraint.
 
 ```rust
-pub(crate) struct NoLargeFile {
-    name: String,
-    description: String,
-    level: RuleLevel,
-    threshold_bytes: u64,
+pub(crate) trait Rule {
+    ...
+    fn check(&self) -> Result<RuleOutput, Box<BGitError>>;
+ 
+    fn try_fix(&self) -> Result<bool, Box<BGitError>>;
 }
-```
-
-```rust
-fn try_fix(&self) -> Result<bool, Box<BGitError>> 
 ```
 
 The complete list of approved rules is available in the [docs](https://github.com/rootCircle/bgit/tree/main/docs/rules).
@@ -135,43 +133,43 @@ This is also where the user-configurable hooks we discussed in our first blog po
 * The **`pre-hook`** script runs immediately before the `event`'s logic.
 * The **`post-hook`** script runs immediately after the `event`'s logic successfully completes.
 
-This powerful combination means that the core, compiled `bgit` logic is bracketed by flexible, user-defined scripts, allowing for incredible customization while maintaining a safe and validated core.
+This powerful combination means that the core, compiled bgit logic is bracketed by flexible, user-defined scripts, allowing for incredible customization while maintaining a safe and validated core.
 
 ## The `hook_executor` and Cross-Platform Hooks
 
-One of `bgit`'s core architectural challenges was handling Git hooks. The underlying `libgit2` library, for performance and safety reasons, does not natively invoke the standard Git hooks found in `.git/hooks/`. However, many developers rely on these hooks for their workflows. `bgit` bridges this gap with a sophisticated, hybrid approach managed by its `hook_executor`.
+One of bgit's core architectural challenges was handling Git hooks. The underlying `git2-rs` library, for some reasons, does not natively support invoking the standard Git hooks found in `.git/hooks/`. However, many developers rely on these hooks for their workflows. bgit bridges this gap with a sophisticated, hybrid approach managed by its `hook_executor`.
 
 ### hook_executor
 
 The `hook_executor` is designed to provide the best of both worlds: the portability of version-controlled hooks and compatibility with the most common native hooks.
 
-1. **Portable `bgit` Hooks:** This is the preferred method in `bgit`. Hooks are placed in a `.bgit/hooks/` directory within the repository.
+1. **Portable bgit Hooks:** This is the preferred method in bgit. Hooks are placed in a `.bgit/hooks/` directory within the repository.
 
-      * **Benefits:** They are version-controlled, shared across the entire team, and designed to be cross-platform from the ground up.
-      * **Naming:** They follow the `[pre|post]_[event_name]` pattern, covering a wide range of `bgit` events.
+      * **Benefits:** They are version-controlled, shared across the entire team, highly flexible and designed to be cross-platform from the ground up.
+      * **Naming:** They follow the `[pre|post]_[event_name]` pattern, covering a wide range of bgit events.
 
-2. **Native Git Hooks:** For compatibility, `bgit` provides best-effort support for the most critical native hooks.
+2. **Native Git Hooks:** For compatibility, bgit provides best-effort support for the most critical native hooks.
 
       * **Location:** The standard `.git/hooks/` directory.
-      * **Supported:** `bgit` explicitly looks for and executes **`pre-commit`** and **`post-commit`**.
-      * **Unsupported:** It detects other native hooks (like `pre-push` or `commit-msg`) and logs a warning, encouraging users to migrate their logic to the more robust `.bgit/hooks` system.
+      * **Supported:** bgit explicitly looks for and executes **`pre-commit`** and **`post-commit`**.
+      * **Unsupported:** It detects other native hooks (like `pre-push` or `commit-msg`) and logs a warning if not supported.
 
 > [!NOTE]
 > Projects like [pre-commit](https://github.com/pre-commit/pre-commit) do exists, which help with version controlling hooks, but they are not supported yet on bgit :(
 
-For example for the commit event, `bgit` orchestrates a the given sequence:
+For example for the commit event, bgit orchestrates a the given sequence:
 
-1. `.bgit/hooks/pre_git_commit` (Portable `bgit` hook)
+1. `.bgit/hooks/pre_git_commit` (Portable bgit hook)
 2. Standard Git `pre-commit` (Native hook)
-3. **The Commit Action is Performed**
-4. `.bgit/hooks/post_git_commit` (Portable `bgit` hook)
+3. **The Commit event is Performed**
+4. `.bgit/hooks/post_git_commit` (Portable bgit hook)
 5. Standard Git `post-commit` (Native hook)
 
 ### The Cross-Platform Challenge
 
 The true complexity of the `hook_executor` is revealed in how it handles cross-platform execution, especially on Windows.
 
-On **Unix-like systems (Linux/macOS)**, the process is straightforward: `bgit` simply ensures the hook scripts in `.bgit/hooks/` are executable (`chmod +x`) and runs them.
+On **Unix-like systems (Linux/macOS)**, the process is straightforward: bgit simply ensures the hook scripts in `.bgit/hooks/` are executable (`chmod +x`) and runs them.
 
 On **Windows**, however, the `hook_executor` becomes a far more sophisticated piece of logic. It intelligently finds the correct way to run a script by following a detailed execution strategy:
 
@@ -183,11 +181,11 @@ On **Windows**, however, the `hook_executor` becomes a far more sophisticated pi
 3. **It intelligently finds Bash:** If a script has a shebang (`#!/bin/bash`), the executor searches for a Bash interpreter in common locations (Git Bash, MSYS2, WSL) or in the system `PATH`.
 4. **It has a fallback:** If all else fails, it attempts to run the script with `cmd.exe`.
 
-This robust strategy ensures that hooks defined by a team on Linux will work as expected for a teammate on Windows, solving a common pain point in cross-platform development.
+This robust strategy ensures that hooks defined by a team on Linux will work as expected for a teammate on Windows, solving a common pain point in cross-platform development. We plan to improve this further in future releases.
 
 ## The `config` System: Explicit and Separated by Design
 
-As we discussed in the first post, `bgit`'s configuration system is built on a principle of strict separation to avoid confusion and ensure predictable behavior.
+As we discussed in the first post, bgit's configuration system is built on a principle of strict separation to avoid confusion and ensure predictable behavior.
 
 1. **Global Config (`~/.config/bgit/config.toml`):** This file is **exclusively** for your personal, user-specific settings that apply across all projects. Think of authentication, API keys, and other personal preferences.
 
@@ -214,9 +212,9 @@ NoSecretsStaged = "Error"
 
 ## Conclusion: How to Contribute
 
-To recap, `bgit` is much more than just a simple script. It's a workflow engine with a pipeline architecture and chain-of-responsibility task orchestration, wrapped in an FSM-inspired API—built in Rust on top of `git2-rs` for programmatic Git access. Its architecture flows from tasks to rules, then wraps core events with a cross-platform hook executor. All of this is designed for a single purpose: to create a safe, predictable, and helpful experience for the end-user.
+To recap, bgit is much more than just a simple script. In one line, it is just **"one command for most of git"**. Its architecture flows from tasks to rules, then wraps core events with a cross-platform hook executor. All of this is designed for a single purpose: to create a safe, predictable, and helpful experience for the end-user.
 
-Now that you understand the core concepts of workflows, tasks, events, and rules, you're well-equipped to dive into the codebase. We welcome contributions of all kinds and believe that the best tools are built by the community. Whether it's by tackling an existing issue, proposing a new rule, or improving the documentation, we'd love your help.
+We welcome contributions of all kinds and believe that the best tools are built by the community. Whether it's by tackling an existing issue, proposing a new rule, or improving the documentation, we'd love your help.
 
 ### Project Details & Links
 

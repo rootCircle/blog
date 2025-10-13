@@ -41,7 +41,9 @@ Git also lets teams work in parallel without stepping on each other's toes. It's
 
 ## What is `bgit`?
 
-`bgit` is a command-line tool, written in Rust, that simplifies the Git workflow for beginners.
+**bgit** is a **CLI tool** written in **Rust** that removes the complexity of **Git** for beginners by **automating** common tasks, **preventing mistakes**, and providing an **intuitive workflow**.
+
+With smart rules, extensibility, and seamless integration, **bgit** empowers developers to **focus on coding**—not **Git commands**.
 
 _If you're already a Git power user, this tool might not be for you_, and that's okay! `bgit` is designed for the student, the new developer, or anyone who just wants to get their "hello world" website on GitHub without falling down the rabbit hole of advanced version control concepts. It aims to be a better first step than the "Add files to upload" button on the GitHub website.
 
@@ -172,11 +174,11 @@ What makes `bgit`'s rules truly special is that they don't just tell you somethi
 
 For teams, the behavior of these rules can be configured in the project's `.bgit/config.toml` file, ensuring everyone on the project is protected by the same safety standards.
 
-## Conclusion
+## Closing Thoughts
 
 Git is the industry standard for version control, and learning it is a journey every developer should take. `bgit` isn't here to replace that journey. It's here to be a friendly first step—a set of training wheels that guides you with best practices until you're ready to ride on your own.
 
-The project is fully open-source, distributed under the **MIT license**, and is currently in a **pre-alpha stage**. This is the perfect time to get involved, provide feedback, and help shape its future. `bgit` is built with Rust and supported on **Windows, macOS, and Linux**.
+The project is fully open-source, distributed under the **MIT license**, and is currently in a **pre-alpha stage**(expect half-backed grade goodness <3). This is the perfect time to get involved, provide feedback, and help shape its future. `bgit` is built with Rust and supported on **Windows, macOS, and Linux**.
 
 So, give it a try on your next project. Star the repository on [GitHub](https://github.com/rootCircle/bgit) if you find it interesting, and don't hesitate to open an issue with feedback or suggestions.
 

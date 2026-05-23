@@ -289,6 +289,9 @@ To overcome these challenges, one can adopt the following strategies:
 
 ### Migration Workflow
 
+> [!NOTE]
+> Heads up, on older version of MySQL, if you're seeing much larger drop times for partition, make sure you turn off [innodb_adaptive_hash_index](https://dev.mysql.com/doc/refman/8.4/en/innodb-parameters.html#sysvar_innodb_adaptive_hash_index). Related to https://bugs.mysql.com/bug.php?id=91977
+
 Migrating non-partitioned tables to partitioned tables requires a carefully planned approach to minimize downtime and ensure data consistency. Here is a detailed breakdown of the process:
 
 1.  **Creating Partitioned Tables:**

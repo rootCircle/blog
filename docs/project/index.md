@@ -30,10 +30,13 @@ Here are all the projects I have made/worked upon:
 
 ## See more on GitHub
 
-* [Zenlang](<https://github.com/zenlang-rs>) or try it [here](<https://zenlang.netlify.app>)
-* [docFiller](<https://github.com/rootCircle/docFiller>)
+* [cpast](<https://github.com/rootCircle/cpast_mono>): CP fuzzy code checker
+* [bgit](<https://github.com/rootCircle/bgit>): Better git for noobs.
+* [Zenlang](<https://github.com/zenlang-rs>) or try it [here](<https://zenlang.netlify.app>): Bollywood style interpreted programming language
+* [docFiller](<https://github.com/rootCircle/docFiller>): Cross-browser web extension to fill google forms via AI
 * [Zoom Autorecorder](<https://github.com/rootCircle/Zoom-AutoRecorder>) : GUI automation to open and record zoom meetings on the go.
 * [codemark-cli](<https://github.com/rootCircle/codemark-cli>) : A CLI utility to make submitting and verifying coding assignments easy with builtin plagiarism detection.
+* [Beaconify](<https://github.com/rootCircle/Beaconify>): An android app to enable indoor positioning using BLE Beacons
 * [Calendar](<https://github.com/rootCircle/Calendar>) : Yet another calendar, but with infinite years to explore with. (You can see the day on your date of birth even 10000 year back too)
 * [Frolics](<https://github.com/rootCircle/Frolics>) : An arduino controller using GUI desktop apps
 * [KANS](<https://github.com/rootCircle/KANS>) : Yet another e-commerce management software based on tkinter and Firebase.

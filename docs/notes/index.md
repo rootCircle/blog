@@ -27,5 +27,6 @@ You can find all my notes here
 * [Distributed Systems](</notes/distributed_systems>)
 * [Writing better Systems: Lessons I learnt](</notes/notes_to_self>)
 * [Nix](</notes/nix>)
+* [Medium Data](</notes/mediumdata>)
 
 

@@ -58,6 +58,7 @@ export default defineConfig({
           { text: 'Notes to self', link: '/notes/notes_to_self' },
           { text: 'HTML to React Initiative', link: '/notes/html2react' },
           { text: 'Nix', link: '/notes/nix' },
+          { text: 'Medium Data', link: '/notes/mediumdata' }
         ]
       },
     ],
